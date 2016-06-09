@@ -1,7 +1,6 @@
 package br.com.bandoni.frm;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,23 +8,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView.*;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.commons.DAOFieldGroups;
 import br.com.bandoni.dao.commons.SQLiteDriver;
 import br.com.bandoni.siscomexhelper.R;
 
-public class BRWacordo_aladi extends AppCompatActivity
+public class BRWtransportador extends AppCompatActivity
 {
 
-    private final String tablename = "j34_siscomex_acordo_aladi";
+    private final String tablename = "j34_siscomex_transportador";
     private ListView listView;
     private List<String> primarykeys = DAOFieldGroups.getTableBrowserColumns(tablename);
     private ArrayList<ArrayList<String>> itens;
@@ -34,7 +33,7 @@ public class BRWacordo_aladi extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browse_acordo_aladi);
+        setContentView(R.layout.activity_browse_transportador);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fillData();
@@ -62,7 +61,6 @@ public class BRWacordo_aladi extends AppCompatActivity
         databaseAccess.open(false);
         itens = databaseAccess.getMatrixDataFromTable(tablename);
         listView = (ListView) findViewById(R.id.listBrowser);
-        SearchView search = (SearchView) findViewById(R.id.edtsearch);
         databaseAccess.close();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getBaseContext(), android.R.layout.simple_list_item_1,buildList(itens));
@@ -72,17 +70,7 @@ public class BRWacordo_aladi extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                TextView search = (TextView) findViewById(R.id.edtsearch);
 			    selectedItem = position;
-
-                search.setText(itens.get(selectedItem).get((int)(long)id));
-
-                for(int i=0; i<listView.getAdapter().getCount();i++)
-                {
-                    listView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                }
-
-                parent.getChildAt(position).setBackgroundColor(Color.GRAY);
             }
         });
 
@@ -92,7 +80,7 @@ public class BRWacordo_aladi extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.menu_browse_acordo_aladi, menu);
+        getMenuInflater().inflate(R.menu.menu_browse_transportador, menu);
         return true;
     }
 
@@ -178,19 +166,6 @@ public class BRWacordo_aladi extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onSearchClick(View v)
-    {
-       SearchView mSearchView = (SearchView) findViewById(R.id.edtsearch);
-       ListView mListView = (ListView) findViewById(R.id.listBrowser);
-        for (int i=0;i<itens.size();i++)
-        {
-            if (itens.get(i).get(0).compareToIgnoreCase(mSearchView.getQuery().toString())==0)
-            {
-               mListView.setItemChecked(i,true);
-            }
-        }
     }
 
 }
