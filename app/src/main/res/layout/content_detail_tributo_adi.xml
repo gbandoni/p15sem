@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="br.com.bandoni.frm.FRMtributo_adi"
+    tools:showIn="@layout/activity_detail_tributo_adi">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Numerodocumentocarga_text"
+        android:id="@+id/lblNumerodocumentocarga"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblNumerodocumentocarga"
+        android:id="@+id/edtNumerodocumentocarga" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Numeroadicao_text"
+        android:id="@+id/lblNumeroadicao"
+        android:layout_below="@+id/edtNumerodocumentocarga"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/lblNumeroadicao"
+        android:id="@+id/edtNumeroadicao" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Codigoreceitaimposto_text"
+        android:id="@+id/lblCodigoreceitaimposto"
+        android:layout_below="@+id/edtNumeroadicao"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/lblCodigoreceitaimposto"
+        android:id="@+id/edtCodigoreceitaimposto" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Codigotipoaliquotaipt_text"
+        android:id="@+id/lblCodigotipoaliquotaipt"
+        android:layout_below="@+id/edtCodigoreceitaimposto"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="71dp"
+        android:layout_below="@+id/lblCodigotipoaliquotaipt"
+        android:id="@+id/edtCodigotipoaliquotaipt" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Codigotipobeneficioipi_text"
+        android:id="@+id/lblCodigotipobeneficioipi"
+        android:layout_below="@+id/edtCodigotipoaliquotaipt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="93dp"
+        android:layout_below="@+id/lblCodigotipobeneficioipi"
+        android:id="@+id/edtCodigotipobeneficioipi" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Codigotipodireito_text"
+        android:id="@+id/lblCodigotipodireito"
+        android:layout_below="@+id/edtCodigotipobeneficioipi"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="115dp"
+        android:layout_below="@+id/lblCodigotipodireito"
+        android:id="@+id/edtCodigotipodireito" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Codigotiporecipiente_text"
+        android:id="@+id/lblCodigotiporecipiente"
+        android:layout_below="@+id/edtCodigotipodireito"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="137dp"
+        android:layout_below="@+id/lblCodigotiporecipiente"
+        android:id="@+id/edtCodigotiporecipiente" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Nomeunidadeespecificaaliquotaipt_text"
+        android:id="@+id/lblNomeunidadeespecificaaliquotaipt"
+        android:layout_below="@+id/edtCodigotiporecipiente"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="159dp"
+        android:layout_below="@+id/lblNomeunidadeespecificaaliquotaipt"
+        android:id="@+id/edtNomeunidadeespecificaaliquotaipt" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Numeronotacomplementartipi_text"
+        android:id="@+id/lblNumeronotacomplementartipi"
+        android:layout_below="@+id/edtNomeunidadeespecificaaliquotaipt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="181dp"
+        android:layout_below="@+id/lblNumeronotacomplementartipi"
+        android:id="@+id/edtNumeronotacomplementartipi" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Percentualaliquotaacordotarifario_text"
+        android:id="@+id/lblPercentualaliquotaacordotarifario"
+        android:layout_below="@+id/edtNumeronotacomplementartipi"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="203dp"
+        android:layout_below="@+id/lblPercentualaliquotaacordotarifario"
+        android:id="@+id/edtPercentualaliquotaacordotarifario" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Percentualaliquotanormaladval_text"
+        android:id="@+id/lblPercentualaliquotanormaladval"
+        android:layout_below="@+id/edtPercentualaliquotaacordotarifario"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="225dp"
+        android:layout_below="@+id/lblPercentualaliquotanormaladval"
+        android:id="@+id/edtPercentualaliquotanormaladval" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Percentualaliquotareduzida_text"
+        android:id="@+id/lblPercentualaliquotareduzida"
+        android:layout_below="@+id/edtPercentualaliquotanormaladval"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="247dp"
+        android:layout_below="@+id/lblPercentualaliquotareduzida"
+        android:id="@+id/edtPercentualaliquotareduzida" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Percentualreducaoipt_text"
+        android:id="@+id/lblPercentualreducaoipt"
+        android:layout_below="@+id/edtPercentualaliquotareduzida"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="269dp"
+        android:layout_below="@+id/lblPercentualreducaoipt"
+        android:id="@+id/edtPercentualreducaoipt" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Quantidademlrecipiente_text"
+        android:id="@+id/lblQuantidademlrecipiente"
+        android:layout_below="@+id/edtPercentualreducaoipt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="291dp"
+        android:layout_below="@+id/lblQuantidademlrecipiente"
+        android:id="@+id/edtQuantidademlrecipiente" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Quantidademercadoriaunidadealiquotaespecifica_text"
+        android:id="@+id/lblQuantidademercadoriaunidadealiquotaespecifica"
+        android:layout_below="@+id/edtQuantidademlrecipiente"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="313dp"
+        android:layout_below="@+id/lblQuantidademercadoriaunidadealiquotaespecifica"
+        android:id="@+id/edtQuantidademercadoriaunidadealiquotaespecifica" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Valoraliquotaespecificaipt_text"
+        android:id="@+id/lblValoraliquotaespecificaipt"
+        android:layout_below="@+id/edtQuantidademercadoriaunidadealiquotaespecifica"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="335dp"
+        android:layout_below="@+id/lblValoraliquotaespecificaipt"
+        android:id="@+id/edtValoraliquotaespecificaipt" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Valorbasecalculoadval_text"
+        android:id="@+id/lblValorbasecalculoadval"
+        android:layout_below="@+id/edtValoraliquotaespecificaipt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="357dp"
+        android:layout_below="@+id/lblValorbasecalculoadval"
+        android:id="@+id/edtValorbasecalculoadval" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Valorcalculadoiiactarifario_text"
+        android:id="@+id/lblValorcalculadoiiactarifario"
+        android:layout_below="@+id/edtValorbasecalculoadval"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="379dp"
+        android:layout_below="@+id/lblValorcalculadoiiactarifario"
+        android:id="@+id/edtValorcalculadoiiactarifario" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Valorcalculoiptespecifica_text"
+        android:id="@+id/lblValorcalculoiptespecifica"
+        android:layout_below="@+id/edtValorcalculadoiiactarifario"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="401dp"
+        android:layout_below="@+id/lblValorcalculoiptespecifica"
+        android:id="@+id/edtValorcalculoiptespecifica" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Valorcalculoiptadval_text"
+        android:id="@+id/lblValorcalculoiptadval"
+        android:layout_below="@+id/edtValorcalculoiptespecifica"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="423dp"
+        android:layout_below="@+id/lblValorcalculoiptadval"
+        android:id="@+id/edtValorcalculoiptadval" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Valoriptarecolher_text"
+        android:id="@+id/lblValoriptarecolher"
+        android:layout_below="@+id/edtValorcalculoiptadval"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="445dp"
+        android:layout_below="@+id/lblValoriptarecolher"
+        android:id="@+id/edtValoriptarecolher" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_tributo_adi_Valorimpostodevido_text"
+        android:id="@+id/lblValorimpostodevido"
+        android:layout_below="@+id/edtValoriptarecolher"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="467dp"
+        android:layout_below="@+id/lblValorimpostodevido"
+        android:id="@+id/edtValorimpostodevido" />
+</RelativeLayout>

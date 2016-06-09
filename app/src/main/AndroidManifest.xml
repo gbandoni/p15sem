@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.bandoni.siscomexhelper">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name="br.com.bandoni.frm.SiscomexHome"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWabrangencia_ncm"
+            android:label="@string/title_activity_abrangencia_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMabrangencia_ncm"
+            android:label="@string/title_activity_abrangencia_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWacordo_aladi"
+            android:label="@string/title_activity_acordo_aladi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMacordo_aladi"
+            android:label="@string/title_activity_acordo_aladi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWacrescimo_adi"
+            android:label="@string/title_activity_acrescimo_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMacrescimo_adi"
+            android:label="@string/title_activity_acrescimo_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWacrescimos"
+            android:label="@string/title_activity_acrescimos_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMacrescimos"
+            android:label="@string/title_activity_acrescimos_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWadicao"
+            android:label="@string/title_activity_adicao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMadicao"
+            android:label="@string/title_activity_adicao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWaladi"
+            android:label="@string/title_activity_aladi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMaladi"
+            android:label="@string/title_activity_aladi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWarmazem_di"
+            android:label="@string/title_activity_armazem_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMarmazem_di"
+            android:label="@string/title_activity_armazem_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWatrib_ncm"
+            android:label="@string/title_activity_atrib_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMatrib_ncm"
+            android:label="@string/title_activity_atrib_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWbancos"
+            android:label="@string/title_activity_bancos_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMbancos"
+            android:label="@string/title_activity_bancos_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWcidades"
+            android:label="@string/title_activity_cidades_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMcidades"
+            android:label="@string/title_activity_cidades_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWcompensacao_di"
+            android:label="@string/title_activity_compensacao_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMcompensacao_di"
+            android:label="@string/title_activity_compensacao_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWde_merc_adi"
+            android:label="@string/title_activity_de_merc_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMde_merc_adi"
+            android:label="@string/title_activity_de_merc_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWdeducao_adi"
+            android:label="@string/title_activity_deducao_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMdeducao_adi"
+            android:label="@string/title_activity_deducao_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWdeducoes"
+            android:label="@string/title_activity_deducoes_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMdeducoes"
+            android:label="@string/title_activity_deducoes_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWdestaquencm_adi"
+            android:label="@string/title_activity_destaquencm_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMdestaquencm_adi"
+            android:label="@string/title_activity_destaquencm_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWdi"
+            android:label="@string/title_activity_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMdi"
+            android:label="@string/title_activity_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWdoc_carga_di"
+            android:label="@string/title_activity_doc_carga_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMdoc_carga_di"
+            android:label="@string/title_activity_doc_carga_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWdoc_vinculado_adi"
+            android:label="@string/title_activity_doc_vinculado_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMdoc_vinculado_adi"
+            android:label="@string/title_activity_doc_vinculado_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWdocumentos_di"
+            android:label="@string/title_activity_documentos_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMdocumentos_di"
+            android:label="@string/title_activity_documentos_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWempresas"
+            android:label="@string/title_activity_empresas_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMempresas"
+            android:label="@string/title_activity_empresas_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWesp_ncm_adi"
+            android:label="@string/title_activity_esp_ncm_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMesp_ncm_adi"
+            android:label="@string/title_activity_esp_ncm_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWespec_ncm"
+            android:label="@string/title_activity_espec_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMespec_ncm"
+            android:label="@string/title_activity_espec_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWestado"
+            android:label="@string/title_activity_estado_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMestado"
+            android:label="@string/title_activity_estado_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWfund_legal"
+            android:label="@string/title_activity_fund_legal_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMfund_legal"
+            android:label="@string/title_activity_fund_legal_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWimpostos_di"
+            android:label="@string/title_activity_impostos_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMimpostos_di"
+            android:label="@string/title_activity_impostos_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWincoterms"
+            android:label="@string/title_activity_incoterms_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMincoterms"
+            android:label="@string/title_activity_incoterms_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWinfo_mercosul_di"
+            android:label="@string/title_activity_info_mercosul_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMinfo_mercosul_di"
+            android:label="@string/title_activity_info_mercosul_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWinst_financeira"
+            android:label="@string/title_activity_inst_financeira_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMinst_financeira"
+            android:label="@string/title_activity_inst_financeira_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWlocalidadeembarque"
+            android:label="@string/title_activity_localidadeembarque_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMlocalidadeembarque"
+            android:label="@string/title_activity_localidadeembarque_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWmercadoria_adi"
+            android:label="@string/title_activity_mercadoria_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMmercadoria_adi"
+            android:label="@string/title_activity_mercadoria_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWmoddespacho"
+            android:label="@string/title_activity_moddespacho_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMmoddespacho"
+            android:label="@string/title_activity_moddespacho_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWmoedas"
+            android:label="@string/title_activity_moedas_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMmoedas"
+            android:label="@string/title_activity_moedas_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWmot_adm_temp"
+            android:label="@string/title_activity_mot_adm_temp_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMmot_adm_temp"
+            android:label="@string/title_activity_mot_adm_temp_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWmot_sem_cob"
+            android:label="@string/title_activity_mot_sem_cob_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMmot_sem_cob"
+            android:label="@string/title_activity_mot_sem_cob_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWmotivo_retificacao"
+            android:label="@string/title_activity_motivo_retificacao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMmotivo_retificacao"
+            android:label="@string/title_activity_motivo_retificacao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWmotivotransmissao"
+            android:label="@string/title_activity_motivotransmissao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMmotivotransmissao"
+            android:label="@string/title_activity_motivotransmissao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWnaladi_ncca"
+            android:label="@string/title_activity_naladi_ncca_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMnaladi_ncca"
+            android:label="@string/title_activity_naladi_ncca_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWnaladi_sh"
+            android:label="@string/title_activity_naladi_sh_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMnaladi_sh"
+            android:label="@string/title_activity_naladi_sh_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWnbm"
+            android:label="@string/title_activity_nbm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMnbm"
+            android:label="@string/title_activity_nbm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWncm"
+            android:label="@string/title_activity_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMncm"
+            android:label="@string/title_activity_ncm_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWorgaosurf"
+            android:label="@string/title_activity_orgaosurf_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMorgaosurf"
+            android:label="@string/title_activity_orgaosurf_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWorigem_di"
+            android:label="@string/title_activity_origem_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMorigem_di"
+            android:label="@string/title_activity_origem_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWpaises"
+            android:label="@string/title_activity_paises_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMpaises"
+            android:label="@string/title_activity_paises_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWprocesso_di"
+            android:label="@string/title_activity_processo_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMprocesso_di"
+            android:label="@string/title_activity_processo_di_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWrecintoalfandegado"
+            android:label="@string/title_activity_recintoalfandegado_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMrecintoalfandegado"
+            android:label="@string/title_activity_recintoalfandegado_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWregime_tribut"
+            android:label="@string/title_activity_regime_tribut_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMregime_tribut"
+            android:label="@string/title_activity_regime_tribut_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtab_orcamentaria"
+            android:label="@string/title_activity_tab_orcamentaria_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtab_orcamentaria"
+            android:label="@string/title_activity_tab_orcamentaria_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtarifas_adi"
+            android:label="@string/title_activity_tarifas_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtarifas_adi"
+            android:label="@string/title_activity_tarifas_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtipo_declaracao"
+            android:label="@string/title_activity_tipo_declaracao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtipo_declaracao"
+            android:label="@string/title_activity_tipo_declaracao_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtipo_documento"
+            android:label="@string/title_activity_tipo_documento_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtipo_documento"
+            android:label="@string/title_activity_tipo_documento_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtipo_documento_des"
+            android:label="@string/title_activity_tipo_documento_des_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtipo_documento_des"
+            android:label="@string/title_activity_tipo_documento_des_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtipo_embalagem"
+            android:label="@string/title_activity_tipo_embalagem_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtipo_embalagem"
+            android:label="@string/title_activity_tipo_embalagem_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtipo_importador"
+            android:label="@string/title_activity_tipo_importador_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtipo_importador"
+            android:label="@string/title_activity_tipo_importador_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtipo_recipiente"
+            android:label="@string/title_activity_tipo_recipiente_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtipo_recipiente"
+            android:label="@string/title_activity_tipo_recipiente_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtipomanifesto"
+            android:label="@string/title_activity_tipomanifesto_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtipomanifesto"
+            android:label="@string/title_activity_tipomanifesto_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtransportador"
+            android:label="@string/title_activity_transportador_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtransportador"
+            android:label="@string/title_activity_transportador_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWtributo_adi"
+            android:label="@string/title_activity_tributo_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMtributo_adi"
+            android:label="@string/title_activity_tributo_adi_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWusuarios"
+            android:label="@string/title_activity_usuarios_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMusuarios"
+            android:label="@string/title_activity_usuarios_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWvalor_aduaneira"
+            android:label="@string/title_activity_valor_aduaneira_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMvalor_aduaneira"
+            android:label="@string/title_activity_valor_aduaneira_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWveiculos"
+            android:label="@string/title_activity_veiculos_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMveiculos"
+            android:label="@string/title_activity_veiculos_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.BRWviatransporte"
+            android:label="@string/title_activity_viatransporte_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
+        <activity
+            android:name="br.com.bandoni.frm.FRMviatransporte"
+            android:label="@string/title_activity_viatransporte_text"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+    </application>
+
+</manifest>

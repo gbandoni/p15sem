@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="br.com.bandoni.frm.FRMmercadoria_adi"
+    tools:showIn="@layout/activity_detail_mercadoria_adi">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_mercadoria_adi_Numerodocumentocarga_text"
+        android:id="@+id/lblNumerodocumentocarga"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/lblNumerodocumentocarga"
+        android:id="@+id/edtNumerodocumentocarga" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_mercadoria_adi_Numeroadicao_text"
+        android:id="@+id/lblNumeroadicao"
+        android:layout_below="@+id/edtNumerodocumentocarga"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/lblNumeroadicao"
+        android:id="@+id/edtNumeroadicao" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_mercadoria_adi_Nomeunidademedidacomercializada_text"
+        android:id="@+id/lblNomeunidademedidacomercializada"
+        android:layout_below="@+id/edtNumeroadicao"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/lblNomeunidademedidacomercializada"
+        android:id="@+id/edtNomeunidademedidacomercializada" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_mercadoria_adi_Quantidademercadoriaunidadecomercializada_text"
+        android:id="@+id/lblQuantidademercadoriaunidadecomercializada"
+        android:layout_below="@+id/edtNomeunidademedidacomercializada"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="71dp"
+        android:layout_below="@+id/lblQuantidademercadoriaunidadecomercializada"
+        android:id="@+id/edtQuantidademercadoriaunidadecomercializada" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_mercadoria_adi_Textodetalhamentomercadoria_text"
+        android:id="@+id/lblTextodetalhamentomercadoria"
+        android:layout_below="@+id/edtQuantidademercadoriaunidadecomercializada"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="93dp"
+        android:layout_below="@+id/lblTextodetalhamentomercadoria"
+        android:id="@+id/edtTextodetalhamentomercadoria" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_mercadoria_adi_Valorunidadelocalembarque_text"
+        android:id="@+id/lblValorunidadelocalembarque"
+        android:layout_below="@+id/edtTextodetalhamentomercadoria"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="115dp"
+        android:layout_below="@+id/lblValorunidadelocalembarque"
+        android:id="@+id/edtValorunidadelocalembarque" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/j34_siscomex_mercadoria_adi_Valorunidademedidacondicaovenda_text"
+        android:id="@+id/lblValorunidademedidacondicaovenda"
+        android:layout_below="@+id/edtValorunidadelocalembarque"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="137dp"
+        android:layout_below="@+id/lblValorunidademedidacondicaovenda"
+        android:id="@+id/edtValorunidademedidacondicaovenda" />
+</RelativeLayout>
