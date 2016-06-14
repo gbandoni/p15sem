@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMinfo_mercosul_di extends AppCompatActivity 
 {
-    private J34SiscomexInfoMercosulDi table = new J34SiscomexInfoMercosulDi();
-    private InfoMercosulDiDAOImpl dao = new InfoMercosulDiDAOImpl(this);
+    private J34SiscomexInfoMercosulDi table;
+    private InfoMercosulDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexInfoMercosulDi();
+        dao = new InfoMercosulDiDAOImpl(this);
         setContentView(R.layout.activity_detail_info_mercosul_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,6 +71,11 @@ public class FRMinfo_mercosul_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
+                                table.setNumerodemercosul(((TextView) findViewById(R.id.edtNumerodemercosul)).getText().toString());
+                                table.setNumerorefinal(((TextView) findViewById(R.id.edtNumerorefinal)).getText().toString());
+                                table.setNumeroreinicial(((TextView) findViewById(R.id.edtNumeroreinicial)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -105,5 +112,6 @@ public class FRMinfo_mercosul_di extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

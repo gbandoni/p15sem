@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.DocumentosDiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexDocumentosDi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMdocumentos_di extends AppCompatActivity 
 {
-    private J34SiscomexDocumentosDi table = new J34SiscomexDocumentosDi();
-    private DocumentosDiDAOImpl dao = new DocumentosDiDAOImpl(this);
+    private J34SiscomexDocumentosDi table;
+    private DocumentosDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstTipo_documento_des = getTipo_documento_des();
+         ArrayAdapter<String> adpcodigoTipoDocumentoInstrucaoDespacho = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_documento_des);
+         AutoCompleteTextView edtcodigoTipoDocumentoInstrucaoDespacho = (AutoCompleteTextView)findViewById(R.id.edtCodigotipodocumentoinstrucaodespacho);
+        edtcodigoTipoDocumentoInstrucaoDespacho.setAdapter(adpcodigoTipoDocumentoInstrucaoDespacho);
+        table = new J34SiscomexDocumentosDi();
+        dao = new DocumentosDiDAOImpl(this);
         setContentView(R.layout.activity_detail_documentos_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +78,10 @@ public class FRMdocumentos_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
+                                table.setCodigotipodocumentoinstrucaodespacho(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigotipodocumentoinstrucaodespacho)).getText().toString()));
+                                table.setNumerodocumentoinstrucaodespacho(((TextView) findViewById(R.id.edtNumerodocumentoinstrucaodespacho)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,6 +117,15 @@ public class FRMdocumentos_di extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getTipo_documento_des()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_tipo_documento_des");
+      driver.close();
+      return lista;
     }
 
 }

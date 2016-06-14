@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMviatransporte extends AppCompatActivity 
 {
-    private J34SiscomexViatransporte table = new J34SiscomexViatransporte();
-    private ViatransporteDAOImpl dao = new ViatransporteDAOImpl(this);
+    private J34SiscomexViatransporte table;
+    private ViatransporteDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexViatransporte();
+        dao = new ViatransporteDAOImpl(this);
         setContentView(R.layout.activity_detail_viatransporte);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMviatransporte extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMviatransporte extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

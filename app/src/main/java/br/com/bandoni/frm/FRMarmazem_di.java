@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMarmazem_di extends AppCompatActivity 
 {
-    private J34SiscomexArmazemDi table = new J34SiscomexArmazemDi();
-    private ArmazemDiDAOImpl dao = new ArmazemDiDAOImpl(this);
+    private J34SiscomexArmazemDi table;
+    private ArmazemDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexArmazemDi();
+        dao = new ArmazemDiDAOImpl(this);
         setContentView(R.layout.activity_detail_armazem_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +69,9 @@ public class FRMarmazem_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
+                                table.setNomearmazemcarga(((TextView) findViewById(R.id.edtNomearmazemcarga)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,5 +108,6 @@ public class FRMarmazem_di extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

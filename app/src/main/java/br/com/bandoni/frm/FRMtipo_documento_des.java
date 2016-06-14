@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtipo_documento_des extends AppCompatActivity 
 {
-    private J34SiscomexTipoDocumentoDes table = new J34SiscomexTipoDocumentoDes();
-    private TipoDocumentoDesDAOImpl dao = new TipoDocumentoDesDAOImpl(this);
+    private J34SiscomexTipoDocumentoDes table;
+    private TipoDocumentoDesDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexTipoDocumentoDes();
+        dao = new TipoDocumentoDesDAOImpl(this);
         setContentView(R.layout.activity_detail_tipo_documento_des);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMtipo_documento_des extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMtipo_documento_des extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

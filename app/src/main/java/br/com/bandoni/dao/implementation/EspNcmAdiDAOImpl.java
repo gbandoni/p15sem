@@ -1,13 +1,14 @@
 package br.com.bandoni.dao.implementation;
 
 import android.content.Context;
-import java.util.List;
-import android.database.sqlite.SQLiteStatement;
 import android.database.Cursor;
-import java.sql.SQLException;
+import android.database.sqlite.SQLiteStatement;
 
-import br.com.bandoni.dao.interfaces.EspNcmAdiDAO;
+import java.sql.SQLException;
+import java.util.List;
+
 import br.com.bandoni.dao.commons.GenericDAO;
+import br.com.bandoni.dao.interfaces.EspNcmAdiDAO;
 import br.com.bandoni.dao.tables.J34SiscomexEspNcmAdi;
 
 /**
@@ -220,7 +221,7 @@ public class EspNcmAdiDAOImpl extends GenericDAO<J34SiscomexEspNcmAdi> implement
                 j34SiscomexEspNcmAdi.setCodigoabrangenciancm(c.getString(c.getColumnIndex("codigoabrangenciancm"))); // java.lang.String
                 j34SiscomexEspNcmAdi.setNcm(c.getString(c.getColumnIndex("ncm"))); // java.lang.String
                 j34SiscomexEspNcmAdi.setCodigoatributoncm(c.getString(c.getColumnIndex("codigoatributoncm"))); // java.lang.String
-                j34SiscomexEspNcmAdi.setCodigoespecificacao(c.getString(c.getColumnIndex("codigoespecificacao"))); // java.lang.String
+                j34SiscomexEspNcmAdi.setCodigoespecificacao(c.getInt(c.getColumnIndex("codigoespecificacao"))); // java.lang.String
                 j34SiscomexEspNcmAdi.setAtributo(c.getString(c.getColumnIndex("atributo"))); // java.lang.String
                 return j34SiscomexEspNcmAdi ;
         }

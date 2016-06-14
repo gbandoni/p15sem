@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMmoedas extends AppCompatActivity 
 {
-    private J34SiscomexMoedas table = new J34SiscomexMoedas();
-    private MoedasDAOImpl dao = new MoedasDAOImpl(this);
+    private J34SiscomexMoedas table;
+    private MoedasDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexMoedas();
+        dao = new MoedasDAOImpl(this);
         setContentView(R.layout.activity_detail_moedas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,6 +73,13 @@ public class FRMmoedas extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setIdmoeda(Integer.parseInt(((TextView) findViewById(R.id.edtIdmoeda)).getText().toString()));
+                                table.setPais(((TextView) findViewById(R.id.edtPais)).getText().toString());
+                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
+                                table.setDataexclusao( ((TextView) findViewById(R.id.edtDataexclusao)).getText().toString());
+                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
+                                table.setSimbolo(((TextView) findViewById(R.id.edtSimbolo)).getText().toString());
+                                table.setTipo(((TextView) findViewById(R.id.edtTipo)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -107,5 +116,6 @@ public class FRMmoedas extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

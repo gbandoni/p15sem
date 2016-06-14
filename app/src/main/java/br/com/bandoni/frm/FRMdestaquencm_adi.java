@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMdestaquencm_adi extends AppCompatActivity 
 {
-    private J34SiscomexDestaquencmAdi table = new J34SiscomexDestaquencmAdi();
-    private DestaquencmAdiDAOImpl dao = new DestaquencmAdiDAOImpl(this);
+    private J34SiscomexDestaquencmAdi table;
+    private DestaquencmAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexDestaquencmAdi();
+        dao = new DestaquencmAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_destaquencm_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +69,9 @@ public class FRMdestaquencm_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setNumerodestaquencm(((TextView) findViewById(R.id.edtNumerodestaquencm)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,5 +108,6 @@ public class FRMdestaquencm_adi extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

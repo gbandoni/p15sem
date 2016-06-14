@@ -27,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigo_tipo"
         android:id="@+id/edtCodigo_tipo" />
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
+        android:inputType="text"
         android:layout_below="@+id/lblTipo_declaracao"
         android:id="@+id/edtTipo_declaracao" />
     <TextView
@@ -63,6 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
+        android:inputType="text"
         android:layout_below="@+id/lblDescricao_tipo"
         android:id="@+id/edtDescricao_tipo" />
 </RelativeLayout>

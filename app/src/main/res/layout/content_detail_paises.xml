@@ -27,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigo_pais"
         android:id="@+id/edtCodigo_pais" />
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNome_pais"
         android:id="@+id/edtNome_pais" />
 </RelativeLayout>

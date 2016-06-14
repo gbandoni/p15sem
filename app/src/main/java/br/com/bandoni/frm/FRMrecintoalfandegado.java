@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMrecintoalfandegado extends AppCompatActivity 
 {
-    private J34SiscomexRecintoalfandegado table = new J34SiscomexRecintoalfandegado();
-    private RecintoalfandegadoDAOImpl dao = new RecintoalfandegadoDAOImpl(this);
+    private J34SiscomexRecintoalfandegado table;
+    private RecintoalfandegadoDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexRecintoalfandegado();
+        dao = new RecintoalfandegadoDAOImpl(this);
         setContentView(R.layout.activity_detail_recintoalfandegado);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +72,12 @@ public class FRMrecintoalfandegado extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setTerminal(((TextView) findViewById(R.id.edtTerminal)).getText().toString());
+                                table.setRegiao(((TextView) findViewById(R.id.edtRegiao)).getText().toString());
+                                table.setNomeporto(((TextView) findViewById(R.id.edtNomeporto)).getText().toString());
+                                table.setEstado(((TextView) findViewById(R.id.edtEstado)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -106,5 +114,6 @@ public class FRMrecintoalfandegado extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

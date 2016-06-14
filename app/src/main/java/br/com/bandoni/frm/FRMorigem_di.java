@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMorigem_di extends AppCompatActivity 
 {
-    private J34SiscomexOrigemDi table = new J34SiscomexOrigemDi();
-    private OrigemDiDAOImpl dao = new OrigemDiDAOImpl(this);
+    private J34SiscomexOrigemDi table;
+    private OrigemDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexOrigemDi();
+        dao = new OrigemDiDAOImpl(this);
         setContentView(R.layout.activity_detail_origem_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMorigem_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setId(((TextView) findViewById(R.id.edtId)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMorigem_di extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

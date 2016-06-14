@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMfund_legal extends AppCompatActivity 
 {
-    private J34SiscomexFundLegal table = new J34SiscomexFundLegal();
-    private FundLegalDAOImpl dao = new FundLegalDAOImpl(this);
+    private J34SiscomexFundLegal table;
+    private FundLegalDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexFundLegal();
+        dao = new FundLegalDAOImpl(this);
         setContentView(R.layout.activity_detail_fund_legal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +72,12 @@ public class FRMfund_legal extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setReg_tribut_1(Integer.parseInt(((TextView) findViewById(R.id.edtReg_tribut_1)).getText().toString()));
+                                table.setReg_tribut_2(Integer.parseInt(((TextView) findViewById(R.id.edtReg_tribut_2)).getText().toString()));
+                                table.setReg_tribut_3(Integer.parseInt(((TextView) findViewById(R.id.edtReg_tribut_3)).getText().toString()));
+                                table.setReg_tribut_4(Integer.parseInt(((TextView) findViewById(R.id.edtReg_tribut_4)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -106,5 +114,6 @@ public class FRMfund_legal extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

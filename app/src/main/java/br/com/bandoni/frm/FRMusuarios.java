@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.UsuariosDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexUsuarios;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMusuarios extends AppCompatActivity 
 {
-    private J34SiscomexUsuarios table = new J34SiscomexUsuarios();
-    private UsuariosDAOImpl dao = new UsuariosDAOImpl(this);
+    private J34SiscomexUsuarios table;
+    private UsuariosDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lst = get();
+         ArrayAdapter<String> adpusu_login = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lst);
+         AutoCompleteTextView edtusu_login = (AutoCompleteTextView)findViewById(R.id.edtUsu_login);
+        edtusu_login.setAdapter(adpusu_login);
+        table = new J34SiscomexUsuarios();
+        dao = new UsuariosDAOImpl(this);
         setContentView(R.layout.activity_detail_usuarios);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,6 +79,11 @@ public class FRMusuarios extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setUsu_codigo(Integer.parseInt(((TextView) findViewById(R.id.edtUsu_codigo)).getText().toString()));
+                                table.setUsu_nome(((TextView) findViewById(R.id.edtUsu_nome)).getText().toString());
+                                table.setUsu_login(((AutoCompleteTextView) findViewById(R.id.edtUsu_login)).getText().toString());
+                                table.setUsu_senha(((TextView) findViewById(R.id.edtUsu_senha)).getText().toString());
+                                table.setUsu_adm(Integer.parseInt(((TextView) findViewById(R.id.edtUsu_adm)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -104,6 +119,15 @@ public class FRMusuarios extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> get()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("");
+      driver.close();
+      return lista;
     }
 
 }

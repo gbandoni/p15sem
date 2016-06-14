@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.ProcessoDiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexProcessoDi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMprocesso_di extends AppCompatActivity 
 {
-    private J34SiscomexProcessoDi table = new J34SiscomexProcessoDi();
-    private ProcessoDiDAOImpl dao = new ProcessoDiDAOImpl(this);
+    private J34SiscomexProcessoDi table;
+    private ProcessoDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstMotivotransmissao = getMotivotransmissao();
+         ArrayAdapter<String> adpcodigoTipoProcesso = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMotivotransmissao);
+         AutoCompleteTextView edtcodigoTipoProcesso = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoprocesso);
+        edtcodigoTipoProcesso.setAdapter(adpcodigoTipoProcesso);
+        table = new J34SiscomexProcessoDi();
+        dao = new ProcessoDiDAOImpl(this);
         setContentView(R.layout.activity_detail_processo_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +78,10 @@ public class FRMprocesso_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
+                                table.setCodigotipoprocesso(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigotipoprocesso)).getText().toString()));
+                                table.setNumeroprocesso(((TextView) findViewById(R.id.edtNumeroprocesso)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,6 +117,15 @@ public class FRMprocesso_di extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getMotivotransmissao()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_motivotransmissao");
+      driver.close();
+      return lista;
     }
 
 }

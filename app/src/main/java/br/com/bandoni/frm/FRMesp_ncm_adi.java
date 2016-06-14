@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.EspNcmAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexEspNcmAdi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMesp_ncm_adi extends AppCompatActivity 
 {
-    private J34SiscomexEspNcmAdi table = new J34SiscomexEspNcmAdi();
-    private EspNcmAdiDAOImpl dao = new EspNcmAdiDAOImpl(this);
+    private J34SiscomexEspNcmAdi table;
+    private EspNcmAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstEspec_ncm = getEspec_ncm();
+         ArrayAdapter<String> adpcodigoespecificacao = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstEspec_ncm);
+         AutoCompleteTextView edtcodigoespecificacao = (AutoCompleteTextView)findViewById(R.id.edtCodigoespecificacao);
+        edtcodigoespecificacao.setAdapter(adpcodigoespecificacao);
+        table = new J34SiscomexEspNcmAdi();
+        dao = new EspNcmAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_esp_ncm_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +78,10 @@ public class FRMesp_ncm_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setCodigoabrangenciancm(((TextView) findViewById(R.id.edtCodigoabrangenciancm)).getText().toString());
+                                table.setCodigoespecificacao(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigoespecificacao)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,6 +117,15 @@ public class FRMesp_ncm_adi extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getEspec_ncm()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_espec_ncm");
+      driver.close();
+      return lista;
     }
 
 }

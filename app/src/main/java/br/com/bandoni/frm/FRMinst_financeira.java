@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMinst_financeira extends AppCompatActivity 
 {
-    private J34SiscomexInstFinanceira table = new J34SiscomexInstFinanceira();
-    private InstFinanceiraDAOImpl dao = new InstFinanceiraDAOImpl(this);
+    private J34SiscomexInstFinanceira table;
+    private InstFinanceiraDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexInstFinanceira();
+        dao = new InstFinanceiraDAOImpl(this);
         setContentView(R.layout.activity_detail_inst_financeira);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMinst_financeira extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMinst_financeira extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMdeducoes extends AppCompatActivity 
 {
-    private J34SiscomexDeducoes table = new J34SiscomexDeducoes();
-    private DeducoesDAOImpl dao = new DeducoesDAOImpl(this);
+    private J34SiscomexDeducoes table;
+    private DeducoesDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexDeducoes();
+        dao = new DeducoesDAOImpl(this);
         setContentView(R.layout.activity_detail_deducoes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMdeducoes extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMdeducoes extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

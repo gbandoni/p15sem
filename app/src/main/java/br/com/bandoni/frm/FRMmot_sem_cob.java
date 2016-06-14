@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMmot_sem_cob extends AppCompatActivity 
 {
-    private J34SiscomexMotSemCob table = new J34SiscomexMotSemCob();
-    private MotSemCobDAOImpl dao = new MotSemCobDAOImpl(this);
+    private J34SiscomexMotSemCob table;
+    private MotSemCobDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexMotSemCob();
+        dao = new MotSemCobDAOImpl(this);
         setContentView(R.layout.activity_detail_mot_sem_cob);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMmot_sem_cob extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMmot_sem_cob extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

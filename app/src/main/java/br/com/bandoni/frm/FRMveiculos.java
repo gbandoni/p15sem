@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMveiculos extends AppCompatActivity 
 {
-    private J34SiscomexVeiculos table = new J34SiscomexVeiculos();
-    private VeiculosDAOImpl dao = new VeiculosDAOImpl(this);
+    private J34SiscomexVeiculos table;
+    private VeiculosDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexVeiculos();
+        dao = new VeiculosDAOImpl(this);
         setContentView(R.layout.activity_detail_veiculos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +70,10 @@ public class FRMveiculos extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
+                                table.setCodtransportador(Integer.parseInt(((TextView) findViewById(R.id.edtCodtransportador)).getText().toString()));
+                                table.setNumeroveiculo(((TextView) findViewById(R.id.edtNumeroveiculo)).getText().toString());
+                                table.setNomeveiculo(((TextView) findViewById(R.id.edtNomeveiculo)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -104,5 +110,6 @@ public class FRMveiculos extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

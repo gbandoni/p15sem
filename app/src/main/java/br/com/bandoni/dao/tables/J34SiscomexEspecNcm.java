@@ -51,6 +51,11 @@ public class J34SiscomexEspecNcm implements Serializable {
         this.id = id;
     }
 
+    public void setId(String id)
+    {
+        this.id = Integer.parseInt(id);
+    }
+
     //----------------------------------------------------------------------
     // Getter e Setter dos outros campos
     //----------------------------------------------------------------------

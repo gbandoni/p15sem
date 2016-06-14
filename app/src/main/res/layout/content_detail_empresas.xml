@@ -27,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigo"
         android:id="@+id/edtCodigo" />
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
+        android:inputType="text"
         android:layout_below="@+id/lblTipopesssoa"
         android:id="@+id/edtTipopesssoa" />
     <TextView
@@ -63,6 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
+        android:inputType="text"
         android:layout_below="@+id/lblRazaosocial"
         android:id="@+id/edtRazaosocial" />
     <TextView
@@ -81,6 +84,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="71dp"
+        android:inputType="text"
         android:layout_below="@+id/lblTelefone"
         android:id="@+id/edtTelefone" />
     <TextView
@@ -99,6 +103,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="93dp"
+        android:inputType="text"
         android:layout_below="@+id/lblEndereco"
         android:id="@+id/edtEndereco" />
     <TextView
@@ -117,6 +122,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="115dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNumero"
         android:id="@+id/edtNumero" />
     <TextView
@@ -135,6 +141,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="137dp"
+        android:inputType="text"
         android:layout_below="@+id/lblComplemento"
         android:id="@+id/edtComplemento" />
     <TextView
@@ -153,6 +160,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="159dp"
+        android:inputType="text"
         android:layout_below="@+id/lblBairro"
         android:id="@+id/edtBairro" />
     <TextView
@@ -163,7 +171,7 @@
         android:layout_below="@+id/edtBairro"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -171,6 +179,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="181dp"
+        android:inputType="text"
         android:layout_below="@+id/lblMunicipio"
         android:id="@+id/edtMunicipio" />
     <TextView
@@ -181,7 +190,7 @@
         android:layout_below="@+id/edtMunicipio"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -189,6 +198,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="203dp"
+        android:inputType="text"
         android:layout_below="@+id/lblEstado"
         android:id="@+id/edtEstado" />
     <TextView
@@ -207,6 +217,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="225dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCep"
         android:id="@+id/edtCep" />
     <TextView
@@ -217,7 +228,7 @@
         android:layout_below="@+id/edtCep"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -225,6 +236,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="247dp"
+        android:inputType="text"
         android:layout_below="@+id/lblPais"
         android:id="@+id/edtPais" />
     <TextView
@@ -243,6 +255,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="269dp"
+        android:inputType="text"
         android:layout_below="@+id/lblEmail"
         android:id="@+id/edtEmail" />
     <TextView
@@ -261,6 +274,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="291dp"
+        android:inputType="text"
         android:layout_below="@+id/lblMunicipioex"
         android:id="@+id/edtMunicipioex" />
     <TextView
@@ -279,6 +293,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="313dp"
+        android:inputType="text"
         android:layout_below="@+id/lblEstadoex"
         android:id="@+id/edtEstadoex" />
     <TextView
@@ -297,6 +312,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="335dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCnpj"
         android:id="@+id/edtCnpj" />
 </RelativeLayout>

@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMnbm extends AppCompatActivity 
 {
-    private J34SiscomexNbm table = new J34SiscomexNbm();
-    private NbmDAOImpl dao = new NbmDAOImpl(this);
+    private J34SiscomexNbm table;
+    private NbmDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexNbm();
+        dao = new NbmDAOImpl(this);
         setContentView(R.layout.activity_detail_nbm);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMnbm extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMnbm extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

@@ -27,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNumerodocumentocarga"
         android:id="@+id/edtNumerodocumentocarga" />
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
+        android:inputType="text"
         android:layout_below="@+id/lblOrdem"
         android:id="@+id/edtOrdem" />
     <TextView
@@ -55,7 +57,7 @@
         android:layout_below="@+id/edtOrdem"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -63,6 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigobancopagamentotributo"
         android:id="@+id/edtCodigobancopagamentotributo" />
     <TextView
@@ -73,7 +76,7 @@
         android:layout_below="@+id/edtCodigobancopagamentotributo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -81,6 +84,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="71dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigoreceitapagamento"
         android:id="@+id/edtCodigoreceitapagamento" />
     <TextView
@@ -118,6 +122,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="115dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNumeroagenciapagamentotributo"
         android:id="@+id/edtNumeroagenciapagamentotributo" />
     <TextView
@@ -136,6 +141,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="137dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValorjurospagamentotributo"
         android:id="@+id/edtValorjurospagamentotributo" />
     <TextView
@@ -154,6 +160,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="159dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValormultapagamentotributo"
         android:id="@+id/edtValormultapagamentotributo" />
     <TextView
@@ -172,6 +179,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="181dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValortributopago"
         android:id="@+id/edtValortributopago" />
 </RelativeLayout>

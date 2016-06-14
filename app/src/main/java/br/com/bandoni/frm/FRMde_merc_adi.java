@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.DeMercAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexDeMercAdi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMde_merc_adi extends AppCompatActivity 
 {
-    private J34SiscomexDeMercAdi table = new J34SiscomexDeMercAdi();
-    private DeMercAdiDAOImpl dao = new DeMercAdiDAOImpl(this);
+    private J34SiscomexDeMercAdi table;
+    private DeMercAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstPaises = getPaises();
+         ArrayAdapter<String> adpcodigoPaisCertificado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
+         AutoCompleteTextView edtcodigoPaisCertificado = (AutoCompleteTextView)findViewById(R.id.edtCodigopaiscertificado);
+        edtcodigoPaisCertificado.setAdapter(adpcodigoPaisCertificado);
+        table = new J34SiscomexDeMercAdi();
+        dao = new DeMercAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_de_merc_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,6 +83,15 @@ public class FRMde_merc_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setCodigopaiscertificado(((AutoCompleteTextView) findViewById(R.id.edtCodigopaiscertificado)).getText().toString());
+                                table.setNumerodeadmercosul(((TextView) findViewById(R.id.edtNumerodeadmercosul)).getText().toString());
+                                table.setNumerodicertificado(((TextView) findViewById(R.id.edtNumerodicertificado)).getText().toString());
+                                table.setNumeroitemcertificado(((TextView) findViewById(R.id.edtNumeroitemcertificado)).getText().toString());
+                                table.setNumeroreadfinal(((TextView) findViewById(R.id.edtNumeroreadfinal)).getText().toString());
+                                table.setNumeroreadinicial(((TextView) findViewById(R.id.edtNumeroreadinicial)).getText().toString());
+                                table.setQuantidadeunidademercosul(Float.parseFloat(((TextView) findViewById(R.id.edtQuantidadeunidademercosul)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -108,6 +127,15 @@ public class FRMde_merc_adi extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getPaises()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_paises");
+      driver.close();
+      return lista;
     }
 
 }

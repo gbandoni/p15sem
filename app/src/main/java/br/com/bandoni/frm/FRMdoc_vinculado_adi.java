@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMdoc_vinculado_adi extends AppCompatActivity 
 {
-    private J34SiscomexDocVinculadoAdi table = new J34SiscomexDocVinculadoAdi();
-    private DocVinculadoAdiDAOImpl dao = new DocVinculadoAdiDAOImpl(this);
+    private J34SiscomexDocVinculadoAdi table;
+    private DocVinculadoAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexDocVinculadoAdi();
+        dao = new DocVinculadoAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_doc_vinculado_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +70,10 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setCodigotipodocumentovinculado(((TextView) findViewById(R.id.edtCodigotipodocumentovinculado)).getText().toString());
+                                table.setNumerodocumentovinculado(((TextView) findViewById(R.id.edtNumerodocumentovinculado)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -104,5 +110,6 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

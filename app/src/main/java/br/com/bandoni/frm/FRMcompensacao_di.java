@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.CompensacaoDiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexCompensacaoDi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMcompensacao_di extends AppCompatActivity 
 {
-    private J34SiscomexCompensacaoDi table = new J34SiscomexCompensacaoDi();
-    private CompensacaoDiDAOImpl dao = new CompensacaoDiDAOImpl(this);
+    private J34SiscomexCompensacaoDi table;
+    private CompensacaoDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstTab_orcamentaria = getTab_orcamentaria();
+         ArrayAdapter<String> adpcodigoReceitaCredito = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTab_orcamentaria);
+         AutoCompleteTextView edtcodigoReceitaCredito = (AutoCompleteTextView)findViewById(R.id.edtCodigoreceitacredito);
+        edtcodigoReceitaCredito.setAdapter(adpcodigoReceitaCredito);
+        table = new J34SiscomexCompensacaoDi();
+        dao = new CompensacaoDiDAOImpl(this);
         setContentView(R.layout.activity_detail_compensacao_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,6 +79,11 @@ public class FRMcompensacao_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
+                                table.setCodigoreceitacredito(((AutoCompleteTextView) findViewById(R.id.edtCodigoreceitacredito)).getText().toString());
+                                table.setNumerodocumentogeradorcredito(((TextView) findViewById(R.id.edtNumerodocumentogeradorcredito)).getText().toString());
+                                table.setValorcompensarcredito(Float.parseFloat(((TextView) findViewById(R.id.edtValorcompensarcredito)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -104,6 +119,15 @@ public class FRMcompensacao_di extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getTab_orcamentaria()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_tab_orcamentaria");
+      driver.close();
+      return lista;
     }
 
 }

@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.DocCargaDiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexDocCargaDi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMdoc_carga_di extends AppCompatActivity 
 {
-    private J34SiscomexDocCargaDi table = new J34SiscomexDocCargaDi();
-    private DocCargaDiDAOImpl dao = new DocCargaDiDAOImpl(this);
+    private J34SiscomexDocCargaDi table;
+    private DocCargaDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstTipo_embalagem = getTipo_embalagem();
+         ArrayAdapter<String> adpcodigoTipoEmbalagemCarga = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_embalagem);
+         AutoCompleteTextView edtcodigoTipoEmbalagemCarga = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoembalagemcarga);
+        edtcodigoTipoEmbalagemCarga.setAdapter(adpcodigoTipoEmbalagemCarga);
+        table = new J34SiscomexDocCargaDi();
+        dao = new DocCargaDiDAOImpl(this);
         setContentView(R.layout.activity_detail_doc_carga_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +78,10 @@ public class FRMdoc_carga_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
+                                table.setCodigotipoembalagemcarga(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigotipoembalagemcarga)).getText().toString()));
+                                table.setQuantidadevolumecarga(Integer.parseInt(((TextView) findViewById(R.id.edtQuantidadevolumecarga)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,6 +117,15 @@ public class FRMdoc_carga_di extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getTipo_embalagem()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_tipo_embalagem");
+      driver.close();
+      return lista;
     }
 
 }

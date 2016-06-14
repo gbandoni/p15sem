@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtipomanifesto extends AppCompatActivity 
 {
-    private J34SiscomexTipomanifesto table = new J34SiscomexTipomanifesto();
-    private TipomanifestoDAOImpl dao = new TipomanifestoDAOImpl(this);
+    private J34SiscomexTipomanifesto table;
+    private TipomanifestoDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexTipomanifesto();
+        dao = new TipomanifestoDAOImpl(this);
         setContentView(R.layout.activity_detail_tipomanifesto);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMtipomanifesto extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMtipomanifesto extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

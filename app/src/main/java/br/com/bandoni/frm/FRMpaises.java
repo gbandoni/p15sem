@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMpaises extends AppCompatActivity 
 {
-    private J34SiscomexPaises table = new J34SiscomexPaises();
-    private PaisesDAOImpl dao = new PaisesDAOImpl(this);
+    private J34SiscomexPaises table;
+    private PaisesDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexPaises();
+        dao = new PaisesDAOImpl(this);
         setContentView(R.layout.activity_detail_paises);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMpaises extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo_pais(((TextView) findViewById(R.id.edtCodigo_pais)).getText().toString());
+                                table.setNome_pais(((TextView) findViewById(R.id.edtNome_pais)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMpaises extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

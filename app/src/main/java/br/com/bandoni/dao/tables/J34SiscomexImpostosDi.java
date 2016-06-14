@@ -1,9 +1,11 @@
 package br.com.bandoni.dao.tables;
 
 import java.io.Serializable;
-
-
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import br.com.bandoni.lib.ContextFactory;
 
 /**
  * Java bean para a entidade 'J34SiscomexImpostosDi'
@@ -86,9 +88,27 @@ public class J34SiscomexImpostosDi implements Serializable {
         return this.codigoreceitapagamento;
     }
 
-    public void setDatapagamentotributo( Date datapagamentotributo ) {
+    public void setDatapagamentotributo( Date datapagamentotributo )
+    {
         this.datapagamentotributo = datapagamentotributo;
     }
+
+    public void setDatapagamentotributo( String datapagamentotributo )
+    {
+        try
+        {
+            Format dateFormat = android.text.format.DateFormat.getDateFormat(ContextFactory.getContext());
+            String pattern = ((SimpleDateFormat) dateFormat).toLocalizedPattern();
+            SimpleDateFormat curFormater = new SimpleDateFormat(pattern);
+            this.datapagamentotributo = curFormater.parse(datapagamentotributo);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
     public Date getDatapagamentotributo() {
         return this.datapagamentotributo;
     }

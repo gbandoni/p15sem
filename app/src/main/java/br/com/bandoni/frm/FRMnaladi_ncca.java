@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMnaladi_ncca extends AppCompatActivity 
 {
-    private J34SiscomexNaladiNcca table = new J34SiscomexNaladiNcca();
-    private NaladiNccaDAOImpl dao = new NaladiNccaDAOImpl(this);
+    private J34SiscomexNaladiNcca table;
+    private NaladiNccaDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexNaladiNcca();
+        dao = new NaladiNccaDAOImpl(this);
         setContentView(R.layout.activity_detail_naladi_ncca);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +69,9 @@ public class FRMnaladi_ncca extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setOrdem(((TextView) findViewById(R.id.edtOrdem)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,5 +108,6 @@ public class FRMnaladi_ncca extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

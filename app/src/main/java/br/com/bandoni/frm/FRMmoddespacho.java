@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMmoddespacho extends AppCompatActivity 
 {
-    private J34SiscomexModdespacho table = new J34SiscomexModdespacho();
-    private ModdespachoDAOImpl dao = new ModdespachoDAOImpl(this);
+    private J34SiscomexModdespacho table;
+    private ModdespachoDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexModdespacho();
+        dao = new ModdespachoDAOImpl(this);
         setContentView(R.layout.activity_detail_moddespacho);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMmoddespacho extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo_modalidade(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo_modalidade)).getText().toString()));
+                                table.setNome_modalidade(((TextView) findViewById(R.id.edtNome_modalidade)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMmoddespacho extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

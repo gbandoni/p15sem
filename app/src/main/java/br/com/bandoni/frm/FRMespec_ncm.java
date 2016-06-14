@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMespec_ncm extends AppCompatActivity 
 {
-    private J34SiscomexEspecNcm table = new J34SiscomexEspecNcm();
-    private EspecNcmDAOImpl dao = new EspecNcmDAOImpl(this);
+    private J34SiscomexEspecNcm table;
+    private EspecNcmDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexEspecNcm();
+        dao = new EspecNcmDAOImpl(this);
         setContentView(R.layout.activity_detail_espec_ncm);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +72,12 @@ public class FRMespec_ncm extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
+                                table.setNcm(((TextView) findViewById(R.id.edtNcm)).getText().toString());
+                                table.setAtributo(((TextView) findViewById(R.id.edtAtributo)).getText().toString());
+                                table.setEspecificacao(((TextView) findViewById(R.id.edtEspecificacao)).getText().toString());
+                                table.setNivel(((TextView) findViewById(R.id.edtNivel)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -106,5 +114,6 @@ public class FRMespec_ncm extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

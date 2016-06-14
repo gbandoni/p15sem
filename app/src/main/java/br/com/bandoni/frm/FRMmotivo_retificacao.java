@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMmotivo_retificacao extends AppCompatActivity 
 {
-    private J34SiscomexMotivoRetificacao table = new J34SiscomexMotivoRetificacao();
-    private MotivoRetificacaoDAOImpl dao = new MotivoRetificacaoDAOImpl(this);
+    private J34SiscomexMotivoRetificacao table;
+    private MotivoRetificacaoDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexMotivoRetificacao();
+        dao = new MotivoRetificacaoDAOImpl(this);
         setContentView(R.layout.activity_detail_motivo_retificacao);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMmotivo_retificacao extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo_motivo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo_motivo)).getText().toString()));
+                                table.setDescricao_motivo(((TextView) findViewById(R.id.edtDescricao_motivo)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMmotivo_retificacao extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

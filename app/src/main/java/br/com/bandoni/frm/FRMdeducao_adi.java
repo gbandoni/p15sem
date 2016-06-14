@@ -14,18 +14,32 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.DeducaoAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexDeducaoAdi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMdeducao_adi extends AppCompatActivity 
 {
-    private J34SiscomexDeducaoAdi table = new J34SiscomexDeducaoAdi();
-    private DeducaoAdiDAOImpl dao = new DeducaoAdiDAOImpl(this);
+    private J34SiscomexDeducaoAdi table;
+    private DeducaoAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstDeducoes = getDeducoes();
+         ArrayAdapter<String> adpcodigoMetodoDeducaoValor = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstDeducoes);
+         AutoCompleteTextView edtcodigoMetodoDeducaoValor = (AutoCompleteTextView)findViewById(R.id.edtCodigometododeducaovalor);
+        edtcodigoMetodoDeducaoValor.setAdapter(adpcodigoMetodoDeducaoValor);
+         List<String> lstMoedas = getMoedas();
+         ArrayAdapter<String> adpcodigoMoedaNegociadaDeducao = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMoedas);
+         AutoCompleteTextView edtcodigoMoedaNegociadaDeducao = (AutoCompleteTextView)findViewById(R.id.edtCodigomoedanegociadadeducao);
+        edtcodigoMoedaNegociadaDeducao.setAdapter(adpcodigoMoedaNegociadaDeducao);
+        table = new J34SiscomexDeducaoAdi();
+        dao = new DeducaoAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_deducao_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +84,12 @@ public class FRMdeducao_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setCodigometododeducaovalor(((AutoCompleteTextView) findViewById(R.id.edtCodigometododeducaovalor)).getText().toString());
+                                table.setCodigomoedanegociadadeducao(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigomoedanegociadadeducao)).getText().toString()));
+                                table.setValordeducaomoedanacional(Float.parseFloat(((TextView) findViewById(R.id.edtValordeducaomoedanacional)).getText().toString()));
+                                table.setValordeducaomoedanegociada(Float.parseFloat(((TextView) findViewById(R.id.edtValordeducaomoedanegociada)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -105,6 +125,23 @@ public class FRMdeducao_adi extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getDeducoes()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_deducoes");
+      driver.close();
+      return lista;
+    }
+    private List<String> getMoedas()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_moedas");
+      driver.close();
+      return lista;
     }
 
 }

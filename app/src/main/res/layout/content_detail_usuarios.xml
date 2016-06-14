@@ -27,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:layout_below="@+id/lblUsu_codigo"
         android:id="@+id/edtUsu_codigo" />
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
+        android:inputType="text"
         android:layout_below="@+id/lblUsu_nome"
         android:id="@+id/edtUsu_nome" />
     <TextView
@@ -55,7 +57,7 @@
         android:layout_below="@+id/edtUsu_nome"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -63,6 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
+        android:inputType="text"
         android:layout_below="@+id/lblUsu_login"
         android:id="@+id/edtUsu_login" />
     <TextView
@@ -81,6 +84,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="71dp"
+        android:inputType="text"
         android:layout_below="@+id/lblUsu_senha"
         android:id="@+id/edtUsu_senha" />
     <TextView
@@ -99,6 +103,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="93dp"
+        android:inputType="text"
         android:layout_below="@+id/lblUsu_adm"
         android:id="@+id/edtUsu_adm" />
 </RelativeLayout>

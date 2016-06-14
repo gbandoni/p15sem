@@ -27,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:layout_below="@+id/lblEstado_id"
         android:id="@+id/edtEstado_id" />
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
+        android:inputType="text"
         android:layout_below="@+id/lblSigla"
         android:id="@+id/edtSigla" />
     <TextView
@@ -63,6 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNome"
         android:id="@+id/edtNome" />
 </RelativeLayout>

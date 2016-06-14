@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMmercadoria_adi extends AppCompatActivity 
 {
-    private J34SiscomexMercadoriaAdi table = new J34SiscomexMercadoriaAdi();
-    private MercadoriaAdiDAOImpl dao = new MercadoriaAdiDAOImpl(this);
+    private J34SiscomexMercadoriaAdi table;
+    private MercadoriaAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexMercadoriaAdi();
+        dao = new MercadoriaAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_mercadoria_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,6 +73,13 @@ public class FRMmercadoria_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setNomeunidademedidacomercializada(((TextView) findViewById(R.id.edtNomeunidademedidacomercializada)).getText().toString());
+                                table.setQuantidademercadoriaunidadecomercializada(Float.parseFloat(((TextView) findViewById(R.id.edtQuantidademercadoriaunidadecomercializada)).getText().toString()));
+                                table.setTextodetalhamentomercadoria(((TextView) findViewById(R.id.edtTextodetalhamentomercadoria)).getText().toString());
+                                table.setValorunidadelocalembarque(Float.parseFloat(((TextView) findViewById(R.id.edtValorunidadelocalembarque)).getText().toString()));
+                                table.setValorunidademedidacondicaovenda(Float.parseFloat(((TextView) findViewById(R.id.edtValorunidademedidacondicaovenda)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -107,5 +116,6 @@ public class FRMmercadoria_adi extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

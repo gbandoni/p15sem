@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMcidades extends AppCompatActivity 
 {
-    private J34SiscomexCidades table = new J34SiscomexCidades();
-    private CidadesDAOImpl dao = new CidadesDAOImpl(this);
+    private J34SiscomexCidades table;
+    private CidadesDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexCidades();
+        dao = new CidadesDAOImpl(this);
         setContentView(R.layout.activity_detail_cidades);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +70,10 @@ public class FRMcidades extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setEstado(((TextView) findViewById(R.id.edtEstado)).getText().toString());
+                                table.setCodmun(((TextView) findViewById(R.id.edtCodmun)).getText().toString());
+                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
+                                table.setEstado_id(((TextView) findViewById(R.id.edtEstado_id)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -104,5 +110,6 @@ public class FRMcidades extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

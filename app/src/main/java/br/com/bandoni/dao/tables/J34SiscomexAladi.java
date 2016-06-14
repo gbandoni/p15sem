@@ -30,8 +30,14 @@ public class J34SiscomexAladi implements Serializable {
     //----------------------------------------------------------------------
     // Getter e Setter da chave primaria
     //----------------------------------------------------------------------
-    public void setCodigo( Integer codigo ) {
+    public void setCodigo( Integer codigo )
+    {
         this.codigo = codigo ;
+    }
+
+    public void setCodigo( String codigo )
+    {
+        this.codigo = Integer.parseInt(codigo) ;
     }
 
     public Integer getCodigo() {

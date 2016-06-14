@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtransportador extends AppCompatActivity 
 {
-    private J34SiscomexTransportador table = new J34SiscomexTransportador();
-    private TransportadorDAOImpl dao = new TransportadorDAOImpl(this);
+    private J34SiscomexTransportador table;
+    private TransportadorDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexTransportador();
+        dao = new TransportadorDAOImpl(this);
         setContentView(R.layout.activity_detail_transportador);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMtransportador extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
+                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMtransportador extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

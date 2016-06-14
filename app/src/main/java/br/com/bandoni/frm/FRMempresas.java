@@ -14,18 +14,35 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.EmpresasDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexEmpresas;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMempresas extends AppCompatActivity 
 {
-    private J34SiscomexEmpresas table = new J34SiscomexEmpresas();
-    private EmpresasDAOImpl dao = new EmpresasDAOImpl(this);
+    private J34SiscomexEmpresas table;
+    private EmpresasDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstCidades = getCidades();
+         ArrayAdapter<String> adpmunicipio = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstCidades);
+         AutoCompleteTextView edtmunicipio = (AutoCompleteTextView)findViewById(R.id.edtMunicipio);
+        edtmunicipio.setAdapter(adpmunicipio);
+         ArrayAdapter<String> adpestado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstCidades);
+         AutoCompleteTextView edtestado = (AutoCompleteTextView)findViewById(R.id.edtEstado);
+        edtestado.setAdapter(adpestado);
+         List<String> lstPaises = getPaises();
+         ArrayAdapter<String> adppais = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
+         AutoCompleteTextView edtpais = (AutoCompleteTextView)findViewById(R.id.edtPais);
+        edtpais.setAdapter(adppais);
+        table = new J34SiscomexEmpresas();
+        dao = new EmpresasDAOImpl(this);
         setContentView(R.layout.activity_detail_empresas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,6 +97,22 @@ public class FRMempresas extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
+                                table.setTipopesssoa(((TextView) findViewById(R.id.edtTipopesssoa)).getText().toString());
+                                table.setRazaosocial(((TextView) findViewById(R.id.edtRazaosocial)).getText().toString());
+                                table.setTelefone(((TextView) findViewById(R.id.edtTelefone)).getText().toString());
+                                table.setEndereco(((TextView) findViewById(R.id.edtEndereco)).getText().toString());
+                                table.setNumero(((TextView) findViewById(R.id.edtNumero)).getText().toString());
+                                table.setComplemento(((TextView) findViewById(R.id.edtComplemento)).getText().toString());
+                                table.setBairro(((TextView) findViewById(R.id.edtBairro)).getText().toString());
+                                table.setMunicipio(((AutoCompleteTextView) findViewById(R.id.edtMunicipio)).getText().toString());
+                                table.setEstado(((AutoCompleteTextView) findViewById(R.id.edtEstado)).getText().toString());
+                                table.setCep(((TextView) findViewById(R.id.edtCep)).getText().toString());
+                                table.setPais(((AutoCompleteTextView) findViewById(R.id.edtPais)).getText().toString());
+                                table.setEmail(((TextView) findViewById(R.id.edtEmail)).getText().toString());
+                                table.setMunicipioex(((TextView) findViewById(R.id.edtMunicipioex)).getText().toString());
+                                table.setEstadoex(((TextView) findViewById(R.id.edtEstadoex)).getText().toString());
+                                table.setCnpj(((TextView) findViewById(R.id.edtCnpj)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -115,6 +148,23 @@ public class FRMempresas extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getCidades()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_cidades");
+      driver.close();
+      return lista;
+    }
+    private List<String> getPaises()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_paises");
+      driver.close();
+      return lista;
     }
 
 }

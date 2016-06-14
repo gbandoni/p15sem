@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMestado extends AppCompatActivity 
 {
-    private J34SiscomexEstado table = new J34SiscomexEstado();
-    private EstadoDAOImpl dao = new EstadoDAOImpl(this);
+    private J34SiscomexEstado table;
+    private EstadoDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexEstado();
+        dao = new EstadoDAOImpl(this);
         setContentView(R.layout.activity_detail_estado);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +69,9 @@ public class FRMestado extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setEstado_id(((TextView) findViewById(R.id.edtEstado_id)).getText().toString());
+                                table.setSigla(((TextView) findViewById(R.id.edtSigla)).getText().toString());
+                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,5 +108,6 @@ public class FRMestado extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

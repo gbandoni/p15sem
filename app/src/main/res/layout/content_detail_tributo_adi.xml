@@ -27,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNumerodocumentocarga"
         android:id="@+id/edtNumerodocumentocarga" />
     <TextView
@@ -45,6 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNumeroadicao"
         android:id="@+id/edtNumeroadicao" />
     <TextView
@@ -63,6 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigoreceitaimposto"
         android:id="@+id/edtCodigoreceitaimposto" />
     <TextView
@@ -81,6 +84,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="71dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigotipoaliquotaipt"
         android:id="@+id/edtCodigotipoaliquotaipt" />
     <TextView
@@ -99,6 +103,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="93dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigotipobeneficioipi"
         android:id="@+id/edtCodigotipobeneficioipi" />
     <TextView
@@ -117,6 +122,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="115dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigotipodireito"
         android:id="@+id/edtCodigotipodireito" />
     <TextView
@@ -127,7 +133,7 @@
         android:layout_below="@+id/edtCodigotipodireito"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -135,6 +141,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="137dp"
+        android:inputType="text"
         android:layout_below="@+id/lblCodigotiporecipiente"
         android:id="@+id/edtCodigotiporecipiente" />
     <TextView
@@ -153,6 +160,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="159dp"
+        android:inputType="text"
         android:layout_below="@+id/lblNomeunidadeespecificaaliquotaipt"
         android:id="@+id/edtNomeunidadeespecificaaliquotaipt" />
     <TextView
@@ -171,6 +179,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="181dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblNumeronotacomplementartipi"
         android:id="@+id/edtNumeronotacomplementartipi" />
     <TextView
@@ -189,6 +198,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="203dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblPercentualaliquotaacordotarifario"
         android:id="@+id/edtPercentualaliquotaacordotarifario" />
     <TextView
@@ -207,6 +217,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="225dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblPercentualaliquotanormaladval"
         android:id="@+id/edtPercentualaliquotanormaladval" />
     <TextView
@@ -225,6 +236,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="247dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblPercentualaliquotareduzida"
         android:id="@+id/edtPercentualaliquotareduzida" />
     <TextView
@@ -243,6 +255,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="269dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblPercentualreducaoipt"
         android:id="@+id/edtPercentualreducaoipt" />
     <TextView
@@ -261,6 +274,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="291dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblQuantidademlrecipiente"
         android:id="@+id/edtQuantidademlrecipiente" />
     <TextView
@@ -279,6 +293,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="313dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblQuantidademercadoriaunidadealiquotaespecifica"
         android:id="@+id/edtQuantidademercadoriaunidadealiquotaespecifica" />
     <TextView
@@ -297,6 +312,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="335dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValoraliquotaespecificaipt"
         android:id="@+id/edtValoraliquotaespecificaipt" />
     <TextView
@@ -315,6 +331,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="357dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValorbasecalculoadval"
         android:id="@+id/edtValorbasecalculoadval" />
     <TextView
@@ -333,6 +350,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="379dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValorcalculadoiiactarifario"
         android:id="@+id/edtValorcalculadoiiactarifario" />
     <TextView
@@ -351,6 +369,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="401dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValorcalculoiptespecifica"
         android:id="@+id/edtValorcalculoiptespecifica" />
     <TextView
@@ -369,6 +388,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="423dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValorcalculoiptadval"
         android:id="@+id/edtValorcalculoiptadval" />
     <TextView
@@ -387,6 +407,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="445dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValoriptarecolher"
         android:id="@+id/edtValoriptarecolher" />
     <TextView
@@ -405,6 +426,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="467dp"
+        android:inputType="numberDecimal"
         android:layout_below="@+id/lblValorimpostodevido"
         android:id="@+id/edtValorimpostodevido" />
 </RelativeLayout>

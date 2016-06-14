@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtarifas_adi extends AppCompatActivity 
 {
-    private J34SiscomexTarifasAdi table = new J34SiscomexTarifasAdi();
-    private TarifasAdiDAOImpl dao = new TarifasAdiDAOImpl(this);
+    private J34SiscomexTarifasAdi table;
+    private TarifasAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexTarifasAdi();
+        dao = new TarifasAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_tarifas_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,6 +74,14 @@ public class FRMtarifas_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setCodigoassuntovinculado(((TextView) findViewById(R.id.edtCodigoassuntovinculado)).getText().toString());
+                                table.setDataanoatovinculado(((TextView) findViewById(R.id.edtDataanoatovinculado)).getText().toString());
+                                table.setNumeroatovinculado(((TextView) findViewById(R.id.edtNumeroatovinculado)).getText().toString());
+                                table.setNumeroexatovinculado(((TextView) findViewById(R.id.edtNumeroexatovinculado)).getText().toString());
+                                table.setSiglaorgaoatovinculado(((TextView) findViewById(R.id.edtSiglaorgaoatovinculado)).getText().toString());
+                                table.setSiglatipoatovinculado(((TextView) findViewById(R.id.edtSiglatipoatovinculado)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -108,5 +118,6 @@ public class FRMtarifas_adi extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

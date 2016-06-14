@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtipo_documento extends AppCompatActivity 
 {
-    private J34SiscomexTipoDocumento table = new J34SiscomexTipoDocumento();
-    private TipoDocumentoDAOImpl dao = new TipoDocumentoDAOImpl(this);
+    private J34SiscomexTipoDocumento table;
+    private TipoDocumentoDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexTipoDocumento();
+        dao = new TipoDocumentoDAOImpl(this);
         setContentView(R.layout.activity_detail_tipo_documento);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -74,6 +76,16 @@ public class FRMtipo_documento extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setSigla(((TextView) findViewById(R.id.edtSigla)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setMaritima(((TextView) findViewById(R.id.edtMaritima)).getText().toString());
+                                table.setFluvia(((TextView) findViewById(R.id.edtFluvia)).getText().toString());
+                                table.setAerea(((TextView) findViewById(R.id.edtAerea)).getText().toString());
+                                table.setRodoviaria(((TextView) findViewById(R.id.edtRodoviaria)).getText().toString());
+                                table.setFerroviaria(((TextView) findViewById(R.id.edtFerroviaria)).getText().toString());
+                                table.setPostal(((TextView) findViewById(R.id.edtPostal)).getText().toString());
+                                table.setLacustre(((TextView) findViewById(R.id.edtLacustre)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -110,5 +122,6 @@ public class FRMtipo_documento extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

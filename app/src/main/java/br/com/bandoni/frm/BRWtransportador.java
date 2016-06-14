@@ -1,5 +1,6 @@
 package br.com.bandoni.frm;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class BRWtransportador extends AppCompatActivity
         setContentView(R.layout.activity_browse_transportador);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        listView = (ListView) findViewById(R.id.listBrowser);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         fillData();
 
     }
@@ -61,7 +64,7 @@ public class BRWtransportador extends AppCompatActivity
         listView = (ListView) findViewById(R.id.listBrowser);
         databaseAccess.close();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getBaseContext(), android.R.layout.simple_list_item_1,buildList(itens));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getBaseContext(), android.R.layout.simple_list_item_single_choice,buildList(itens));
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new OnItemClickListener()
         {
@@ -69,6 +72,10 @@ public class BRWtransportador extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
 			    selectedItem = position;
+                         for(int i=0; i<listView.getAdapter().getCount();i++)
+                          {
+                             listView.setItemChecked(i,i==selectedItem);
+                          }
             }
         });
 

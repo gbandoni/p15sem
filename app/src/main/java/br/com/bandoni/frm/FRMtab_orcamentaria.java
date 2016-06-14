@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtab_orcamentaria extends AppCompatActivity 
 {
-    private J34SiscomexTabOrcamentaria table = new J34SiscomexTabOrcamentaria();
-    private TabOrcamentariaDAOImpl dao = new TabOrcamentariaDAOImpl(this);
+    private J34SiscomexTabOrcamentaria table;
+    private TabOrcamentariaDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexTabOrcamentaria();
+        dao = new TabOrcamentariaDAOImpl(this);
         setContentView(R.layout.activity_detail_tab_orcamentaria);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMtab_orcamentaria extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMtab_orcamentaria extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

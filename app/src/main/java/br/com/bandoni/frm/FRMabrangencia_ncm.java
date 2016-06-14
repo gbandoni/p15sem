@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMabrangencia_ncm extends AppCompatActivity 
 {
-    private J34SiscomexAbrangenciaNcm table = new J34SiscomexAbrangenciaNcm();
-    private AbrangenciaNcmDAOImpl dao = new AbrangenciaNcmDAOImpl(this);
+    private J34SiscomexAbrangenciaNcm table;
+    private AbrangenciaNcmDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexAbrangenciaNcm();
+        dao = new AbrangenciaNcmDAOImpl(this);
         setContentView(R.layout.activity_detail_abrangencia_ncm);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMabrangencia_ncm extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMabrangencia_ncm extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

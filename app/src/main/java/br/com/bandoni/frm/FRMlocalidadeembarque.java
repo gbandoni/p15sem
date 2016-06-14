@@ -14,18 +14,28 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.LocalidadeembarqueDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexLocalidadeembarque;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMlocalidadeembarque extends AppCompatActivity 
 {
-    private J34SiscomexLocalidadeembarque table = new J34SiscomexLocalidadeembarque();
-    private LocalidadeembarqueDAOImpl dao = new LocalidadeembarqueDAOImpl(this);
+    private J34SiscomexLocalidadeembarque table;
+    private LocalidadeembarqueDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstPaises = getPaises();
+         ArrayAdapter<String> adpcodpais = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
+         AutoCompleteTextView edtcodpais = (AutoCompleteTextView)findViewById(R.id.edtCodpais);
+        edtcodpais.setAdapter(adpcodpais);
+        table = new J34SiscomexLocalidadeembarque();
+        dao = new LocalidadeembarqueDAOImpl(this);
         setContentView(R.layout.activity_detail_localidadeembarque);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +77,9 @@ public class FRMlocalidadeembarque extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setId(((TextView) findViewById(R.id.edtId)).getText().toString());
+                                table.setCodpais(((AutoCompleteTextView) findViewById(R.id.edtCodpais)).getText().toString());
+                                table.setLocalidade(((TextView) findViewById(R.id.edtLocalidade)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,6 +115,15 @@ public class FRMlocalidadeembarque extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getPaises()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_paises");
+      driver.close();
+      return lista;
     }
 
 }

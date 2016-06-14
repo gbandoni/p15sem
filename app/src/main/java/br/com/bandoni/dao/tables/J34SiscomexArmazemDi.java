@@ -40,8 +40,14 @@ public class J34SiscomexArmazemDi implements Serializable {
         return this.numerodocumentocarga;
     }
 
-    public void setOrdem( Integer ordem ) {
+    public void setOrdem( Integer ordem )
+    {
         this.ordem = ordem ;
+    }
+
+    public void setOrdem( String ordem )
+    {
+        this.ordem = Integer.parseInt(ordem);
     }
 
     public Integer getOrdem() {

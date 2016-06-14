@@ -1,9 +1,11 @@
 package br.com.bandoni.dao.tables;
 
 import java.io.Serializable;
-
-
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import br.com.bandoni.lib.ContextFactory;
 
 /**
  * Java bean para a entidade 'J34SiscomexDi'
@@ -11,7 +13,8 @@ import java.util.Date;
  * @author Gustavo Bandoni da Silva  
  *
  */
-public class J34SiscomexDi implements Serializable {
+public class J34SiscomexDi implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -358,16 +361,51 @@ public class J34SiscomexDi implements Serializable {
         return this.codigoviatransporte;
     }
 
-    public void setDatachegadacarga( Date datachegadacarga ) {
+    public void setDatachegadacarga( Date datachegadacarga )
+    {
         this.datachegadacarga = datachegadacarga;
     }
+
+    public void setDatachegadacarga( String datachegadacarga )
+    {
+        try
+        {
+            Format dateFormat = android.text.format.DateFormat.getDateFormat(ContextFactory.getContext());
+            String pattern = ((SimpleDateFormat) dateFormat).toLocalizedPattern();
+            SimpleDateFormat curFormater = new SimpleDateFormat(pattern);
+            this.datachegadacarga = curFormater.parse(datachegadacarga);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
     public Date getDatachegadacarga() {
         return this.datachegadacarga;
     }
 
-    public void setDataembarque( Date dataembarque ) {
+    public void setDataembarque( Date dataembarque )
+    {
         this.dataembarque = dataembarque;
     }
+
+    public void setDataembarque( String dataembarque )
+    {
+        try
+        {
+            Format dateFormat = android.text.format.DateFormat.getDateFormat(ContextFactory.getContext());
+            String pattern = ((SimpleDateFormat) dateFormat).toLocalizedPattern();
+            SimpleDateFormat curFormater = new SimpleDateFormat(pattern);
+            this.dataembarque = curFormater.parse(dataembarque);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public Date getDataembarque() {
         return this.dataembarque;
     }

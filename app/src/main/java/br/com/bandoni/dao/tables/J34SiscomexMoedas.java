@@ -1,8 +1,11 @@
 package br.com.bandoni.dao.tables;
 
 import java.io.Serializable;
-
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import br.com.bandoni.lib.ContextFactory;
 
 /**
  * Java bean para a entidade 'J34SiscomexMoedas'
@@ -93,9 +96,27 @@ public class J34SiscomexMoedas implements Serializable {
         return this.tipo;
     }
 
-    public void setDataexclusao( Date dataexclusao ) {
+    public void setDataexclusao( Date dataexclusao )
+    {
         this.dataexclusao = dataexclusao;
     }
+
+    public void setDataexclusao( String dataexclusao )
+    {
+        try
+        {
+            Format dateFormat = android.text.format.DateFormat.getDateFormat(ContextFactory.getContext());
+            String pattern = ((SimpleDateFormat) dateFormat).toLocalizedPattern();
+            SimpleDateFormat curFormater = new SimpleDateFormat(pattern);
+            this.dataexclusao = curFormater.parse(dataexclusao);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
     public Date getDataexclusao() {
         return this.dataexclusao;
     }

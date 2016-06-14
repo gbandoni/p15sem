@@ -33,7 +33,7 @@ public class J34SiscomexEspNcmAdi implements Serializable {
     private String codigoatributoncm;
 
     // DB : codigoespecificacaoncm CHAR 
-    private String codigoespecificacao;
+    private Integer codigoespecificacao;
 
     // DB : atributo CHAR 
     private String atributo;
@@ -86,10 +86,10 @@ public class J34SiscomexEspNcmAdi implements Serializable {
         return this.codigoatributoncm;
     }
 
-    public void setCodigoespecificacao( String codigoespecificacao ) {
+    public void setCodigoespecificacao( Integer codigoespecificacao ) {
         this.codigoespecificacao = codigoespecificacao;
     }
-    public String getCodigoespecificacao() {
+    public Integer getCodigoespecificacao() {
         return this.codigoespecificacao;
     }
 

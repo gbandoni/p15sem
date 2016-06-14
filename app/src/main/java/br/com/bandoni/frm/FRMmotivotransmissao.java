@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMmotivotransmissao extends AppCompatActivity 
 {
-    private J34SiscomexMotivotransmissao table = new J34SiscomexMotivotransmissao();
-    private MotivotransmissaoDAOImpl dao = new MotivotransmissaoDAOImpl(this);
+    private J34SiscomexMotivotransmissao table;
+    private MotivotransmissaoDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexMotivotransmissao();
+        dao = new MotivotransmissaoDAOImpl(this);
         setContentView(R.layout.activity_detail_motivotransmissao);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMmotivotransmissao extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMmotivotransmissao extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

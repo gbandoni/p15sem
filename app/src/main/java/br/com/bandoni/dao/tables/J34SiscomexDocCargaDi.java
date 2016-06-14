@@ -47,6 +47,11 @@ public class J34SiscomexDocCargaDi implements Serializable {
         this.ordem = ordem ;
     }
 
+    public void setOrdem( String ordem )
+    {
+        this.ordem = Integer.parseInt(ordem) ;
+    }
+
     public Integer getOrdem() {
         return this.ordem;
     }

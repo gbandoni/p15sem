@@ -8,24 +8,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
+
 import br.com.bandoni.dao.commons.ActionReference;
+import br.com.bandoni.dao.commons.SQLiteDriver;
 import br.com.bandoni.dao.implementation.AcrescimoAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexAcrescimoAdi;
-
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMacrescimo_adi extends AppCompatActivity 
 {
-    private J34SiscomexAcrescimoAdi table = new J34SiscomexAcrescimoAdi();
-    private AcrescimoAdiDAOImpl dao = new AcrescimoAdiDAOImpl(this);
+    private J34SiscomexAcrescimoAdi table;
+    private AcrescimoAdiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstAcrescimos = getAcrescimos();
+         ArrayAdapter<String> adpcodigoMetodoAcrescimoValor = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstAcrescimos);
+         AutoCompleteTextView edtcodigoMetodoAcrescimoValor = (AutoCompleteTextView)findViewById(R.id.edtCodigometodoacrescimovalor);
+        edtcodigoMetodoAcrescimoValor.setAdapter(adpcodigoMetodoAcrescimoValor);
+         List<String> lstMoedas = getMoedas();
+         ArrayAdapter<String> adpcodigoMoedaNegociadaAcrescimo = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMoedas);
+         AutoCompleteTextView edtcodigoMoedaNegociadaAcrescimo = (AutoCompleteTextView)findViewById(R.id.edtCodigomoedanegociadaacrescimo);
+        edtcodigoMoedaNegociadaAcrescimo.setAdapter(adpcodigoMoedaNegociadaAcrescimo);
+        table = new J34SiscomexAcrescimoAdi();
+        dao = new AcrescimoAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_acrescimo_adi);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +85,12 @@ public class FRMacrescimo_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
+                                table.setCodigometodoacrescimovalor(((AutoCompleteTextView) findViewById(R.id.edtCodigometodoacrescimovalor)).getText().toString());
+                                table.setCodigomoedanegociadaacrescimo(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigomoedanegociadaacrescimo)).getText().toString()));
+                                table.setValoracrescimomoedanacional(Float.parseFloat(((TextView) findViewById(R.id.edtValoracrescimomoedanacional)).getText().toString()));
+                                table.setValoracrescimomoedanegociada(Float.parseFloat(((TextView) findViewById(R.id.edtValoracrescimomoedanegociada)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -82,7 +103,7 @@ public class FRMacrescimo_adi extends AppCompatActivity
                                         dao.delete(table);
                                         break;
                                 }
-                                Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Opera��o conclu�da com sucesso", Toast.LENGTH_LONG).show();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -92,8 +113,8 @@ public class FRMacrescimo_adi extends AppCompatActivity
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
-                builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
-                        .setNegativeButton("Não", dialogClickListener).show();
+                builder.setMessage("Confirma a opera��o ?").setPositiveButton("Sim", dialogClickListener)
+                        .setNegativeButton("N�o", dialogClickListener).show();
             }
             return true;
         }
@@ -105,6 +126,23 @@ public class FRMacrescimo_adi extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getAcrescimos()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_acrescimos");
+      driver.close();
+      return lista;
+    }
+    private List<String> getMoedas()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_moedas");
+      driver.close();
+      return lista;
     }
 
 }

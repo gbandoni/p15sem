@@ -14,18 +14,32 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.ImpostosDiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexImpostosDi;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMimpostos_di extends AppCompatActivity 
 {
-    private J34SiscomexImpostosDi table = new J34SiscomexImpostosDi();
-    private ImpostosDiDAOImpl dao = new ImpostosDiDAOImpl(this);
+    private J34SiscomexImpostosDi table;
+    private ImpostosDiDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstBancos = getBancos();
+         ArrayAdapter<String> adpcodigoBancoPagamentoTributo = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstBancos);
+         AutoCompleteTextView edtcodigoBancoPagamentoTributo = (AutoCompleteTextView)findViewById(R.id.edtCodigobancopagamentotributo);
+        edtcodigoBancoPagamentoTributo.setAdapter(adpcodigoBancoPagamentoTributo);
+         List<String> lstTab_orcamentaria = getTab_orcamentaria();
+         ArrayAdapter<String> adpcodigoReceitaPagamento = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTab_orcamentaria);
+         AutoCompleteTextView edtcodigoReceitaPagamento = (AutoCompleteTextView)findViewById(R.id.edtCodigoreceitapagamento);
+        edtcodigoReceitaPagamento.setAdapter(adpcodigoReceitaPagamento);
+        table = new J34SiscomexImpostosDi();
+        dao = new ImpostosDiDAOImpl(this);
         setContentView(R.layout.activity_detail_impostos_di);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,6 +87,15 @@ public class FRMimpostos_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
+                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
+                                table.setCodigobancopagamentotributo(((AutoCompleteTextView) findViewById(R.id.edtCodigobancopagamentotributo)).getText().toString());
+                                table.setCodigoreceitapagamento(((AutoCompleteTextView) findViewById(R.id.edtCodigoreceitapagamento)).getText().toString());
+                                table.setDatapagamentotributo( ((TextView) findViewById(R.id.edtDatapagamentotributo)).getText().toString());
+                                table.setNumeroagenciapagamentotributo(((TextView) findViewById(R.id.edtNumeroagenciapagamentotributo)).getText().toString());
+                                table.setValorjurospagamentotributo(Float.parseFloat(((TextView) findViewById(R.id.edtValorjurospagamentotributo)).getText().toString()));
+                                table.setValormultapagamentotributo(Float.parseFloat(((TextView) findViewById(R.id.edtValormultapagamentotributo)).getText().toString()));
+                                table.setValortributopago(Float.parseFloat(((TextView) findViewById(R.id.edtValortributopago)).getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -108,6 +131,23 @@ public class FRMimpostos_di extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<String> getBancos()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_bancos");
+      driver.close();
+      return lista;
+    }
+    private List<String> getTab_orcamentaria()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_tab_orcamentaria");
+      driver.close();
+      return lista;
     }
 
 }

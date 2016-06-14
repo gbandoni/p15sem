@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtipo_importador extends AppCompatActivity 
 {
-    private J34SiscomexTipoImportador table = new J34SiscomexTipoImportador();
-    private TipoImportadorDAOImpl dao = new TipoImportadorDAOImpl(this);
+    private J34SiscomexTipoImportador table;
+    private TipoImportadorDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexTipoImportador();
+        dao = new TipoImportadorDAOImpl(this);
         setContentView(R.layout.activity_detail_tipo_importador);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMtipo_importador extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMtipo_importador extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

@@ -34,6 +34,8 @@ public class BRWinst_financeira extends AppCompatActivity
         setContentView(R.layout.activity_browse_inst_financeira);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        listView = (ListView) findViewById(R.id.listBrowser);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         fillData();
 
     }
@@ -61,7 +63,7 @@ public class BRWinst_financeira extends AppCompatActivity
         listView = (ListView) findViewById(R.id.listBrowser);
         databaseAccess.close();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getBaseContext(), android.R.layout.simple_list_item_1,buildList(itens));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getBaseContext(), android.R.layout.simple_list_item_single_choice,buildList(itens));
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new OnItemClickListener()
         {
@@ -69,6 +71,10 @@ public class BRWinst_financeira extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
 			    selectedItem = position;
+                         for(int i=0; i<listView.getAdapter().getCount();i++)
+                          {
+                             listView.setItemChecked(i,i==selectedItem);
+                          }
             }
         });
 

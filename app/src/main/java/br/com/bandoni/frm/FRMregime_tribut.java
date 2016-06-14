@@ -18,14 +18,16 @@ import br.com.bandoni.siscomexhelper.R;
 
 public class FRMregime_tribut extends AppCompatActivity 
 {
-    private J34SiscomexRegimeTribut table = new J34SiscomexRegimeTribut();
-    private RegimeTributDAOImpl dao = new RegimeTributDAOImpl(this);
+    private J34SiscomexRegimeTribut table;
+    private RegimeTributDAOImpl dao;
     private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        table = new J34SiscomexRegimeTribut();
+        dao = new RegimeTributDAOImpl(this);
         setContentView(R.layout.activity_detail_regime_tribut);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +68,8 @@ public class FRMregime_tribut extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
+                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
+                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -102,5 +106,6 @@ public class FRMregime_tribut extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
