@@ -228,7 +228,7 @@ public class AdicaoDAOImpl extends GenericDAO<J34SiscomexAdicao> implements Adic
                 j34SiscomexAdicao.setCodigometodovaloracao(c.getString(c.getColumnIndex("codigometodovaloracao"))); // java.lang.String
                 j34SiscomexAdicao.setCodigomoedafretemercadoria(c.getInt(c.getColumnIndex("codigomoedafretemercadoria"))); // java.lang.Integer
                 j34SiscomexAdicao.setCodigomoedaseguromercadoria(c.getInt(c.getColumnIndex("codigomoedaseguromercadoria"))); // java.lang.Integer
-                j34SiscomexAdicao.setCodigomoedanegociada(c.getString(c.getColumnIndex("codigomoedanegociada"))); // java.lang.String
+                j34SiscomexAdicao.setCodigomoedanegociada(c.getInt(c.getColumnIndex("codigomoedanegociada"))); // java.lang.String
                 j34SiscomexAdicao.setCodigomotivoadmissaotemporaria(c.getString(c.getColumnIndex("codigomotivoadmissaotemporaria"))); // java.lang.String
                 j34SiscomexAdicao.setCodigomotivosemcobertura(c.getString(c.getColumnIndex("codigomotivosemcobertura"))); // java.lang.String
                 j34SiscomexAdicao.setCodigoorgaofinanciamentointernacional(c.getString(c.getColumnIndex("codigoorgaofinanciamentointernacional"))); // java.lang.String

@@ -91,7 +91,7 @@ public class FRMabrangencia_ncm extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMabrangencia_ncm.this);
                 builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
                         .setNegativeButton("Não", dialogClickListener).show();
             }

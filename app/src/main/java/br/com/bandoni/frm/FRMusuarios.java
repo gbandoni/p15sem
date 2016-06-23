@@ -105,7 +105,7 @@ public class FRMusuarios extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMusuarios.this);
                 builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
                         .setNegativeButton("Não", dialogClickListener).show();
             }

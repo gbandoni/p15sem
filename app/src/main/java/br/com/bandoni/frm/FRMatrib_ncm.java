@@ -97,7 +97,7 @@ public class FRMatrib_ncm extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMatrib_ncm.this);
                 builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
                         .setNegativeButton("Não", dialogClickListener).show();
             }

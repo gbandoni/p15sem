@@ -99,7 +99,7 @@ public class FRMfund_legal extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMfund_legal.this);
                 builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
                         .setNegativeButton("Não", dialogClickListener).show();
             }

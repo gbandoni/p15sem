@@ -93,7 +93,7 @@ public class FRMarmazem_di extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMarmazem_di.this);
                 builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
                         .setNegativeButton("Não", dialogClickListener).show();
             }

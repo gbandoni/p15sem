@@ -77,7 +77,7 @@ public class J34SiscomexAdicao implements Serializable {
     private Integer codigomoedaseguromercadoria;
 
     // DB : codigomoedanegociada VARCHAR 
-    private String codigomoedanegociada;
+    private Integer codigomoedanegociada;
 
     // DB : codigomotivoadmissaotemporaria CHAR 
     private String codigomotivoadmissaotemporaria;
@@ -340,10 +340,10 @@ public class J34SiscomexAdicao implements Serializable {
         return this.codigomoedaseguromercadoria;
     }
 
-    public void setCodigomoedanegociada( String codigomoedanegociada ) {
+    public void setCodigomoedanegociada( Integer codigomoedanegociada ) {
         this.codigomoedanegociada = codigomoedanegociada;
     }
-    public String getCodigomoedanegociada() {
+    public Integer getCodigomoedanegociada() {
         return this.codigomoedanegociada;
     }
 

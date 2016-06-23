@@ -8,16 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
-import br.com.bandoni.dao.commons.ActionReference;
-import br.com.bandoni.dao.implementation.AdicaoDAOImpl;
-import br.com.bandoni.dao.tables.J34SiscomexAdicao;
-
-import br.com.bandoni.dao.commons.SQLiteDriver;
-import java.util.List;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+
+import br.com.bandoni.dao.commons.ActionReference;
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import br.com.bandoni.dao.implementation.AdicaoDAOImpl;
+import br.com.bandoni.dao.tables.J34SiscomexAdicao;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMadicao extends AppCompatActivity 
@@ -157,7 +158,7 @@ public class FRMadicao extends AppCompatActivity
             ((TextView) findViewById(R.id.edtCodigoviatransporte)).setText(table.getCodigoviatransporte());
             ((TextView) findViewById(R.id.edtCodigomoedafretemercadoria)).setText(table.getCodigomoedafretemercadoria().toString());
             ((TextView) findViewById(R.id.edtCodigomoedaseguromercadoria)).setText(table.getCodigomoedaseguromercadoria().toString());
-            ((TextView) findViewById(R.id.edtCodigomoedanegociada)).setText(table.getCodigomoedanegociada());
+            ((TextView) findViewById(R.id.edtCodigomoedanegociada)).setText(table.getCodigomoedanegociada().toString());
             ((TextView) findViewById(R.id.edtCodigomotivosemcobertura)).setText(table.getCodigomotivosemcobertura());
             ((TextView) findViewById(R.id.edtCodigoorgaofinanciamentointernacional)).setText(table.getCodigoorgaofinanciamentointernacional());
             ((TextView) findViewById(R.id.edtCodigopaisorigemmercadoria)).setText(table.getCodigopaisorigemmercadoria());
@@ -246,7 +247,7 @@ public class FRMadicao extends AppCompatActivity
                                 table.setCodigoviatransporte(((AutoCompleteTextView) findViewById(R.id.edtCodigoviatransporte)).getText().toString());
                                 table.setCodigomoedafretemercadoria(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigomoedafretemercadoria)).getText().toString()));
                                 table.setCodigomoedaseguromercadoria(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigomoedaseguromercadoria)).getText().toString()));
-                                table.setCodigomoedanegociada(((TextView) findViewById(R.id.edtCodigomoedanegociada)).getText().toString());
+                                table.setCodigomoedanegociada(Integer.parseInt(((TextView) findViewById(R.id.edtCodigomoedanegociada)).getText().toString()));
                                 table.setCodigomotivosemcobertura(((AutoCompleteTextView) findViewById(R.id.edtCodigomotivosemcobertura)).getText().toString());
                                 table.setCodigoorgaofinanciamentointernacional(((AutoCompleteTextView) findViewById(R.id.edtCodigoorgaofinanciamentointernacional)).getText().toString());
                                 table.setCodigopaisorigemmercadoria(((AutoCompleteTextView) findViewById(R.id.edtCodigopaisorigemmercadoria)).getText().toString());
@@ -304,7 +305,7 @@ public class FRMadicao extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMadicao.this);
                 builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
                         .setNegativeButton("Não", dialogClickListener).show();
             }

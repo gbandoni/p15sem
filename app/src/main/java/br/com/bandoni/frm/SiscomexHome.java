@@ -1,15 +1,18 @@
 package br.com.bandoni.frm;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupCollapseListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +21,7 @@ import java.util.List;
 import br.com.bandoni.lib.ExpandableListAdapter;
 import br.com.bandoni.siscomexhelper.R;
 
-public class SiscomexHome extends Activity
+public class SiscomexHome extends AppCompatActivity
 {
 
     ExpandableListAdapter listAdapter;
@@ -31,6 +34,9 @@ public class SiscomexHome extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.siscomex_home);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -352,7 +358,26 @@ public class SiscomexHome extends Activity
 
     private void doTerminate()
     {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                switch (which)
+                {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        finish();
+                        break;
 
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // Nao preciso fazer nada
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(SiscomexHome.this);
+        builder.setMessage("Desaja sair do sistema ?").setPositiveButton("Sim", dialogClickListener)
+                .setNegativeButton("Não", dialogClickListener).show();
     }
 
     /*

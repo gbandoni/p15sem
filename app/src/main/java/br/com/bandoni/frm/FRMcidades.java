@@ -14,6 +14,10 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.CidadesDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexCidades;
 
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMcidades extends AppCompatActivity 
@@ -26,6 +30,10 @@ public class FRMcidades extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+         List<String> lstEstado = getEstado();
+         ArrayAdapter<String> adpestado_id = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstEstado);
+         AutoCompleteTextView edtestado_id = (AutoCompleteTextView)findViewById(R.id.edtEstado_id);
+        edtestado_id.setAdapter(adpestado_id);
         table = new J34SiscomexCidades();
         dao = new CidadesDAOImpl(this);
         setContentView(R.layout.activity_detail_cidades);
@@ -35,7 +43,7 @@ public class FRMcidades extends AppCompatActivity
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("CODMUN"),it.getStringExtra("ESTADO_ID"));
+            table = dao.find(it.getStringExtra("ESTADO"),it.getStringExtra("CODMUN"));
             ((TextView) findViewById(R.id.edtEstado)).setText(table.getEstado());
             ((TextView) findViewById(R.id.edtCodmun)).setText(table.getCodmun());
             ((TextView) findViewById(R.id.edtNome)).setText(table.getNome());
@@ -73,7 +81,7 @@ public class FRMcidades extends AppCompatActivity
                                 table.setEstado(((TextView) findViewById(R.id.edtEstado)).getText().toString());
                                 table.setCodmun(((TextView) findViewById(R.id.edtCodmun)).getText().toString());
                                 table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
-                                table.setEstado_id(((TextView) findViewById(R.id.edtEstado_id)).getText().toString());
+                                table.setEstado_id(((AutoCompleteTextView) findViewById(R.id.edtEstado_id)).getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -95,7 +103,7 @@ public class FRMcidades extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMcidades.this);
                 builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
                         .setNegativeButton("Não", dialogClickListener).show();
             }
@@ -111,5 +119,13 @@ public class FRMcidades extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private List<String> getEstado()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("j34_siscomex_estado");
+      driver.close();
+      return lista;
+    }
 
 }

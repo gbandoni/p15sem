@@ -3,6 +3,7 @@ package br.com.bandoni.frm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,40 @@ public class BRWdestaquencm_adi extends AppCompatActivity
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         fillData();
 
+        SearchView searchView = (SearchView) findViewById(R.id.edtsearch);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                callSearch(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                callSearch(newText);
+                return true;
+            }
+
+            public void callSearch(String query)
+            {
+                for (int i=0;i< itens.size();i++)
+                {
+                    if (itens.get(i).get(0).startsWith(query))
+                    {
+                        selectedItem = i;
+                        for(int j=0; j<listView.getAdapter().getCount();j++)
+                        {
+                            listView.setItemChecked(j,j==selectedItem);
+                        }
+                        return;
+                    }
+                }
+            }
+        });
+
     }
 
     private ArrayList<String> buildList(ArrayList<ArrayList<String>> list)
@@ -70,11 +105,11 @@ public class BRWdestaquencm_adi extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-			    selectedItem = position;
-                         for(int i=0; i<listView.getAdapter().getCount();i++)
-                          {
-                             listView.setItemChecked(i,i==selectedItem);
-                          }
+		 selectedItem = position;
+              for(int i=0; i<listView.getAdapter().getCount();i++)
+                 {
+                   listView.setItemChecked(i,i==selectedItem);
+                 }
             }
         });
 
@@ -99,7 +134,7 @@ public class BRWdestaquencm_adi extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_create)
         {
-            Intent i = new Intent(this,FRMbancos.class);
+            Intent i = new Intent(this,FRMdestaquencm_adi.class);
             i.putExtra("ACTION",ActionReference.ACTION_INCLUDE);
             i.putExtra("READONLY",false);
             startActivity(i);
@@ -117,7 +152,7 @@ public class BRWdestaquencm_adi extends AppCompatActivity
 
         if (id == R.id.action_update)
         {
-            Intent i = new Intent(this,FRMbancos.class);
+            Intent i = new Intent(this,FRMdestaquencm_adi.class);
             int ipos = 0;
             i.putExtra("ACTION",ActionReference.ACTION_UPDATE);
             i.putExtra("READONLY",false);
@@ -133,7 +168,7 @@ public class BRWdestaquencm_adi extends AppCompatActivity
 
         if (id == R.id.action_delete)
         {
-            Intent i = new Intent(this,FRMbancos.class);
+            Intent i = new Intent(this,FRMdestaquencm_adi.class);
             int ipos = 0;
             i.putExtra("ACTION",ActionReference.ACTION_DELETE);
             i.putExtra("READONLY",true);
@@ -149,7 +184,7 @@ public class BRWdestaquencm_adi extends AppCompatActivity
 
         if (id == R.id.action_view)
         {
-            Intent i = new Intent(this,FRMbancos.class);
+            Intent i = new Intent(this,FRMdestaquencm_adi.class);
             int ipos = 0;
             i.putExtra("ACTION",ActionReference.ACTION_VIEW);
             i.putExtra("READONLY",true);

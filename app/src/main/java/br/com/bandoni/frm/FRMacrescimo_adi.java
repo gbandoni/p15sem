@@ -8,17 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
-
 import br.com.bandoni.dao.commons.ActionReference;
-import br.com.bandoni.dao.commons.SQLiteDriver;
 import br.com.bandoni.dao.implementation.AcrescimoAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexAcrescimoAdi;
+
+import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMacrescimo_adi extends AppCompatActivity 
@@ -103,7 +102,7 @@ public class FRMacrescimo_adi extends AppCompatActivity
                                         dao.delete(table);
                                         break;
                                 }
-                                Toast.makeText(getBaseContext(), "Opera��o conclu�da com sucesso", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -112,9 +111,9 @@ public class FRMacrescimo_adi extends AppCompatActivity
                         }
                     }
                 };
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
-                builder.setMessage("Confirma a opera��o ?").setPositiveButton("Sim", dialogClickListener)
-                        .setNegativeButton("N�o", dialogClickListener).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(FRMacrescimo_adi.this);
+                builder.setMessage("Confirma a operação ?").setPositiveButton("Sim", dialogClickListener)
+                        .setNegativeButton("Não", dialogClickListener).show();
             }
             return true;
         }
