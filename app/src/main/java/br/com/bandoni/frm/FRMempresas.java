@@ -25,48 +25,111 @@ public class FRMempresas extends AppCompatActivity
     private J34SiscomexEmpresas table;
     private EmpresasDAOImpl dao;
     private int action;
+    private TextView edtCodigo;
+    private TextView edtTipopesssoa;
+    private TextView edtRazaosocial;
+    private TextView edtTelefone;
+    private TextView edtEndereco;
+    private TextView edtNumero;
+    private TextView edtComplemento;
+    private TextView edtBairro;
+    private AutoCompleteTextView edtMunicipio;
+    private AutoCompleteTextView edtEstado;
+    private TextView edtCep;
+    private AutoCompleteTextView edtPais;
+    private TextView edtEmail;
+    private TextView edtMunicipioex;
+    private TextView edtEstadoex;
+    private TextView edtCnpj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstCidades = getCidades();
-         ArrayAdapter<String> adpmunicipio = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstCidades);
-         AutoCompleteTextView edtmunicipio = (AutoCompleteTextView)findViewById(R.id.edtMunicipio);
-        edtmunicipio.setAdapter(adpmunicipio);
-         ArrayAdapter<String> adpestado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstCidades);
-         AutoCompleteTextView edtestado = (AutoCompleteTextView)findViewById(R.id.edtEstado);
-        edtestado.setAdapter(adpestado);
-         List<String> lstPaises = getPaises();
-         ArrayAdapter<String> adppais = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
-         AutoCompleteTextView edtpais = (AutoCompleteTextView)findViewById(R.id.edtPais);
-        edtpais.setAdapter(adppais);
-        table = new J34SiscomexEmpresas();
-        dao = new EmpresasDAOImpl(this);
         setContentView(R.layout.activity_detail_empresas);
+        //campos do formulario;
+        edtCodigo = (TextView)findViewById(R.id.edtCodigo);
+        edtTipopesssoa = (TextView)findViewById(R.id.edtTipopesssoa);
+        edtRazaosocial = (TextView)findViewById(R.id.edtRazaosocial);
+        edtTelefone = (TextView)findViewById(R.id.edtTelefone);
+        edtEndereco = (TextView)findViewById(R.id.edtEndereco);
+        edtNumero = (TextView)findViewById(R.id.edtNumero);
+        edtComplemento = (TextView)findViewById(R.id.edtComplemento);
+        edtBairro = (TextView)findViewById(R.id.edtBairro);
+        edtMunicipio = (AutoCompleteTextView)findViewById(R.id.edtMunicipio);
+        edtEstado = (AutoCompleteTextView)findViewById(R.id.edtEstado);
+        edtCep = (TextView)findViewById(R.id.edtCep);
+        edtPais = (AutoCompleteTextView)findViewById(R.id.edtPais);
+        edtEmail = (TextView)findViewById(R.id.edtEmail);
+        edtMunicipioex = (TextView)findViewById(R.id.edtMunicipioex);
+        edtEstadoex = (TextView)findViewById(R.id.edtEstadoex);
+        edtCnpj = (TextView)findViewById(R.id.edtCnpj);
+         List<String> lstCidades = getCidades();
+         ArrayAdapter<String> adpMunicipio = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstCidades);
+        edtMunicipio.setAdapter(adpMunicipio);
+         ArrayAdapter<String> adpEstado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstCidades);
+        edtEstado.setAdapter(adpEstado);
+         List<String> lstPaises = getPaises();
+         ArrayAdapter<String> adpPais = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
+        edtPais.setAdapter(adpPais);
+        dao = new EmpresasDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("CODIGO",0));
-            ((TextView) findViewById(R.id.edtCodigo)).setText(table.getCodigo().toString());
-            ((TextView) findViewById(R.id.edtTipopesssoa)).setText(table.getTipopesssoa());
-            ((TextView) findViewById(R.id.edtRazaosocial)).setText(table.getRazaosocial());
-            ((TextView) findViewById(R.id.edtTelefone)).setText(table.getTelefone());
-            ((TextView) findViewById(R.id.edtEndereco)).setText(table.getEndereco());
-            ((TextView) findViewById(R.id.edtNumero)).setText(table.getNumero());
-            ((TextView) findViewById(R.id.edtComplemento)).setText(table.getComplemento());
-            ((TextView) findViewById(R.id.edtBairro)).setText(table.getBairro());
-            ((TextView) findViewById(R.id.edtMunicipio)).setText(table.getMunicipio());
-            ((TextView) findViewById(R.id.edtEstado)).setText(table.getEstado());
-            ((TextView) findViewById(R.id.edtCep)).setText(table.getCep());
-            ((TextView) findViewById(R.id.edtPais)).setText(table.getPais());
-            ((TextView) findViewById(R.id.edtEmail)).setText(table.getEmail());
-            ((TextView) findViewById(R.id.edtMunicipioex)).setText(table.getMunicipioex());
-            ((TextView) findViewById(R.id.edtEstadoex)).setText(table.getEstadoex());
-            ((TextView) findViewById(R.id.edtCnpj)).setText(table.getCnpj());
+            try
+            {
+              table = dao.find(it.getIntExtra("CODIGO",0));
+            edtCodigo.setText(table.getCodigo().toString());
+            edtTipopesssoa.setText(table.getTipopesssoa());
+            edtRazaosocial.setText(table.getRazaosocial());
+            edtTelefone.setText(table.getTelefone());
+            edtEndereco.setText(table.getEndereco());
+            edtNumero.setText(table.getNumero());
+            edtComplemento.setText(table.getComplemento());
+            edtBairro.setText(table.getBairro());
+            edtMunicipio.setText(table.getMunicipio());
+            edtEstado.setText(table.getEstado());
+            edtCep.setText(table.getCep());
+            edtPais.setText(table.getPais());
+            edtEmail.setText(table.getEmail());
+            edtMunicipioex.setText(table.getMunicipioex());
+            edtEstadoex.setText(table.getEstadoex());
+            edtCnpj.setText(table.getCnpj());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo.setEnabled(false);
+                  edtTipopesssoa.setEnabled(false);
+                  edtRazaosocial.setEnabled(false);
+                  edtTelefone.setEnabled(false);
+                  edtEndereco.setEnabled(false);
+                  edtNumero.setEnabled(false);
+                  edtComplemento.setEnabled(false);
+                  edtBairro.setEnabled(false);
+                  edtMunicipio.setEnabled(false);
+                  edtEstado.setEnabled(false);
+                  edtCep.setEnabled(false);
+                  edtPais.setEnabled(false);
+                  edtEmail.setEnabled(false);
+                  edtMunicipioex.setEnabled(false);
+                  edtEstadoex.setEnabled(false);
+                  edtCnpj.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMempresas.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexEmpresas();
         }
     }
 
@@ -97,22 +160,22 @@ public class FRMempresas extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
-                                table.setTipopesssoa(((TextView) findViewById(R.id.edtTipopesssoa)).getText().toString());
-                                table.setRazaosocial(((TextView) findViewById(R.id.edtRazaosocial)).getText().toString());
-                                table.setTelefone(((TextView) findViewById(R.id.edtTelefone)).getText().toString());
-                                table.setEndereco(((TextView) findViewById(R.id.edtEndereco)).getText().toString());
-                                table.setNumero(((TextView) findViewById(R.id.edtNumero)).getText().toString());
-                                table.setComplemento(((TextView) findViewById(R.id.edtComplemento)).getText().toString());
-                                table.setBairro(((TextView) findViewById(R.id.edtBairro)).getText().toString());
-                                table.setMunicipio(((AutoCompleteTextView) findViewById(R.id.edtMunicipio)).getText().toString());
-                                table.setEstado(((AutoCompleteTextView) findViewById(R.id.edtEstado)).getText().toString());
-                                table.setCep(((TextView) findViewById(R.id.edtCep)).getText().toString());
-                                table.setPais(((AutoCompleteTextView) findViewById(R.id.edtPais)).getText().toString());
-                                table.setEmail(((TextView) findViewById(R.id.edtEmail)).getText().toString());
-                                table.setMunicipioex(((TextView) findViewById(R.id.edtMunicipioex)).getText().toString());
-                                table.setEstadoex(((TextView) findViewById(R.id.edtEstadoex)).getText().toString());
-                                table.setCnpj(((TextView) findViewById(R.id.edtCnpj)).getText().toString());
+                                table.setCodigo(Integer.parseInt(edtCodigo.getText().toString()));
+                                table.setTipopesssoa(edtTipopesssoa.getText().toString());
+                                table.setRazaosocial(edtRazaosocial.getText().toString());
+                                table.setTelefone(edtTelefone.getText().toString());
+                                table.setEndereco(edtEndereco.getText().toString());
+                                table.setNumero(edtNumero.getText().toString());
+                                table.setComplemento(edtComplemento.getText().toString());
+                                table.setBairro(edtBairro.getText().toString());
+                                table.setMunicipio(edtMunicipio.getText().toString());
+                                table.setEstado(edtEstado.getText().toString());
+                                table.setCep(edtCep.getText().toString());
+                                table.setPais(edtPais.getText().toString());
+                                table.setEmail(edtEmail.getText().toString());
+                                table.setMunicipioex(edtMunicipioex.getText().toString());
+                                table.setEstadoex(edtEstadoex.getText().toString());
+                                table.setCnpj(edtCnpj.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -126,6 +189,7 @@ public class FRMempresas extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

@@ -25,38 +25,82 @@ public class FRMimpostos_di extends AppCompatActivity
     private J34SiscomexImpostosDi table;
     private ImpostosDiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtOrdem;
+    private AutoCompleteTextView edtCodigobancopagamentotributo;
+    private AutoCompleteTextView edtCodigoreceitapagamento;
+    private TextView edtDatapagamentotributo;
+    private TextView edtNumeroagenciapagamentotributo;
+    private TextView edtValorjurospagamentotributo;
+    private TextView edtValormultapagamentotributo;
+    private TextView edtValortributopago;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstBancos = getBancos();
-         ArrayAdapter<String> adpcodigoBancoPagamentoTributo = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstBancos);
-         AutoCompleteTextView edtcodigoBancoPagamentoTributo = (AutoCompleteTextView)findViewById(R.id.edtCodigobancopagamentotributo);
-        edtcodigoBancoPagamentoTributo.setAdapter(adpcodigoBancoPagamentoTributo);
-         List<String> lstTab_orcamentaria = getTab_orcamentaria();
-         ArrayAdapter<String> adpcodigoReceitaPagamento = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTab_orcamentaria);
-         AutoCompleteTextView edtcodigoReceitaPagamento = (AutoCompleteTextView)findViewById(R.id.edtCodigoreceitapagamento);
-        edtcodigoReceitaPagamento.setAdapter(adpcodigoReceitaPagamento);
-        table = new J34SiscomexImpostosDi();
-        dao = new ImpostosDiDAOImpl(this);
         setContentView(R.layout.activity_detail_impostos_di);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtOrdem = (TextView)findViewById(R.id.edtOrdem);
+        edtCodigobancopagamentotributo = (AutoCompleteTextView)findViewById(R.id.edtCodigobancopagamentotributo);
+        edtCodigoreceitapagamento = (AutoCompleteTextView)findViewById(R.id.edtCodigoreceitapagamento);
+        edtDatapagamentotributo = (TextView)findViewById(R.id.edtDatapagamentotributo);
+        edtNumeroagenciapagamentotributo = (TextView)findViewById(R.id.edtNumeroagenciapagamentotributo);
+        edtValorjurospagamentotributo = (TextView)findViewById(R.id.edtValorjurospagamentotributo);
+        edtValormultapagamentotributo = (TextView)findViewById(R.id.edtValormultapagamentotributo);
+        edtValortributopago = (TextView)findViewById(R.id.edtValortributopago);
+         List<String> lstBancos = getBancos();
+         ArrayAdapter<String> adpCodigobancopagamentotributo = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstBancos);
+        edtCodigobancopagamentotributo.setAdapter(adpCodigobancopagamentotributo);
+         List<String> lstTab_orcamentaria = getTab_orcamentaria();
+         ArrayAdapter<String> adpCodigoreceitapagamento = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTab_orcamentaria);
+        edtCodigoreceitapagamento.setAdapter(adpCodigoreceitapagamento);
+        dao = new ImpostosDiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtOrdem)).setText(table.getOrdem().toString());
-            ((TextView) findViewById(R.id.edtCodigobancopagamentotributo)).setText(table.getCodigobancopagamentotributo());
-            ((TextView) findViewById(R.id.edtCodigoreceitapagamento)).setText(table.getCodigoreceitapagamento());
-            ((TextView) findViewById(R.id.edtDatapagamentotributo)).setText(table.getDatapagamentotributo().toString());
-            ((TextView) findViewById(R.id.edtNumeroagenciapagamentotributo)).setText(table.getNumeroagenciapagamentotributo());
-            ((TextView) findViewById(R.id.edtValorjurospagamentotributo)).setText(table.getValorjurospagamentotributo().toString());
-            ((TextView) findViewById(R.id.edtValormultapagamentotributo)).setText(table.getValormultapagamentotributo().toString());
-            ((TextView) findViewById(R.id.edtValortributopago)).setText(table.getValortributopago().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtOrdem.setText(table.getOrdem().toString());
+            edtCodigobancopagamentotributo.setText(table.getCodigobancopagamentotributo());
+            edtCodigoreceitapagamento.setText(table.getCodigoreceitapagamento());
+            edtDatapagamentotributo.setText(table.getDatapagamentotributo().toString());
+            edtNumeroagenciapagamentotributo.setText(table.getNumeroagenciapagamentotributo());
+            edtValorjurospagamentotributo.setText(table.getValorjurospagamentotributo().toString());
+            edtValormultapagamentotributo.setText(table.getValormultapagamentotributo().toString());
+            edtValortributopago.setText(table.getValortributopago().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                  edtCodigobancopagamentotributo.setEnabled(false);
+                  edtCodigoreceitapagamento.setEnabled(false);
+                  edtDatapagamentotributo.setEnabled(false);
+                  edtNumeroagenciapagamentotributo.setEnabled(false);
+                  edtValorjurospagamentotributo.setEnabled(false);
+                  edtValormultapagamentotributo.setEnabled(false);
+                  edtValortributopago.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMimpostos_di.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexImpostosDi();
         }
     }
 
@@ -87,15 +131,15 @@ public class FRMimpostos_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
-                                table.setCodigobancopagamentotributo(((AutoCompleteTextView) findViewById(R.id.edtCodigobancopagamentotributo)).getText().toString());
-                                table.setCodigoreceitapagamento(((AutoCompleteTextView) findViewById(R.id.edtCodigoreceitapagamento)).getText().toString());
-                                table.setDatapagamentotributo( ((TextView) findViewById(R.id.edtDatapagamentotributo)).getText().toString());
-                                table.setNumeroagenciapagamentotributo(((TextView) findViewById(R.id.edtNumeroagenciapagamentotributo)).getText().toString());
-                                table.setValorjurospagamentotributo(Float.parseFloat(((TextView) findViewById(R.id.edtValorjurospagamentotributo)).getText().toString()));
-                                table.setValormultapagamentotributo(Float.parseFloat(((TextView) findViewById(R.id.edtValormultapagamentotributo)).getText().toString()));
-                                table.setValortributopago(Float.parseFloat(((TextView) findViewById(R.id.edtValortributopago)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setOrdem(Integer.parseInt(edtOrdem.getText().toString()));
+                                table.setCodigobancopagamentotributo(edtCodigobancopagamentotributo.getText().toString());
+                                table.setCodigoreceitapagamento(edtCodigoreceitapagamento.getText().toString());
+                                table.setDatapagamentotributo(edtDatapagamentotributo.getText().toString());
+                                table.setNumeroagenciapagamentotributo(edtNumeroagenciapagamentotributo.getText().toString());
+                                table.setValorjurospagamentotributo(Float.parseFloat(edtValorjurospagamentotributo.getText().toString()));
+                                table.setValormultapagamentotributo(Float.parseFloat(edtValormultapagamentotributo.getText().toString()));
+                                table.setValortributopago(Float.parseFloat(edtValortributopago.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -109,6 +153,7 @@ public class FRMimpostos_di extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

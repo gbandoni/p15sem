@@ -21,24 +21,51 @@ public class FRMtipo_declaracao extends AppCompatActivity
     private J34SiscomexTipoDeclaracao table;
     private TipoDeclaracaoDAOImpl dao;
     private int action;
+    private TextView edtCodigo_tipo;
+    private TextView edtTipo_declaracao;
+    private TextView edtDescricao_tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexTipoDeclaracao();
-        dao = new TipoDeclaracaoDAOImpl(this);
         setContentView(R.layout.activity_detail_tipo_declaracao);
+        //campos do formulario;
+        edtCodigo_tipo = (TextView)findViewById(R.id.edtCodigo_tipo);
+        edtTipo_declaracao = (TextView)findViewById(R.id.edtTipo_declaracao);
+        edtDescricao_tipo = (TextView)findViewById(R.id.edtDescricao_tipo);
+        dao = new TipoDeclaracaoDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("CODIGO_TIPO",0));
-            ((TextView) findViewById(R.id.edtCodigo_tipo)).setText(table.getCodigo_tipo().toString());
-            ((TextView) findViewById(R.id.edtTipo_declaracao)).setText(table.getTipo_declaracao());
-            ((TextView) findViewById(R.id.edtDescricao_tipo)).setText(table.getDescricao_tipo());
+            try
+            {
+              table = dao.find(it.getIntExtra("CODIGO_TIPO",0));
+            edtCodigo_tipo.setText(table.getCodigo_tipo().toString());
+            edtTipo_declaracao.setText(table.getTipo_declaracao());
+            edtDescricao_tipo.setText(table.getDescricao_tipo());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo_tipo.setEnabled(false);
+                  edtTipo_declaracao.setEnabled(false);
+                  edtDescricao_tipo.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo_tipo.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMtipo_declaracao.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexTipoDeclaracao();
         }
     }
 
@@ -69,9 +96,9 @@ public class FRMtipo_declaracao extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo_tipo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo_tipo)).getText().toString()));
-                                table.setTipo_declaracao(((TextView) findViewById(R.id.edtTipo_declaracao)).getText().toString());
-                                table.setDescricao_tipo(((TextView) findViewById(R.id.edtDescricao_tipo)).getText().toString());
+                                table.setCodigo_tipo(Integer.parseInt(edtCodigo_tipo.getText().toString()));
+                                table.setTipo_declaracao(edtTipo_declaracao.getText().toString());
+                                table.setDescricao_tipo(edtDescricao_tipo.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -85,6 +112,7 @@ public class FRMtipo_declaracao extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

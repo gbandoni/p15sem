@@ -25,29 +25,59 @@ public class FRMdocumentos_di extends AppCompatActivity
     private J34SiscomexDocumentosDi table;
     private DocumentosDiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtOrdem;
+    private AutoCompleteTextView edtCodigotipodocumentoinstrucaodespacho;
+    private TextView edtNumerodocumentoinstrucaodespacho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstTipo_documento_des = getTipo_documento_des();
-         ArrayAdapter<String> adpcodigoTipoDocumentoInstrucaoDespacho = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_documento_des);
-         AutoCompleteTextView edtcodigoTipoDocumentoInstrucaoDespacho = (AutoCompleteTextView)findViewById(R.id.edtCodigotipodocumentoinstrucaodespacho);
-        edtcodigoTipoDocumentoInstrucaoDespacho.setAdapter(adpcodigoTipoDocumentoInstrucaoDespacho);
-        table = new J34SiscomexDocumentosDi();
-        dao = new DocumentosDiDAOImpl(this);
         setContentView(R.layout.activity_detail_documentos_di);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtOrdem = (TextView)findViewById(R.id.edtOrdem);
+        edtCodigotipodocumentoinstrucaodespacho = (AutoCompleteTextView)findViewById(R.id.edtCodigotipodocumentoinstrucaodespacho);
+        edtNumerodocumentoinstrucaodespacho = (TextView)findViewById(R.id.edtNumerodocumentoinstrucaodespacho);
+         List<String> lstTipo_documento_des = getTipo_documento_des();
+         ArrayAdapter<String> adpCodigotipodocumentoinstrucaodespacho = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_documento_des);
+        edtCodigotipodocumentoinstrucaodespacho.setAdapter(adpCodigotipodocumentoinstrucaodespacho);
+        dao = new DocumentosDiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtOrdem)).setText(table.getOrdem().toString());
-            ((TextView) findViewById(R.id.edtCodigotipodocumentoinstrucaodespacho)).setText(table.getCodigotipodocumentoinstrucaodespacho().toString());
-            ((TextView) findViewById(R.id.edtNumerodocumentoinstrucaodespacho)).setText(table.getNumerodocumentoinstrucaodespacho());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtOrdem.setText(table.getOrdem().toString());
+            edtCodigotipodocumentoinstrucaodespacho.setText(table.getCodigotipodocumentoinstrucaodespacho().toString());
+            edtNumerodocumentoinstrucaodespacho.setText(table.getNumerodocumentoinstrucaodespacho());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                  edtCodigotipodocumentoinstrucaodespacho.setEnabled(false);
+                  edtNumerodocumentoinstrucaodespacho.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMdocumentos_di.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexDocumentosDi();
         }
     }
 
@@ -78,10 +108,10 @@ public class FRMdocumentos_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
-                                table.setCodigotipodocumentoinstrucaodespacho(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigotipodocumentoinstrucaodespacho)).getText().toString()));
-                                table.setNumerodocumentoinstrucaodespacho(((TextView) findViewById(R.id.edtNumerodocumentoinstrucaodespacho)).getText().toString());
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setOrdem(Integer.parseInt(edtOrdem.getText().toString()));
+                                table.setCodigotipodocumentoinstrucaodespacho(Integer.parseInt(edtCodigotipodocumentoinstrucaodespacho.getText().toString()));
+                                table.setNumerodocumentoinstrucaodespacho(edtNumerodocumentoinstrucaodespacho.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -95,6 +125,7 @@ public class FRMdocumentos_di extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+    <RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -46,7 +49,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblOrdem"
         android:id="@+id/edtOrdem" />
     <TextView
@@ -65,7 +68,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigotipoembalagemcarga"
         android:id="@+id/edtCodigotipoembalagemcarga" />
     <TextView
@@ -84,7 +87,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="71dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblQuantidadevolumecarga"
         android:id="@+id/edtQuantidadevolumecarga" />
-</RelativeLayout>
+  </RelativeLayout>
+</ScrollView>

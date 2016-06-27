@@ -25,29 +25,59 @@ public class FRMcidades extends AppCompatActivity
     private J34SiscomexCidades table;
     private CidadesDAOImpl dao;
     private int action;
+    private TextView edtEstado;
+    private TextView edtCodmun;
+    private TextView edtNome;
+    private AutoCompleteTextView edtEstado_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstEstado = getEstado();
-         ArrayAdapter<String> adpestado_id = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstEstado);
-         AutoCompleteTextView edtestado_id = (AutoCompleteTextView)findViewById(R.id.edtEstado_id);
-        edtestado_id.setAdapter(adpestado_id);
-        table = new J34SiscomexCidades();
-        dao = new CidadesDAOImpl(this);
         setContentView(R.layout.activity_detail_cidades);
+        //campos do formulario;
+        edtEstado = (TextView)findViewById(R.id.edtEstado);
+        edtCodmun = (TextView)findViewById(R.id.edtCodmun);
+        edtNome = (TextView)findViewById(R.id.edtNome);
+        edtEstado_id = (AutoCompleteTextView)findViewById(R.id.edtEstado_id);
+         List<String> lstEstado = getEstado();
+         ArrayAdapter<String> adpEstado_id = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstEstado);
+        edtEstado_id.setAdapter(adpEstado_id);
+        dao = new CidadesDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("ESTADO"),it.getStringExtra("CODMUN"));
-            ((TextView) findViewById(R.id.edtEstado)).setText(table.getEstado());
-            ((TextView) findViewById(R.id.edtCodmun)).setText(table.getCodmun());
-            ((TextView) findViewById(R.id.edtNome)).setText(table.getNome());
-            ((TextView) findViewById(R.id.edtEstado_id)).setText(table.getEstado_id());
+            try
+            {
+              table = dao.find(it.getStringExtra("ESTADO"),it.getStringExtra("CODMUN"));
+            edtEstado.setText(table.getEstado());
+            edtCodmun.setText(table.getCodmun());
+            edtNome.setText(table.getNome());
+            edtEstado_id.setText(table.getEstado_id());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtEstado.setEnabled(false);
+                  edtCodmun.setEnabled(false);
+                  edtNome.setEnabled(false);
+                  edtEstado_id.setEnabled(false);
+                }
+                else
+                {
+                  edtEstado.setEnabled(false);
+                  edtCodmun.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMcidades.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexCidades();
         }
     }
 
@@ -78,10 +108,10 @@ public class FRMcidades extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setEstado(((TextView) findViewById(R.id.edtEstado)).getText().toString());
-                                table.setCodmun(((TextView) findViewById(R.id.edtCodmun)).getText().toString());
-                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
-                                table.setEstado_id(((AutoCompleteTextView) findViewById(R.id.edtEstado_id)).getText().toString());
+                                table.setEstado(edtEstado.getText().toString());
+                                table.setCodmun(edtCodmun.getText().toString());
+                                table.setNome(edtNome.getText().toString());
+                                table.setEstado_id(edtEstado_id.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -95,6 +125,7 @@ public class FRMcidades extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

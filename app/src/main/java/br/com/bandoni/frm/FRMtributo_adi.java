@@ -25,47 +25,131 @@ public class FRMtributo_adi extends AppCompatActivity
     private J34SiscomexTributoAdi table;
     private TributoAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private TextView edtCodigoreceitaimposto;
+    private TextView edtCodigotipoaliquotaipt;
+    private TextView edtCodigotipobeneficioipi;
+    private TextView edtCodigotipodireito;
+    private AutoCompleteTextView edtCodigotiporecipiente;
+    private TextView edtNomeunidadeespecificaaliquotaipt;
+    private TextView edtNumeronotacomplementartipi;
+    private TextView edtPercentualaliquotaacordotarifario;
+    private TextView edtPercentualaliquotanormaladval;
+    private TextView edtPercentualaliquotareduzida;
+    private TextView edtPercentualreducaoipt;
+    private TextView edtQuantidademlrecipiente;
+    private TextView edtQuantidademercadoriaunidadealiquotaespecifica;
+    private TextView edtValoraliquotaespecificaipt;
+    private TextView edtValorbasecalculoadval;
+    private TextView edtValorcalculadoiiactarifario;
+    private TextView edtValorcalculoiptespecifica;
+    private TextView edtValorcalculoiptadval;
+    private TextView edtValoriptarecolher;
+    private TextView edtValorimpostodevido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstTipo_recipiente = getTipo_recipiente();
-         ArrayAdapter<String> adpcodigoTipoRecipiente = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_recipiente);
-         AutoCompleteTextView edtcodigoTipoRecipiente = (AutoCompleteTextView)findViewById(R.id.edtCodigotiporecipiente);
-        edtcodigoTipoRecipiente.setAdapter(adpcodigoTipoRecipiente);
-        table = new J34SiscomexTributoAdi();
-        dao = new TributoAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_tributo_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtCodigoreceitaimposto = (TextView)findViewById(R.id.edtCodigoreceitaimposto);
+        edtCodigotipoaliquotaipt = (TextView)findViewById(R.id.edtCodigotipoaliquotaipt);
+        edtCodigotipobeneficioipi = (TextView)findViewById(R.id.edtCodigotipobeneficioipi);
+        edtCodigotipodireito = (TextView)findViewById(R.id.edtCodigotipodireito);
+        edtCodigotiporecipiente = (AutoCompleteTextView)findViewById(R.id.edtCodigotiporecipiente);
+        edtNomeunidadeespecificaaliquotaipt = (TextView)findViewById(R.id.edtNomeunidadeespecificaaliquotaipt);
+        edtNumeronotacomplementartipi = (TextView)findViewById(R.id.edtNumeronotacomplementartipi);
+        edtPercentualaliquotaacordotarifario = (TextView)findViewById(R.id.edtPercentualaliquotaacordotarifario);
+        edtPercentualaliquotanormaladval = (TextView)findViewById(R.id.edtPercentualaliquotanormaladval);
+        edtPercentualaliquotareduzida = (TextView)findViewById(R.id.edtPercentualaliquotareduzida);
+        edtPercentualreducaoipt = (TextView)findViewById(R.id.edtPercentualreducaoipt);
+        edtQuantidademlrecipiente = (TextView)findViewById(R.id.edtQuantidademlrecipiente);
+        edtQuantidademercadoriaunidadealiquotaespecifica = (TextView)findViewById(R.id.edtQuantidademercadoriaunidadealiquotaespecifica);
+        edtValoraliquotaespecificaipt = (TextView)findViewById(R.id.edtValoraliquotaespecificaipt);
+        edtValorbasecalculoadval = (TextView)findViewById(R.id.edtValorbasecalculoadval);
+        edtValorcalculadoiiactarifario = (TextView)findViewById(R.id.edtValorcalculadoiiactarifario);
+        edtValorcalculoiptespecifica = (TextView)findViewById(R.id.edtValorcalculoiptespecifica);
+        edtValorcalculoiptadval = (TextView)findViewById(R.id.edtValorcalculoiptadval);
+        edtValoriptarecolher = (TextView)findViewById(R.id.edtValoriptarecolher);
+        edtValorimpostodevido = (TextView)findViewById(R.id.edtValorimpostodevido);
+         List<String> lstTipo_recipiente = getTipo_recipiente();
+         ArrayAdapter<String> adpCodigotiporecipiente = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_recipiente);
+        edtCodigotiporecipiente.setAdapter(adpCodigotiporecipiente);
+        dao = new TributoAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtCodigoreceitaimposto)).setText(table.getCodigoreceitaimposto());
-            ((TextView) findViewById(R.id.edtCodigotipoaliquotaipt)).setText(table.getCodigotipoaliquotaipt());
-            ((TextView) findViewById(R.id.edtCodigotipobeneficioipi)).setText(table.getCodigotipobeneficioipi());
-            ((TextView) findViewById(R.id.edtCodigotipodireito)).setText(table.getCodigotipodireito());
-            ((TextView) findViewById(R.id.edtCodigotiporecipiente)).setText(table.getCodigotiporecipiente());
-            ((TextView) findViewById(R.id.edtNomeunidadeespecificaaliquotaipt)).setText(table.getNomeunidadeespecificaaliquotaipt());
-            ((TextView) findViewById(R.id.edtNumeronotacomplementartipi)).setText(table.getNumeronotacomplementartipi().toString());
-            ((TextView) findViewById(R.id.edtPercentualaliquotaacordotarifario)).setText(table.getPercentualaliquotaacordotarifario().toString());
-            ((TextView) findViewById(R.id.edtPercentualaliquotanormaladval)).setText(table.getPercentualaliquotanormaladval().toString());
-            ((TextView) findViewById(R.id.edtPercentualaliquotareduzida)).setText(table.getPercentualaliquotareduzida().toString());
-            ((TextView) findViewById(R.id.edtPercentualreducaoipt)).setText(table.getPercentualreducaoipt().toString());
-            ((TextView) findViewById(R.id.edtQuantidademlrecipiente)).setText(table.getQuantidademlrecipiente().toString());
-            ((TextView) findViewById(R.id.edtQuantidademercadoriaunidadealiquotaespecifica)).setText(table.getQuantidademercadoriaunidadealiquotaespecifica().toString());
-            ((TextView) findViewById(R.id.edtValoraliquotaespecificaipt)).setText(table.getValoraliquotaespecificaipt().toString());
-            ((TextView) findViewById(R.id.edtValorbasecalculoadval)).setText(table.getValorbasecalculoadval().toString());
-            ((TextView) findViewById(R.id.edtValorcalculadoiiactarifario)).setText(table.getValorcalculadoiiactarifario().toString());
-            ((TextView) findViewById(R.id.edtValorcalculoiptespecifica)).setText(table.getValorcalculoiptespecifica().toString());
-            ((TextView) findViewById(R.id.edtValorcalculoiptadval)).setText(table.getValorcalculoiptadval().toString());
-            ((TextView) findViewById(R.id.edtValoriptarecolher)).setText(table.getValoriptarecolher().toString());
-            ((TextView) findViewById(R.id.edtValorimpostodevido)).setText(table.getValorimpostodevido().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtCodigoreceitaimposto.setText(table.getCodigoreceitaimposto());
+            edtCodigotipoaliquotaipt.setText(table.getCodigotipoaliquotaipt());
+            edtCodigotipobeneficioipi.setText(table.getCodigotipobeneficioipi());
+            edtCodigotipodireito.setText(table.getCodigotipodireito());
+            edtCodigotiporecipiente.setText(table.getCodigotiporecipiente());
+            edtNomeunidadeespecificaaliquotaipt.setText(table.getNomeunidadeespecificaaliquotaipt());
+            edtNumeronotacomplementartipi.setText(table.getNumeronotacomplementartipi().toString());
+            edtPercentualaliquotaacordotarifario.setText(table.getPercentualaliquotaacordotarifario().toString());
+            edtPercentualaliquotanormaladval.setText(table.getPercentualaliquotanormaladval().toString());
+            edtPercentualaliquotareduzida.setText(table.getPercentualaliquotareduzida().toString());
+            edtPercentualreducaoipt.setText(table.getPercentualreducaoipt().toString());
+            edtQuantidademlrecipiente.setText(table.getQuantidademlrecipiente().toString());
+            edtQuantidademercadoriaunidadealiquotaespecifica.setText(table.getQuantidademercadoriaunidadealiquotaespecifica().toString());
+            edtValoraliquotaespecificaipt.setText(table.getValoraliquotaespecificaipt().toString());
+            edtValorbasecalculoadval.setText(table.getValorbasecalculoadval().toString());
+            edtValorcalculadoiiactarifario.setText(table.getValorcalculadoiiactarifario().toString());
+            edtValorcalculoiptespecifica.setText(table.getValorcalculoiptespecifica().toString());
+            edtValorcalculoiptadval.setText(table.getValorcalculoiptadval().toString());
+            edtValoriptarecolher.setText(table.getValoriptarecolher().toString());
+            edtValorimpostodevido.setText(table.getValorimpostodevido().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtCodigoreceitaimposto.setEnabled(false);
+                  edtCodigotipoaliquotaipt.setEnabled(false);
+                  edtCodigotipobeneficioipi.setEnabled(false);
+                  edtCodigotipodireito.setEnabled(false);
+                  edtCodigotiporecipiente.setEnabled(false);
+                  edtNomeunidadeespecificaaliquotaipt.setEnabled(false);
+                  edtNumeronotacomplementartipi.setEnabled(false);
+                  edtPercentualaliquotaacordotarifario.setEnabled(false);
+                  edtPercentualaliquotanormaladval.setEnabled(false);
+                  edtPercentualaliquotareduzida.setEnabled(false);
+                  edtPercentualreducaoipt.setEnabled(false);
+                  edtQuantidademlrecipiente.setEnabled(false);
+                  edtQuantidademercadoriaunidadealiquotaespecifica.setEnabled(false);
+                  edtValoraliquotaespecificaipt.setEnabled(false);
+                  edtValorbasecalculoadval.setEnabled(false);
+                  edtValorcalculadoiiactarifario.setEnabled(false);
+                  edtValorcalculoiptespecifica.setEnabled(false);
+                  edtValorcalculoiptadval.setEnabled(false);
+                  edtValoriptarecolher.setEnabled(false);
+                  edtValorimpostodevido.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMtributo_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexTributoAdi();
         }
     }
 
@@ -96,28 +180,28 @@ public class FRMtributo_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setCodigoreceitaimposto(((TextView) findViewById(R.id.edtCodigoreceitaimposto)).getText().toString());
-                                table.setCodigotipoaliquotaipt(((TextView) findViewById(R.id.edtCodigotipoaliquotaipt)).getText().toString());
-                                table.setCodigotipobeneficioipi(((TextView) findViewById(R.id.edtCodigotipobeneficioipi)).getText().toString());
-                                table.setCodigotipodireito(((TextView) findViewById(R.id.edtCodigotipodireito)).getText().toString());
-                                table.setCodigotiporecipiente(((AutoCompleteTextView) findViewById(R.id.edtCodigotiporecipiente)).getText().toString());
-                                table.setNomeunidadeespecificaaliquotaipt(((TextView) findViewById(R.id.edtNomeunidadeespecificaaliquotaipt)).getText().toString());
-                                table.setNumeronotacomplementartipi(Float.parseFloat(((TextView) findViewById(R.id.edtNumeronotacomplementartipi)).getText().toString()));
-                                table.setPercentualaliquotaacordotarifario(Float.parseFloat(((TextView) findViewById(R.id.edtPercentualaliquotaacordotarifario)).getText().toString()));
-                                table.setPercentualaliquotanormaladval(Float.parseFloat(((TextView) findViewById(R.id.edtPercentualaliquotanormaladval)).getText().toString()));
-                                table.setPercentualaliquotareduzida(Float.parseFloat(((TextView) findViewById(R.id.edtPercentualaliquotareduzida)).getText().toString()));
-                                table.setPercentualreducaoipt(Float.parseFloat(((TextView) findViewById(R.id.edtPercentualreducaoipt)).getText().toString()));
-                                table.setQuantidademlrecipiente(Float.parseFloat(((TextView) findViewById(R.id.edtQuantidademlrecipiente)).getText().toString()));
-                                table.setQuantidademercadoriaunidadealiquotaespecifica(Float.parseFloat(((TextView) findViewById(R.id.edtQuantidademercadoriaunidadealiquotaespecifica)).getText().toString()));
-                                table.setValoraliquotaespecificaipt(Float.parseFloat(((TextView) findViewById(R.id.edtValoraliquotaespecificaipt)).getText().toString()));
-                                table.setValorbasecalculoadval(Float.parseFloat(((TextView) findViewById(R.id.edtValorbasecalculoadval)).getText().toString()));
-                                table.setValorcalculadoiiactarifario(Float.parseFloat(((TextView) findViewById(R.id.edtValorcalculadoiiactarifario)).getText().toString()));
-                                table.setValorcalculoiptespecifica(Float.parseFloat(((TextView) findViewById(R.id.edtValorcalculoiptespecifica)).getText().toString()));
-                                table.setValorcalculoiptadval(Float.parseFloat(((TextView) findViewById(R.id.edtValorcalculoiptadval)).getText().toString()));
-                                table.setValoriptarecolher(Float.parseFloat(((TextView) findViewById(R.id.edtValoriptarecolher)).getText().toString()));
-                                table.setValorimpostodevido(Float.parseFloat(((TextView) findViewById(R.id.edtValorimpostodevido)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setCodigoreceitaimposto(edtCodigoreceitaimposto.getText().toString());
+                                table.setCodigotipoaliquotaipt(edtCodigotipoaliquotaipt.getText().toString());
+                                table.setCodigotipobeneficioipi(edtCodigotipobeneficioipi.getText().toString());
+                                table.setCodigotipodireito(edtCodigotipodireito.getText().toString());
+                                table.setCodigotiporecipiente(edtCodigotiporecipiente.getText().toString());
+                                table.setNomeunidadeespecificaaliquotaipt(edtNomeunidadeespecificaaliquotaipt.getText().toString());
+                                table.setNumeronotacomplementartipi(Float.parseFloat(edtNumeronotacomplementartipi.getText().toString()));
+                                table.setPercentualaliquotaacordotarifario(Float.parseFloat(edtPercentualaliquotaacordotarifario.getText().toString()));
+                                table.setPercentualaliquotanormaladval(Float.parseFloat(edtPercentualaliquotanormaladval.getText().toString()));
+                                table.setPercentualaliquotareduzida(Float.parseFloat(edtPercentualaliquotareduzida.getText().toString()));
+                                table.setPercentualreducaoipt(Float.parseFloat(edtPercentualreducaoipt.getText().toString()));
+                                table.setQuantidademlrecipiente(Float.parseFloat(edtQuantidademlrecipiente.getText().toString()));
+                                table.setQuantidademercadoriaunidadealiquotaespecifica(Float.parseFloat(edtQuantidademercadoriaunidadealiquotaespecifica.getText().toString()));
+                                table.setValoraliquotaespecificaipt(Float.parseFloat(edtValoraliquotaespecificaipt.getText().toString()));
+                                table.setValorbasecalculoadval(Float.parseFloat(edtValorbasecalculoadval.getText().toString()));
+                                table.setValorcalculadoiiactarifario(Float.parseFloat(edtValorcalculadoiiactarifario.getText().toString()));
+                                table.setValorcalculoiptespecifica(Float.parseFloat(edtValorcalculoiptespecifica.getText().toString()));
+                                table.setValorcalculoiptadval(Float.parseFloat(edtValorcalculoiptadval.getText().toString()));
+                                table.setValoriptarecolher(Float.parseFloat(edtValoriptarecolher.getText().toString()));
+                                table.setValorimpostodevido(Float.parseFloat(edtValorimpostodevido.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -131,6 +215,7 @@ public class FRMtributo_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

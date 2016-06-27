@@ -20,6 +20,14 @@ public interface UsuariosDAO
 
         //----------------------------------------------------------------------
         /**
+         * Acha um registro pela chave prim�ria
+         * @param usu_codigo
+         * @return O registro procurado ou NULL caso n�o seja
+         */
+        public J34SiscomexUsuarios find(String usu_login) ;
+
+        //----------------------------------------------------------------------
+        /**
          * Carrega o objeto fornecido onde � esperado que tenha sido informada a java nos atributos
          * Caso seja localizado os campos restantes ser�o preenchidos com os valores do banco
          * Caso n�o ache fica como est�

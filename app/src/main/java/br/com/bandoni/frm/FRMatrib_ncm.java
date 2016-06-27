@@ -21,26 +21,60 @@ public class FRMatrib_ncm extends AppCompatActivity
     private J34SiscomexAtribNcm table;
     private AtribNcmDAOImpl dao;
     private int action;
+    private TextView edtNcm;
+    private TextView edtAtributoncm;
+    private TextView edtMultiplo;
+    private TextView edtNivel;
+    private TextView edtAtributo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexAtribNcm();
-        dao = new AtribNcmDAOImpl(this);
         setContentView(R.layout.activity_detail_atrib_ncm);
+        //campos do formulario;
+        edtNcm = (TextView)findViewById(R.id.edtNcm);
+        edtAtributoncm = (TextView)findViewById(R.id.edtAtributoncm);
+        edtMultiplo = (TextView)findViewById(R.id.edtMultiplo);
+        edtNivel = (TextView)findViewById(R.id.edtNivel);
+        edtAtributo = (TextView)findViewById(R.id.edtAtributo);
+        dao = new AtribNcmDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NCM"),it.getStringExtra("ATRIBUTONCM"));
-            ((TextView) findViewById(R.id.edtNcm)).setText(table.getNcm());
-            ((TextView) findViewById(R.id.edtAtributoncm)).setText(table.getAtributoncm());
-            ((TextView) findViewById(R.id.edtMultiplo)).setText(table.getMultiplo());
-            ((TextView) findViewById(R.id.edtNivel)).setText(table.getNivel());
-            ((TextView) findViewById(R.id.edtAtributo)).setText(table.getAtributo());
+            try
+            {
+              table = dao.find(it.getStringExtra("NCM"),it.getStringExtra("ATRIBUTONCM"));
+            edtNcm.setText(table.getNcm());
+            edtAtributoncm.setText(table.getAtributoncm());
+            edtMultiplo.setText(table.getMultiplo());
+            edtNivel.setText(table.getNivel());
+            edtAtributo.setText(table.getAtributo());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNcm.setEnabled(false);
+                  edtAtributoncm.setEnabled(false);
+                  edtMultiplo.setEnabled(false);
+                  edtNivel.setEnabled(false);
+                  edtAtributo.setEnabled(false);
+                }
+                else
+                {
+                  edtNcm.setEnabled(false);
+                  edtAtributoncm.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMatrib_ncm.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexAtribNcm();
         }
     }
 
@@ -71,11 +105,11 @@ public class FRMatrib_ncm extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNcm(((TextView) findViewById(R.id.edtNcm)).getText().toString());
-                                table.setAtributoncm(((TextView) findViewById(R.id.edtAtributoncm)).getText().toString());
-                                table.setMultiplo(((TextView) findViewById(R.id.edtMultiplo)).getText().toString());
-                                table.setNivel(((TextView) findViewById(R.id.edtNivel)).getText().toString());
-                                table.setAtributo(((TextView) findViewById(R.id.edtAtributo)).getText().toString());
+                                table.setNcm(edtNcm.getText().toString());
+                                table.setAtributoncm(edtAtributoncm.getText().toString());
+                                table.setMultiplo(edtMultiplo.getText().toString());
+                                table.setNivel(edtNivel.getText().toString());
+                                table.setAtributo(edtAtributo.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -89,6 +123,7 @@ public class FRMatrib_ncm extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

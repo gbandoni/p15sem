@@ -25,35 +25,70 @@ public class FRMdeducao_adi extends AppCompatActivity
     private J34SiscomexDeducaoAdi table;
     private DeducaoAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private AutoCompleteTextView edtCodigometododeducaovalor;
+    private AutoCompleteTextView edtCodigomoedanegociadadeducao;
+    private TextView edtValordeducaomoedanacional;
+    private TextView edtValordeducaomoedanegociada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstDeducoes = getDeducoes();
-         ArrayAdapter<String> adpcodigoMetodoDeducaoValor = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstDeducoes);
-         AutoCompleteTextView edtcodigoMetodoDeducaoValor = (AutoCompleteTextView)findViewById(R.id.edtCodigometododeducaovalor);
-        edtcodigoMetodoDeducaoValor.setAdapter(adpcodigoMetodoDeducaoValor);
-         List<String> lstMoedas = getMoedas();
-         ArrayAdapter<String> adpcodigoMoedaNegociadaDeducao = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMoedas);
-         AutoCompleteTextView edtcodigoMoedaNegociadaDeducao = (AutoCompleteTextView)findViewById(R.id.edtCodigomoedanegociadadeducao);
-        edtcodigoMoedaNegociadaDeducao.setAdapter(adpcodigoMoedaNegociadaDeducao);
-        table = new J34SiscomexDeducaoAdi();
-        dao = new DeducaoAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_deducao_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtCodigometododeducaovalor = (AutoCompleteTextView)findViewById(R.id.edtCodigometododeducaovalor);
+        edtCodigomoedanegociadadeducao = (AutoCompleteTextView)findViewById(R.id.edtCodigomoedanegociadadeducao);
+        edtValordeducaomoedanacional = (TextView)findViewById(R.id.edtValordeducaomoedanacional);
+        edtValordeducaomoedanegociada = (TextView)findViewById(R.id.edtValordeducaomoedanegociada);
+         List<String> lstDeducoes = getDeducoes();
+         ArrayAdapter<String> adpCodigometododeducaovalor = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstDeducoes);
+        edtCodigometododeducaovalor.setAdapter(adpCodigometododeducaovalor);
+         List<String> lstMoedas = getMoedas();
+         ArrayAdapter<String> adpCodigomoedanegociadadeducao = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMoedas);
+        edtCodigomoedanegociadadeducao.setAdapter(adpCodigomoedanegociadadeducao);
+        dao = new DeducaoAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtCodigometododeducaovalor)).setText(table.getCodigometododeducaovalor());
-            ((TextView) findViewById(R.id.edtCodigomoedanegociadadeducao)).setText(table.getCodigomoedanegociadadeducao().toString());
-            ((TextView) findViewById(R.id.edtValordeducaomoedanacional)).setText(table.getValordeducaomoedanacional().toString());
-            ((TextView) findViewById(R.id.edtValordeducaomoedanegociada)).setText(table.getValordeducaomoedanegociada().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtCodigometododeducaovalor.setText(table.getCodigometododeducaovalor());
+            edtCodigomoedanegociadadeducao.setText(table.getCodigomoedanegociadadeducao().toString());
+            edtValordeducaomoedanacional.setText(table.getValordeducaomoedanacional().toString());
+            edtValordeducaomoedanegociada.setText(table.getValordeducaomoedanegociada().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtCodigometododeducaovalor.setEnabled(false);
+                  edtCodigomoedanegociadadeducao.setEnabled(false);
+                  edtValordeducaomoedanacional.setEnabled(false);
+                  edtValordeducaomoedanegociada.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMdeducao_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexDeducaoAdi();
         }
     }
 
@@ -84,12 +119,12 @@ public class FRMdeducao_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setCodigometododeducaovalor(((AutoCompleteTextView) findViewById(R.id.edtCodigometododeducaovalor)).getText().toString());
-                                table.setCodigomoedanegociadadeducao(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigomoedanegociadadeducao)).getText().toString()));
-                                table.setValordeducaomoedanacional(Float.parseFloat(((TextView) findViewById(R.id.edtValordeducaomoedanacional)).getText().toString()));
-                                table.setValordeducaomoedanegociada(Float.parseFloat(((TextView) findViewById(R.id.edtValordeducaomoedanegociada)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setCodigometododeducaovalor(edtCodigometododeducaovalor.getText().toString());
+                                table.setCodigomoedanegociadadeducao(Integer.parseInt(edtCodigomoedanegociadadeducao.getText().toString()));
+                                table.setValordeducaomoedanacional(Float.parseFloat(edtValordeducaomoedanacional.getText().toString()));
+                                table.setValordeducaomoedanegociada(Float.parseFloat(edtValordeducaomoedanegociada.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,6 +138,7 @@ public class FRMdeducao_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

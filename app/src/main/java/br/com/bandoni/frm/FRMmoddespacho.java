@@ -21,23 +21,47 @@ public class FRMmoddespacho extends AppCompatActivity
     private J34SiscomexModdespacho table;
     private ModdespachoDAOImpl dao;
     private int action;
+    private TextView edtCodigo_modalidade;
+    private TextView edtNome_modalidade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexModdespacho();
-        dao = new ModdespachoDAOImpl(this);
         setContentView(R.layout.activity_detail_moddespacho);
+        //campos do formulario;
+        edtCodigo_modalidade = (TextView)findViewById(R.id.edtCodigo_modalidade);
+        edtNome_modalidade = (TextView)findViewById(R.id.edtNome_modalidade);
+        dao = new ModdespachoDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("CODIGO_MODALIDADE",0));
-            ((TextView) findViewById(R.id.edtCodigo_modalidade)).setText(table.getCodigo_modalidade().toString());
-            ((TextView) findViewById(R.id.edtNome_modalidade)).setText(table.getNome_modalidade());
+            try
+            {
+              table = dao.find(it.getIntExtra("CODIGO_MODALIDADE",0));
+            edtCodigo_modalidade.setText(table.getCodigo_modalidade().toString());
+            edtNome_modalidade.setText(table.getNome_modalidade());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo_modalidade.setEnabled(false);
+                  edtNome_modalidade.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo_modalidade.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMmoddespacho.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexModdespacho();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMmoddespacho extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo_modalidade(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo_modalidade)).getText().toString()));
-                                table.setNome_modalidade(((TextView) findViewById(R.id.edtNome_modalidade)).getText().toString());
+                                table.setCodigo_modalidade(Integer.parseInt(edtCodigo_modalidade.getText().toString()));
+                                table.setNome_modalidade(edtNome_modalidade.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMmoddespacho extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

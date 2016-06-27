@@ -354,6 +354,28 @@ public class SiscomexHome extends AppCompatActivity
 
     private void doLogoff()
     {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                switch (which)
+                {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent i = new Intent(SiscomexHome.this,SiscomexLogon.class);
+                        startActivity(i);
+                        finish();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // Nao preciso fazer nada
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(SiscomexHome.this);
+        builder.setMessage("Desaja efetuar logon com um usuário diferente ?").setPositiveButton("Sim", dialogClickListener)
+                .setNegativeButton("Não", dialogClickListener).show();
     }
 
     private void doTerminate()

@@ -21,25 +21,55 @@ public class FRMveiculos extends AppCompatActivity
     private J34SiscomexVeiculos table;
     private VeiculosDAOImpl dao;
     private int action;
+    private TextView edtId;
+    private TextView edtCodtransportador;
+    private TextView edtNumeroveiculo;
+    private TextView edtNomeveiculo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexVeiculos();
-        dao = new VeiculosDAOImpl(this);
         setContentView(R.layout.activity_detail_veiculos);
+        //campos do formulario;
+        edtId = (TextView)findViewById(R.id.edtId);
+        edtCodtransportador = (TextView)findViewById(R.id.edtCodtransportador);
+        edtNumeroveiculo = (TextView)findViewById(R.id.edtNumeroveiculo);
+        edtNomeveiculo = (TextView)findViewById(R.id.edtNomeveiculo);
+        dao = new VeiculosDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("ID",0));
-            ((TextView) findViewById(R.id.edtId)).setText(table.getId().toString());
-            ((TextView) findViewById(R.id.edtCodtransportador)).setText(table.getCodtransportador().toString());
-            ((TextView) findViewById(R.id.edtNumeroveiculo)).setText(table.getNumeroveiculo());
-            ((TextView) findViewById(R.id.edtNomeveiculo)).setText(table.getNomeveiculo());
+            try
+            {
+              table = dao.find(it.getIntExtra("ID",0));
+            edtId.setText(table.getId().toString());
+            edtCodtransportador.setText(table.getCodtransportador().toString());
+            edtNumeroveiculo.setText(table.getNumeroveiculo());
+            edtNomeveiculo.setText(table.getNomeveiculo());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtId.setEnabled(false);
+                  edtCodtransportador.setEnabled(false);
+                  edtNumeroveiculo.setEnabled(false);
+                  edtNomeveiculo.setEnabled(false);
+                }
+                else
+                {
+                  edtId.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMveiculos.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexVeiculos();
         }
     }
 
@@ -70,10 +100,10 @@ public class FRMveiculos extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
-                                table.setCodtransportador(Integer.parseInt(((TextView) findViewById(R.id.edtCodtransportador)).getText().toString()));
-                                table.setNumeroveiculo(((TextView) findViewById(R.id.edtNumeroveiculo)).getText().toString());
-                                table.setNomeveiculo(((TextView) findViewById(R.id.edtNomeveiculo)).getText().toString());
+                                table.setId(Integer.parseInt(edtId.getText().toString()));
+                                table.setCodtransportador(Integer.parseInt(edtCodtransportador.getText().toString()));
+                                table.setNumeroveiculo(edtNumeroveiculo.getText().toString());
+                                table.setNomeveiculo(edtNomeveiculo.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -87,6 +117,7 @@ public class FRMveiculos extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

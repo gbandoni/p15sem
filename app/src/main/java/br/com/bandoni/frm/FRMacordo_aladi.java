@@ -21,23 +21,47 @@ public class FRMacordo_aladi extends AppCompatActivity
     private J34SiscomexAcordoAladi table;
     private AcordoAladiDAOImpl dao;
     private int action;
+    private TextView edtCodigo;
+    private TextView edtDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexAcordoAladi();
-        dao = new AcordoAladiDAOImpl(this);
         setContentView(R.layout.activity_detail_acordo_aladi);
+        //campos do formulario;
+        edtCodigo = (TextView)findViewById(R.id.edtCodigo);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        dao = new AcordoAladiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("CODIGO"));
-            ((TextView) findViewById(R.id.edtCodigo)).setText(table.getCodigo());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
+            try
+            {
+              table = dao.find(it.getStringExtra("CODIGO"));
+            edtCodigo.setText(table.getCodigo());
+            edtDescricao.setText(table.getDescricao());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMacordo_aladi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexAcordoAladi();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMacordo_aladi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setCodigo(edtCodigo.getText().toString());
+                                table.setDescricao(edtDescricao.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMacordo_aladi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

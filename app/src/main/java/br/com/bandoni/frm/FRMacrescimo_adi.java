@@ -25,35 +25,70 @@ public class FRMacrescimo_adi extends AppCompatActivity
     private J34SiscomexAcrescimoAdi table;
     private AcrescimoAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private AutoCompleteTextView edtCodigometodoacrescimovalor;
+    private AutoCompleteTextView edtCodigomoedanegociadaacrescimo;
+    private TextView edtValoracrescimomoedanacional;
+    private TextView edtValoracrescimomoedanegociada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstAcrescimos = getAcrescimos();
-         ArrayAdapter<String> adpcodigoMetodoAcrescimoValor = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstAcrescimos);
-         AutoCompleteTextView edtcodigoMetodoAcrescimoValor = (AutoCompleteTextView)findViewById(R.id.edtCodigometodoacrescimovalor);
-        edtcodigoMetodoAcrescimoValor.setAdapter(adpcodigoMetodoAcrescimoValor);
-         List<String> lstMoedas = getMoedas();
-         ArrayAdapter<String> adpcodigoMoedaNegociadaAcrescimo = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMoedas);
-         AutoCompleteTextView edtcodigoMoedaNegociadaAcrescimo = (AutoCompleteTextView)findViewById(R.id.edtCodigomoedanegociadaacrescimo);
-        edtcodigoMoedaNegociadaAcrescimo.setAdapter(adpcodigoMoedaNegociadaAcrescimo);
-        table = new J34SiscomexAcrescimoAdi();
-        dao = new AcrescimoAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_acrescimo_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtCodigometodoacrescimovalor = (AutoCompleteTextView)findViewById(R.id.edtCodigometodoacrescimovalor);
+        edtCodigomoedanegociadaacrescimo = (AutoCompleteTextView)findViewById(R.id.edtCodigomoedanegociadaacrescimo);
+        edtValoracrescimomoedanacional = (TextView)findViewById(R.id.edtValoracrescimomoedanacional);
+        edtValoracrescimomoedanegociada = (TextView)findViewById(R.id.edtValoracrescimomoedanegociada);
+         List<String> lstAcrescimos = getAcrescimos();
+         ArrayAdapter<String> adpCodigometodoacrescimovalor = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstAcrescimos);
+        edtCodigometodoacrescimovalor.setAdapter(adpCodigometodoacrescimovalor);
+         List<String> lstMoedas = getMoedas();
+         ArrayAdapter<String> adpCodigomoedanegociadaacrescimo = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMoedas);
+        edtCodigomoedanegociadaacrescimo.setAdapter(adpCodigomoedanegociadaacrescimo);
+        dao = new AcrescimoAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtCodigometodoacrescimovalor)).setText(table.getCodigometodoacrescimovalor());
-            ((TextView) findViewById(R.id.edtCodigomoedanegociadaacrescimo)).setText(table.getCodigomoedanegociadaacrescimo().toString());
-            ((TextView) findViewById(R.id.edtValoracrescimomoedanacional)).setText(table.getValoracrescimomoedanacional().toString());
-            ((TextView) findViewById(R.id.edtValoracrescimomoedanegociada)).setText(table.getValoracrescimomoedanegociada().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtCodigometodoacrescimovalor.setText(table.getCodigometodoacrescimovalor());
+            edtCodigomoedanegociadaacrescimo.setText(table.getCodigomoedanegociadaacrescimo().toString());
+            edtValoracrescimomoedanacional.setText(table.getValoracrescimomoedanacional().toString());
+            edtValoracrescimomoedanegociada.setText(table.getValoracrescimomoedanegociada().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtCodigometodoacrescimovalor.setEnabled(false);
+                  edtCodigomoedanegociadaacrescimo.setEnabled(false);
+                  edtValoracrescimomoedanacional.setEnabled(false);
+                  edtValoracrescimomoedanegociada.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMacrescimo_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexAcrescimoAdi();
         }
     }
 
@@ -84,12 +119,12 @@ public class FRMacrescimo_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setCodigometodoacrescimovalor(((AutoCompleteTextView) findViewById(R.id.edtCodigometodoacrescimovalor)).getText().toString());
-                                table.setCodigomoedanegociadaacrescimo(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigomoedanegociadaacrescimo)).getText().toString()));
-                                table.setValoracrescimomoedanacional(Float.parseFloat(((TextView) findViewById(R.id.edtValoracrescimomoedanacional)).getText().toString()));
-                                table.setValoracrescimomoedanegociada(Float.parseFloat(((TextView) findViewById(R.id.edtValoracrescimomoedanegociada)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setCodigometodoacrescimovalor(edtCodigometodoacrescimovalor.getText().toString());
+                                table.setCodigomoedanegociadaacrescimo(Integer.parseInt(edtCodigomoedanegociadaacrescimo.getText().toString()));
+                                table.setValoracrescimomoedanacional(Float.parseFloat(edtValoracrescimomoedanacional.getText().toString()));
+                                table.setValoracrescimomoedanegociada(Float.parseFloat(edtValoracrescimomoedanegociada.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -103,6 +138,7 @@ public class FRMacrescimo_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

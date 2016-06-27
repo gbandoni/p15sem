@@ -21,28 +21,67 @@ public class FRMmoedas extends AppCompatActivity
     private J34SiscomexMoedas table;
     private MoedasDAOImpl dao;
     private int action;
+    private TextView edtIdmoeda;
+    private TextView edtPais;
+    private TextView edtCodigo;
+    private TextView edtDataexclusao;
+    private TextView edtNome;
+    private TextView edtSimbolo;
+    private TextView edtTipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexMoedas();
-        dao = new MoedasDAOImpl(this);
         setContentView(R.layout.activity_detail_moedas);
+        //campos do formulario;
+        edtIdmoeda = (TextView)findViewById(R.id.edtIdmoeda);
+        edtPais = (TextView)findViewById(R.id.edtPais);
+        edtCodigo = (TextView)findViewById(R.id.edtCodigo);
+        edtDataexclusao = (TextView)findViewById(R.id.edtDataexclusao);
+        edtNome = (TextView)findViewById(R.id.edtNome);
+        edtSimbolo = (TextView)findViewById(R.id.edtSimbolo);
+        edtTipo = (TextView)findViewById(R.id.edtTipo);
+        dao = new MoedasDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("IDMOEDA",0));
-            ((TextView) findViewById(R.id.edtIdmoeda)).setText(table.getIdmoeda().toString());
-            ((TextView) findViewById(R.id.edtPais)).setText(table.getPais());
-            ((TextView) findViewById(R.id.edtCodigo)).setText(table.getCodigo().toString());
-            ((TextView) findViewById(R.id.edtDataexclusao)).setText(table.getDataexclusao().toString());
-            ((TextView) findViewById(R.id.edtNome)).setText(table.getNome());
-            ((TextView) findViewById(R.id.edtSimbolo)).setText(table.getSimbolo());
-            ((TextView) findViewById(R.id.edtTipo)).setText(table.getTipo());
+            try
+            {
+              table = dao.find(it.getIntExtra("IDMOEDA",0));
+            edtIdmoeda.setText(table.getIdmoeda().toString());
+            edtPais.setText(table.getPais());
+            edtCodigo.setText(table.getCodigo().toString());
+            edtDataexclusao.setText(table.getDataexclusao().toString());
+            edtNome.setText(table.getNome());
+            edtSimbolo.setText(table.getSimbolo());
+            edtTipo.setText(table.getTipo());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtIdmoeda.setEnabled(false);
+                  edtPais.setEnabled(false);
+                  edtCodigo.setEnabled(false);
+                  edtDataexclusao.setEnabled(false);
+                  edtNome.setEnabled(false);
+                  edtSimbolo.setEnabled(false);
+                  edtTipo.setEnabled(false);
+                }
+                else
+                {
+                  edtIdmoeda.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMmoedas.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexMoedas();
         }
     }
 
@@ -73,13 +112,13 @@ public class FRMmoedas extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setIdmoeda(Integer.parseInt(((TextView) findViewById(R.id.edtIdmoeda)).getText().toString()));
-                                table.setPais(((TextView) findViewById(R.id.edtPais)).getText().toString());
-                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
-                                table.setDataexclusao( ((TextView) findViewById(R.id.edtDataexclusao)).getText().toString());
-                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
-                                table.setSimbolo(((TextView) findViewById(R.id.edtSimbolo)).getText().toString());
-                                table.setTipo(((TextView) findViewById(R.id.edtTipo)).getText().toString());
+                                table.setIdmoeda(Integer.parseInt(edtIdmoeda.getText().toString()));
+                                table.setPais(edtPais.getText().toString());
+                                table.setCodigo(Integer.parseInt(edtCodigo.getText().toString()));
+                                table.setDataexclusao(edtDataexclusao.getText().toString());
+                                table.setNome(edtNome.getText().toString());
+                                table.setSimbolo(edtSimbolo.getText().toString());
+                                table.setTipo(edtTipo.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -93,6 +132,7 @@ public class FRMmoedas extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

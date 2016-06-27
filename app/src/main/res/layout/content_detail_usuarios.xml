@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+    <RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,7 +30,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblUsu_codigo"
         android:id="@+id/edtUsu_codigo" />
     <TextView
@@ -57,7 +60,7 @@
         android:layout_below="@+id/edtUsu_nome"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <AutoCompleteTextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -103,7 +106,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="93dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblUsu_adm"
         android:id="@+id/edtUsu_adm" />
-</RelativeLayout>
+  </RelativeLayout>
+</ScrollView>

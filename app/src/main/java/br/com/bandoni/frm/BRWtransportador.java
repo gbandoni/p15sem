@@ -3,7 +3,7 @@ package br.com.bandoni.frm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
+import android.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -143,7 +143,7 @@ public class BRWtransportador extends AppCompatActivity
         }
         else
         {
-            if (selectedItem <= 0)
+            if (selectedItem < 0)
             {
                 Toast.makeText(getBaseContext(),"Selecione um registro antes",Toast.LENGTH_LONG).show();
                 return true;
@@ -158,7 +158,7 @@ public class BRWtransportador extends AppCompatActivity
             i.putExtra("READONLY",false);
             for (String campo:primarykeys)
             {
-                i.putExtra(campo,itens.get(selectedItem).get(ipos).toUpperCase());
+                i.putExtra(campo.toUpperCase(),itens.get(selectedItem).get(ipos));
                 ipos++;
             }
             startActivity(i);
@@ -174,7 +174,7 @@ public class BRWtransportador extends AppCompatActivity
             i.putExtra("READONLY",true);
             for (String campo:primarykeys)
             {
-                i.putExtra(campo,itens.get(selectedItem).get(ipos));
+                i.putExtra(campo.toUpperCase(),itens.get(selectedItem).get(ipos));
                 ipos++;
             }
             startActivity(i);
@@ -190,7 +190,7 @@ public class BRWtransportador extends AppCompatActivity
             i.putExtra("READONLY",true);
             for (String campo:primarykeys)
             {
-                i.putExtra(campo,itens.get(selectedItem).get(ipos));
+                i.putExtra(campo.toUpperCase(),itens.get(selectedItem).get(ipos));
                 ipos++;
             }
             startActivity(i);

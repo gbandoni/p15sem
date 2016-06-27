@@ -21,23 +21,47 @@ public class FRMtipo_importador extends AppCompatActivity
     private J34SiscomexTipoImportador table;
     private TipoImportadorDAOImpl dao;
     private int action;
+    private TextView edtId;
+    private TextView edtDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexTipoImportador();
-        dao = new TipoImportadorDAOImpl(this);
         setContentView(R.layout.activity_detail_tipo_importador);
+        //campos do formulario;
+        edtId = (TextView)findViewById(R.id.edtId);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        dao = new TipoImportadorDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("ID",0));
-            ((TextView) findViewById(R.id.edtId)).setText(table.getId().toString());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
+            try
+            {
+              table = dao.find(it.getIntExtra("ID",0));
+            edtId.setText(table.getId().toString());
+            edtDescricao.setText(table.getDescricao());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtId.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                }
+                else
+                {
+                  edtId.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMtipo_importador.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexTipoImportador();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMtipo_importador extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setId(Integer.parseInt(edtId.getText().toString()));
+                                table.setDescricao(edtDescricao.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMtipo_importador extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

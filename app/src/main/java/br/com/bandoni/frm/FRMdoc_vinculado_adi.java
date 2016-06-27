@@ -21,25 +21,56 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
     private J34SiscomexDocVinculadoAdi table;
     private DocVinculadoAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private TextView edtCodigotipodocumentovinculado;
+    private TextView edtNumerodocumentovinculado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexDocVinculadoAdi();
-        dao = new DocVinculadoAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_doc_vinculado_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtCodigotipodocumentovinculado = (TextView)findViewById(R.id.edtCodigotipodocumentovinculado);
+        edtNumerodocumentovinculado = (TextView)findViewById(R.id.edtNumerodocumentovinculado);
+        dao = new DocVinculadoAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtCodigotipodocumentovinculado)).setText(table.getCodigotipodocumentovinculado());
-            ((TextView) findViewById(R.id.edtNumerodocumentovinculado)).setText(table.getNumerodocumentovinculado());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtCodigotipodocumentovinculado.setText(table.getCodigotipodocumentovinculado());
+            edtNumerodocumentovinculado.setText(table.getNumerodocumentovinculado());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtCodigotipodocumentovinculado.setEnabled(false);
+                  edtNumerodocumentovinculado.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMdoc_vinculado_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexDocVinculadoAdi();
         }
     }
 
@@ -70,10 +101,10 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setCodigotipodocumentovinculado(((TextView) findViewById(R.id.edtCodigotipodocumentovinculado)).getText().toString());
-                                table.setNumerodocumentovinculado(((TextView) findViewById(R.id.edtNumerodocumentovinculado)).getText().toString());
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setCodigotipodocumentovinculado(edtCodigotipodocumentovinculado.getText().toString());
+                                table.setNumerodocumentovinculado(edtNumerodocumentovinculado.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -87,6 +118,7 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

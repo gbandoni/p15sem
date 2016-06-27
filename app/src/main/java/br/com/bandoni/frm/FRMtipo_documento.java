@@ -21,31 +21,79 @@ public class FRMtipo_documento extends AppCompatActivity
     private J34SiscomexTipoDocumento table;
     private TipoDocumentoDAOImpl dao;
     private int action;
+    private TextView edtCodigo;
+    private TextView edtSigla;
+    private TextView edtDescricao;
+    private TextView edtMaritima;
+    private TextView edtFluvia;
+    private TextView edtAerea;
+    private TextView edtRodoviaria;
+    private TextView edtFerroviaria;
+    private TextView edtPostal;
+    private TextView edtLacustre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexTipoDocumento();
-        dao = new TipoDocumentoDAOImpl(this);
         setContentView(R.layout.activity_detail_tipo_documento);
+        //campos do formulario;
+        edtCodigo = (TextView)findViewById(R.id.edtCodigo);
+        edtSigla = (TextView)findViewById(R.id.edtSigla);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        edtMaritima = (TextView)findViewById(R.id.edtMaritima);
+        edtFluvia = (TextView)findViewById(R.id.edtFluvia);
+        edtAerea = (TextView)findViewById(R.id.edtAerea);
+        edtRodoviaria = (TextView)findViewById(R.id.edtRodoviaria);
+        edtFerroviaria = (TextView)findViewById(R.id.edtFerroviaria);
+        edtPostal = (TextView)findViewById(R.id.edtPostal);
+        edtLacustre = (TextView)findViewById(R.id.edtLacustre);
+        dao = new TipoDocumentoDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("CODIGO"));
-            ((TextView) findViewById(R.id.edtCodigo)).setText(table.getCodigo());
-            ((TextView) findViewById(R.id.edtSigla)).setText(table.getSigla());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
-            ((TextView) findViewById(R.id.edtMaritima)).setText(table.getMaritima());
-            ((TextView) findViewById(R.id.edtFluvia)).setText(table.getFluvia());
-            ((TextView) findViewById(R.id.edtAerea)).setText(table.getAerea());
-            ((TextView) findViewById(R.id.edtRodoviaria)).setText(table.getRodoviaria());
-            ((TextView) findViewById(R.id.edtFerroviaria)).setText(table.getFerroviaria());
-            ((TextView) findViewById(R.id.edtPostal)).setText(table.getPostal());
-            ((TextView) findViewById(R.id.edtLacustre)).setText(table.getLacustre());
+            try
+            {
+              table = dao.find(it.getStringExtra("CODIGO"));
+            edtCodigo.setText(table.getCodigo());
+            edtSigla.setText(table.getSigla());
+            edtDescricao.setText(table.getDescricao());
+            edtMaritima.setText(table.getMaritima());
+            edtFluvia.setText(table.getFluvia());
+            edtAerea.setText(table.getAerea());
+            edtRodoviaria.setText(table.getRodoviaria());
+            edtFerroviaria.setText(table.getFerroviaria());
+            edtPostal.setText(table.getPostal());
+            edtLacustre.setText(table.getLacustre());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo.setEnabled(false);
+                  edtSigla.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                  edtMaritima.setEnabled(false);
+                  edtFluvia.setEnabled(false);
+                  edtAerea.setEnabled(false);
+                  edtRodoviaria.setEnabled(false);
+                  edtFerroviaria.setEnabled(false);
+                  edtPostal.setEnabled(false);
+                  edtLacustre.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMtipo_documento.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexTipoDocumento();
         }
     }
 
@@ -76,16 +124,16 @@ public class FRMtipo_documento extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
-                                table.setSigla(((TextView) findViewById(R.id.edtSigla)).getText().toString());
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
-                                table.setMaritima(((TextView) findViewById(R.id.edtMaritima)).getText().toString());
-                                table.setFluvia(((TextView) findViewById(R.id.edtFluvia)).getText().toString());
-                                table.setAerea(((TextView) findViewById(R.id.edtAerea)).getText().toString());
-                                table.setRodoviaria(((TextView) findViewById(R.id.edtRodoviaria)).getText().toString());
-                                table.setFerroviaria(((TextView) findViewById(R.id.edtFerroviaria)).getText().toString());
-                                table.setPostal(((TextView) findViewById(R.id.edtPostal)).getText().toString());
-                                table.setLacustre(((TextView) findViewById(R.id.edtLacustre)).getText().toString());
+                                table.setCodigo(edtCodigo.getText().toString());
+                                table.setSigla(edtSigla.getText().toString());
+                                table.setDescricao(edtDescricao.getText().toString());
+                                table.setMaritima(edtMaritima.getText().toString());
+                                table.setFluvia(edtFluvia.getText().toString());
+                                table.setAerea(edtAerea.getText().toString());
+                                table.setRodoviaria(edtRodoviaria.getText().toString());
+                                table.setFerroviaria(edtFerroviaria.getText().toString());
+                                table.setPostal(edtPostal.getText().toString());
+                                table.setLacustre(edtLacustre.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -99,6 +147,7 @@ public class FRMtipo_documento extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

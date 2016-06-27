@@ -21,24 +21,52 @@ public class FRMdestaquencm_adi extends AppCompatActivity
     private J34SiscomexDestaquencmAdi table;
     private DestaquencmAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private TextView edtNumerodestaquencm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexDestaquencmAdi();
-        dao = new DestaquencmAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_destaquencm_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtNumerodestaquencm = (TextView)findViewById(R.id.edtNumerodestaquencm);
+        dao = new DestaquencmAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtNumerodestaquencm)).setText(table.getNumerodestaquencm());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtNumerodestaquencm.setText(table.getNumerodestaquencm());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtNumerodestaquencm.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMdestaquencm_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexDestaquencmAdi();
         }
     }
 
@@ -69,9 +97,9 @@ public class FRMdestaquencm_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setNumerodestaquencm(((TextView) findViewById(R.id.edtNumerodestaquencm)).getText().toString());
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setNumerodestaquencm(edtNumerodestaquencm.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -85,6 +113,7 @@ public class FRMdestaquencm_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

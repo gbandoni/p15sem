@@ -21,27 +21,63 @@ public class FRMespec_ncm extends AppCompatActivity
     private J34SiscomexEspecNcm table;
     private EspecNcmDAOImpl dao;
     private int action;
+    private TextView edtId;
+    private TextView edtNcm;
+    private TextView edtAtributo;
+    private TextView edtEspecificacao;
+    private TextView edtNivel;
+    private TextView edtDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexEspecNcm();
-        dao = new EspecNcmDAOImpl(this);
         setContentView(R.layout.activity_detail_espec_ncm);
+        //campos do formulario;
+        edtId = (TextView)findViewById(R.id.edtId);
+        edtNcm = (TextView)findViewById(R.id.edtNcm);
+        edtAtributo = (TextView)findViewById(R.id.edtAtributo);
+        edtEspecificacao = (TextView)findViewById(R.id.edtEspecificacao);
+        edtNivel = (TextView)findViewById(R.id.edtNivel);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        dao = new EspecNcmDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("ID",0));
-            ((TextView) findViewById(R.id.edtId)).setText(table.getId().toString());
-            ((TextView) findViewById(R.id.edtNcm)).setText(table.getNcm());
-            ((TextView) findViewById(R.id.edtAtributo)).setText(table.getAtributo());
-            ((TextView) findViewById(R.id.edtEspecificacao)).setText(table.getEspecificacao());
-            ((TextView) findViewById(R.id.edtNivel)).setText(table.getNivel());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
+            try
+            {
+              table = dao.find(it.getIntExtra("ID",0));
+            edtId.setText(table.getId().toString());
+            edtNcm.setText(table.getNcm());
+            edtAtributo.setText(table.getAtributo());
+            edtEspecificacao.setText(table.getEspecificacao());
+            edtNivel.setText(table.getNivel());
+            edtDescricao.setText(table.getDescricao());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtId.setEnabled(false);
+                  edtNcm.setEnabled(false);
+                  edtAtributo.setEnabled(false);
+                  edtEspecificacao.setEnabled(false);
+                  edtNivel.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                }
+                else
+                {
+                  edtId.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMespec_ncm.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexEspecNcm();
         }
     }
 
@@ -72,12 +108,12 @@ public class FRMespec_ncm extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
-                                table.setNcm(((TextView) findViewById(R.id.edtNcm)).getText().toString());
-                                table.setAtributo(((TextView) findViewById(R.id.edtAtributo)).getText().toString());
-                                table.setEspecificacao(((TextView) findViewById(R.id.edtEspecificacao)).getText().toString());
-                                table.setNivel(((TextView) findViewById(R.id.edtNivel)).getText().toString());
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setId(Integer.parseInt(edtId.getText().toString()));
+                                table.setNcm(edtNcm.getText().toString());
+                                table.setAtributo(edtAtributo.getText().toString());
+                                table.setEspecificacao(edtEspecificacao.getText().toString());
+                                table.setNivel(edtNivel.getText().toString());
+                                table.setDescricao(edtDescricao.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -91,6 +127,7 @@ public class FRMespec_ncm extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

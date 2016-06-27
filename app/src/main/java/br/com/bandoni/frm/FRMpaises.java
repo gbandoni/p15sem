@@ -21,23 +21,47 @@ public class FRMpaises extends AppCompatActivity
     private J34SiscomexPaises table;
     private PaisesDAOImpl dao;
     private int action;
+    private TextView edtCodigo_pais;
+    private TextView edtNome_pais;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexPaises();
-        dao = new PaisesDAOImpl(this);
         setContentView(R.layout.activity_detail_paises);
+        //campos do formulario;
+        edtCodigo_pais = (TextView)findViewById(R.id.edtCodigo_pais);
+        edtNome_pais = (TextView)findViewById(R.id.edtNome_pais);
+        dao = new PaisesDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("CODIGO_PAIS"));
-            ((TextView) findViewById(R.id.edtCodigo_pais)).setText(table.getCodigo_pais());
-            ((TextView) findViewById(R.id.edtNome_pais)).setText(table.getNome_pais());
+            try
+            {
+              table = dao.find(it.getStringExtra("CODIGO_PAIS"));
+            edtCodigo_pais.setText(table.getCodigo_pais());
+            edtNome_pais.setText(table.getNome_pais());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo_pais.setEnabled(false);
+                  edtNome_pais.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo_pais.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMpaises.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexPaises();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMpaises extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo_pais(((TextView) findViewById(R.id.edtCodigo_pais)).getText().toString());
-                                table.setNome_pais(((TextView) findViewById(R.id.edtNome_pais)).getText().toString());
+                                table.setCodigo_pais(edtCodigo_pais.getText().toString());
+                                table.setNome_pais(edtNome_pais.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMpaises extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

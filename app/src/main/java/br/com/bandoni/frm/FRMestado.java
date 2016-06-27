@@ -21,24 +21,51 @@ public class FRMestado extends AppCompatActivity
     private J34SiscomexEstado table;
     private EstadoDAOImpl dao;
     private int action;
+    private TextView edtEstado_id;
+    private TextView edtSigla;
+    private TextView edtNome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexEstado();
-        dao = new EstadoDAOImpl(this);
         setContentView(R.layout.activity_detail_estado);
+        //campos do formulario;
+        edtEstado_id = (TextView)findViewById(R.id.edtEstado_id);
+        edtSigla = (TextView)findViewById(R.id.edtSigla);
+        edtNome = (TextView)findViewById(R.id.edtNome);
+        dao = new EstadoDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("ESTADO_ID"));
-            ((TextView) findViewById(R.id.edtEstado_id)).setText(table.getEstado_id());
-            ((TextView) findViewById(R.id.edtSigla)).setText(table.getSigla());
-            ((TextView) findViewById(R.id.edtNome)).setText(table.getNome());
+            try
+            {
+              table = dao.find(it.getStringExtra("ESTADO_ID"));
+            edtEstado_id.setText(table.getEstado_id());
+            edtSigla.setText(table.getSigla());
+            edtNome.setText(table.getNome());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtEstado_id.setEnabled(false);
+                  edtSigla.setEnabled(false);
+                  edtNome.setEnabled(false);
+                }
+                else
+                {
+                  edtEstado_id.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMestado.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexEstado();
         }
     }
 
@@ -69,9 +96,9 @@ public class FRMestado extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setEstado_id(((TextView) findViewById(R.id.edtEstado_id)).getText().toString());
-                                table.setSigla(((TextView) findViewById(R.id.edtSigla)).getText().toString());
-                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
+                                table.setEstado_id(edtEstado_id.getText().toString());
+                                table.setSigla(edtSigla.getText().toString());
+                                table.setNome(edtNome.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -85,6 +112,7 @@ public class FRMestado extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

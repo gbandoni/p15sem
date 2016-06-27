@@ -21,23 +21,47 @@ public class FRMorigem_di extends AppCompatActivity
     private J34SiscomexOrigemDi table;
     private OrigemDiDAOImpl dao;
     private int action;
+    private TextView edtId;
+    private TextView edtDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexOrigemDi();
-        dao = new OrigemDiDAOImpl(this);
         setContentView(R.layout.activity_detail_origem_di);
+        //campos do formulario;
+        edtId = (TextView)findViewById(R.id.edtId);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        dao = new OrigemDiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("ID"));
-            ((TextView) findViewById(R.id.edtId)).setText(table.getId());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
+            try
+            {
+              table = dao.find(it.getStringExtra("ID"));
+            edtId.setText(table.getId());
+            edtDescricao.setText(table.getDescricao());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtId.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                }
+                else
+                {
+                  edtId.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMorigem_di.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexOrigemDi();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMorigem_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setId(((TextView) findViewById(R.id.edtId)).getText().toString());
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setId(edtId.getText().toString());
+                                table.setDescricao(edtDescricao.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMorigem_di extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

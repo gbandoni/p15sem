@@ -2,6 +2,8 @@ package br.com.bandoni.dao.tables;
 
 import java.io.Serializable;
 
+import br.com.bandoni.lib.MD5Factory;
+
 
 /**
  * Java bean para a entidade 'J34SiscomexVeiculos'
@@ -69,7 +71,12 @@ public class J34SiscomexUsuarios implements Serializable {
 
     public void setUsu_senha(String usu_senha)
     {
-        this.usu_senha = usu_senha;
+        this.usu_senha = MD5Factory.md5(usu_senha);
+    }
+
+    public void setUsu_senhaMD5(String senhaMD5)
+    {
+        this.usu_senha = senhaMD5;
     }
 
     public Integer getUsu_adm()
@@ -82,10 +89,12 @@ public class J34SiscomexUsuarios implements Serializable {
         this.usu_adm = usu_adm;
     }
 
-    public static long getSerialVersionUID()
+    public Boolean isCorrectPassword(String passwordToTest)
     {
-        return serialVersionUID;
+        String hash = MD5Factory.md5(passwordToTest);
+        return this.usu_senha.equals(hash);
     }
+
 
     @Override
     public String toString()

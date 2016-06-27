@@ -25,29 +25,59 @@ public class FRMprocesso_di extends AppCompatActivity
     private J34SiscomexProcessoDi table;
     private ProcessoDiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtOrdem;
+    private AutoCompleteTextView edtCodigotipoprocesso;
+    private TextView edtNumeroprocesso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstMotivotransmissao = getMotivotransmissao();
-         ArrayAdapter<String> adpcodigoTipoProcesso = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMotivotransmissao);
-         AutoCompleteTextView edtcodigoTipoProcesso = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoprocesso);
-        edtcodigoTipoProcesso.setAdapter(adpcodigoTipoProcesso);
-        table = new J34SiscomexProcessoDi();
-        dao = new ProcessoDiDAOImpl(this);
         setContentView(R.layout.activity_detail_processo_di);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtOrdem = (TextView)findViewById(R.id.edtOrdem);
+        edtCodigotipoprocesso = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoprocesso);
+        edtNumeroprocesso = (TextView)findViewById(R.id.edtNumeroprocesso);
+         List<String> lstMotivotransmissao = getMotivotransmissao();
+         ArrayAdapter<String> adpCodigotipoprocesso = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstMotivotransmissao);
+        edtCodigotipoprocesso.setAdapter(adpCodigotipoprocesso);
+        dao = new ProcessoDiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtOrdem)).setText(table.getOrdem().toString());
-            ((TextView) findViewById(R.id.edtCodigotipoprocesso)).setText(table.getCodigotipoprocesso().toString());
-            ((TextView) findViewById(R.id.edtNumeroprocesso)).setText(table.getNumeroprocesso());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtOrdem.setText(table.getOrdem().toString());
+            edtCodigotipoprocesso.setText(table.getCodigotipoprocesso().toString());
+            edtNumeroprocesso.setText(table.getNumeroprocesso());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                  edtCodigotipoprocesso.setEnabled(false);
+                  edtNumeroprocesso.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMprocesso_di.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexProcessoDi();
         }
     }
 
@@ -78,10 +108,10 @@ public class FRMprocesso_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
-                                table.setCodigotipoprocesso(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigotipoprocesso)).getText().toString()));
-                                table.setNumeroprocesso(((TextView) findViewById(R.id.edtNumeroprocesso)).getText().toString());
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setOrdem(Integer.parseInt(edtOrdem.getText().toString()));
+                                table.setCodigotipoprocesso(Integer.parseInt(edtCodigotipoprocesso.getText().toString()));
+                                table.setNumeroprocesso(edtNumeroprocesso.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -95,6 +125,7 @@ public class FRMprocesso_di extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

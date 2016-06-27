@@ -25,34 +25,79 @@ public class FRMde_merc_adi extends AppCompatActivity
     private J34SiscomexDeMercAdi table;
     private DeMercAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private AutoCompleteTextView edtCodigopaiscertificado;
+    private TextView edtNumerodeadmercosul;
+    private TextView edtNumerodicertificado;
+    private TextView edtNumeroitemcertificado;
+    private TextView edtNumeroreadfinal;
+    private TextView edtNumeroreadinicial;
+    private TextView edtQuantidadeunidademercosul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstPaises = getPaises();
-         ArrayAdapter<String> adpcodigoPaisCertificado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
-         AutoCompleteTextView edtcodigoPaisCertificado = (AutoCompleteTextView)findViewById(R.id.edtCodigopaiscertificado);
-        edtcodigoPaisCertificado.setAdapter(adpcodigoPaisCertificado);
-        table = new J34SiscomexDeMercAdi();
-        dao = new DeMercAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_de_merc_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtCodigopaiscertificado = (AutoCompleteTextView)findViewById(R.id.edtCodigopaiscertificado);
+        edtNumerodeadmercosul = (TextView)findViewById(R.id.edtNumerodeadmercosul);
+        edtNumerodicertificado = (TextView)findViewById(R.id.edtNumerodicertificado);
+        edtNumeroitemcertificado = (TextView)findViewById(R.id.edtNumeroitemcertificado);
+        edtNumeroreadfinal = (TextView)findViewById(R.id.edtNumeroreadfinal);
+        edtNumeroreadinicial = (TextView)findViewById(R.id.edtNumeroreadinicial);
+        edtQuantidadeunidademercosul = (TextView)findViewById(R.id.edtQuantidadeunidademercosul);
+         List<String> lstPaises = getPaises();
+         ArrayAdapter<String> adpCodigopaiscertificado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
+        edtCodigopaiscertificado.setAdapter(adpCodigopaiscertificado);
+        dao = new DeMercAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtCodigopaiscertificado)).setText(table.getCodigopaiscertificado());
-            ((TextView) findViewById(R.id.edtNumerodeadmercosul)).setText(table.getNumerodeadmercosul());
-            ((TextView) findViewById(R.id.edtNumerodicertificado)).setText(table.getNumerodicertificado());
-            ((TextView) findViewById(R.id.edtNumeroitemcertificado)).setText(table.getNumeroitemcertificado());
-            ((TextView) findViewById(R.id.edtNumeroreadfinal)).setText(table.getNumeroreadfinal());
-            ((TextView) findViewById(R.id.edtNumeroreadinicial)).setText(table.getNumeroreadinicial());
-            ((TextView) findViewById(R.id.edtQuantidadeunidademercosul)).setText(table.getQuantidadeunidademercosul().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtCodigopaiscertificado.setText(table.getCodigopaiscertificado());
+            edtNumerodeadmercosul.setText(table.getNumerodeadmercosul());
+            edtNumerodicertificado.setText(table.getNumerodicertificado());
+            edtNumeroitemcertificado.setText(table.getNumeroitemcertificado());
+            edtNumeroreadfinal.setText(table.getNumeroreadfinal());
+            edtNumeroreadinicial.setText(table.getNumeroreadinicial());
+            edtQuantidadeunidademercosul.setText(table.getQuantidadeunidademercosul().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtCodigopaiscertificado.setEnabled(false);
+                  edtNumerodeadmercosul.setEnabled(false);
+                  edtNumerodicertificado.setEnabled(false);
+                  edtNumeroitemcertificado.setEnabled(false);
+                  edtNumeroreadfinal.setEnabled(false);
+                  edtNumeroreadinicial.setEnabled(false);
+                  edtQuantidadeunidademercosul.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMde_merc_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexDeMercAdi();
         }
     }
 
@@ -83,15 +128,15 @@ public class FRMde_merc_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setCodigopaiscertificado(((AutoCompleteTextView) findViewById(R.id.edtCodigopaiscertificado)).getText().toString());
-                                table.setNumerodeadmercosul(((TextView) findViewById(R.id.edtNumerodeadmercosul)).getText().toString());
-                                table.setNumerodicertificado(((TextView) findViewById(R.id.edtNumerodicertificado)).getText().toString());
-                                table.setNumeroitemcertificado(((TextView) findViewById(R.id.edtNumeroitemcertificado)).getText().toString());
-                                table.setNumeroreadfinal(((TextView) findViewById(R.id.edtNumeroreadfinal)).getText().toString());
-                                table.setNumeroreadinicial(((TextView) findViewById(R.id.edtNumeroreadinicial)).getText().toString());
-                                table.setQuantidadeunidademercosul(Float.parseFloat(((TextView) findViewById(R.id.edtQuantidadeunidademercosul)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setCodigopaiscertificado(edtCodigopaiscertificado.getText().toString());
+                                table.setNumerodeadmercosul(edtNumerodeadmercosul.getText().toString());
+                                table.setNumerodicertificado(edtNumerodicertificado.getText().toString());
+                                table.setNumeroitemcertificado(edtNumeroitemcertificado.getText().toString());
+                                table.setNumeroreadfinal(edtNumeroreadfinal.getText().toString());
+                                table.setNumeroreadinicial(edtNumeroreadinicial.getText().toString());
+                                table.setQuantidadeunidademercosul(Float.parseFloat(edtQuantidadeunidademercosul.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -105,6 +150,7 @@ public class FRMde_merc_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

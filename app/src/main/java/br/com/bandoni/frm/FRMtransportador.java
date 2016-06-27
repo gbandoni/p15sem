@@ -21,23 +21,47 @@ public class FRMtransportador extends AppCompatActivity
     private J34SiscomexTransportador table;
     private TransportadorDAOImpl dao;
     private int action;
+    private TextView edtId;
+    private TextView edtNome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexTransportador();
-        dao = new TransportadorDAOImpl(this);
         setContentView(R.layout.activity_detail_transportador);
+        //campos do formulario;
+        edtId = (TextView)findViewById(R.id.edtId);
+        edtNome = (TextView)findViewById(R.id.edtNome);
+        dao = new TransportadorDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("ID",0));
-            ((TextView) findViewById(R.id.edtId)).setText(table.getId().toString());
-            ((TextView) findViewById(R.id.edtNome)).setText(table.getNome());
+            try
+            {
+              table = dao.find(it.getIntExtra("ID",0));
+            edtId.setText(table.getId().toString());
+            edtNome.setText(table.getNome());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtId.setEnabled(false);
+                  edtNome.setEnabled(false);
+                }
+                else
+                {
+                  edtId.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMtransportador.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexTransportador();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMtransportador extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setId(Integer.parseInt(((TextView) findViewById(R.id.edtId)).getText().toString()));
-                                table.setNome(((TextView) findViewById(R.id.edtNome)).getText().toString());
+                                table.setId(Integer.parseInt(edtId.getText().toString()));
+                                table.setNome(edtNome.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMtransportador extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

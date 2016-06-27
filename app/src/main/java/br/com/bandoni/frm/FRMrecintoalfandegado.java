@@ -21,27 +21,64 @@ public class FRMrecintoalfandegado extends AppCompatActivity
     private J34SiscomexRecintoalfandegado table;
     private RecintoalfandegadoDAOImpl dao;
     private int action;
+    private TextView edtCodigo;
+    private TextView edtTerminal;
+    private TextView edtRegiao;
+    private TextView edtNomeporto;
+    private TextView edtEstado;
+    private TextView edtDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexRecintoalfandegado();
-        dao = new RecintoalfandegadoDAOImpl(this);
         setContentView(R.layout.activity_detail_recintoalfandegado);
+        //campos do formulario;
+        edtCodigo = (TextView)findViewById(R.id.edtCodigo);
+        edtTerminal = (TextView)findViewById(R.id.edtTerminal);
+        edtRegiao = (TextView)findViewById(R.id.edtRegiao);
+        edtNomeporto = (TextView)findViewById(R.id.edtNomeporto);
+        edtEstado = (TextView)findViewById(R.id.edtEstado);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        dao = new RecintoalfandegadoDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("CODIGO"),it.getStringExtra("TERMINAL"));
-            ((TextView) findViewById(R.id.edtCodigo)).setText(table.getCodigo());
-            ((TextView) findViewById(R.id.edtTerminal)).setText(table.getTerminal());
-            ((TextView) findViewById(R.id.edtRegiao)).setText(table.getRegiao());
-            ((TextView) findViewById(R.id.edtNomeporto)).setText(table.getNomeporto());
-            ((TextView) findViewById(R.id.edtEstado)).setText(table.getEstado());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
+            try
+            {
+              table = dao.find(it.getStringExtra("CODIGO"),it.getStringExtra("TERMINAL"));
+            edtCodigo.setText(table.getCodigo());
+            edtTerminal.setText(table.getTerminal());
+            edtRegiao.setText(table.getRegiao());
+            edtNomeporto.setText(table.getNomeporto());
+            edtEstado.setText(table.getEstado());
+            edtDescricao.setText(table.getDescricao());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo.setEnabled(false);
+                  edtTerminal.setEnabled(false);
+                  edtRegiao.setEnabled(false);
+                  edtNomeporto.setEnabled(false);
+                  edtEstado.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo.setEnabled(false);
+                  edtTerminal.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMrecintoalfandegado.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexRecintoalfandegado();
         }
     }
 
@@ -72,12 +109,12 @@ public class FRMrecintoalfandegado extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo(((TextView) findViewById(R.id.edtCodigo)).getText().toString());
-                                table.setTerminal(((TextView) findViewById(R.id.edtTerminal)).getText().toString());
-                                table.setRegiao(((TextView) findViewById(R.id.edtRegiao)).getText().toString());
-                                table.setNomeporto(((TextView) findViewById(R.id.edtNomeporto)).getText().toString());
-                                table.setEstado(((TextView) findViewById(R.id.edtEstado)).getText().toString());
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setCodigo(edtCodigo.getText().toString());
+                                table.setTerminal(edtTerminal.getText().toString());
+                                table.setRegiao(edtRegiao.getText().toString());
+                                table.setNomeporto(edtNomeporto.getText().toString());
+                                table.setEstado(edtEstado.getText().toString());
+                                table.setDescricao(edtDescricao.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -91,6 +128,7 @@ public class FRMrecintoalfandegado extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

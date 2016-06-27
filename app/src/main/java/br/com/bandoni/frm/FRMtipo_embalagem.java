@@ -21,23 +21,47 @@ public class FRMtipo_embalagem extends AppCompatActivity
     private J34SiscomexTipoEmbalagem table;
     private TipoEmbalagemDAOImpl dao;
     private int action;
+    private TextView edtCodigo;
+    private TextView edtDescricao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexTipoEmbalagem();
-        dao = new TipoEmbalagemDAOImpl(this);
         setContentView(R.layout.activity_detail_tipo_embalagem);
+        //campos do formulario;
+        edtCodigo = (TextView)findViewById(R.id.edtCodigo);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        dao = new TipoEmbalagemDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("CODIGO",0));
-            ((TextView) findViewById(R.id.edtCodigo)).setText(table.getCodigo().toString());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
+            try
+            {
+              table = dao.find(it.getIntExtra("CODIGO",0));
+            edtCodigo.setText(table.getCodigo().toString());
+            edtDescricao.setText(table.getDescricao());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMtipo_embalagem.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexTipoEmbalagem();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMtipo_embalagem extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo)).getText().toString()));
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
+                                table.setCodigo(Integer.parseInt(edtCodigo.getText().toString()));
+                                table.setDescricao(edtDescricao.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMtipo_embalagem extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

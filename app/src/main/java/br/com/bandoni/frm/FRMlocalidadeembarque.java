@@ -25,28 +25,54 @@ public class FRMlocalidadeembarque extends AppCompatActivity
     private J34SiscomexLocalidadeembarque table;
     private LocalidadeembarqueDAOImpl dao;
     private int action;
+    private TextView edtId;
+    private AutoCompleteTextView edtCodpais;
+    private TextView edtLocalidade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstPaises = getPaises();
-         ArrayAdapter<String> adpcodpais = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
-         AutoCompleteTextView edtcodpais = (AutoCompleteTextView)findViewById(R.id.edtCodpais);
-        edtcodpais.setAdapter(adpcodpais);
-        table = new J34SiscomexLocalidadeembarque();
-        dao = new LocalidadeembarqueDAOImpl(this);
         setContentView(R.layout.activity_detail_localidadeembarque);
+        //campos do formulario;
+        edtId = (TextView)findViewById(R.id.edtId);
+        edtCodpais = (AutoCompleteTextView)findViewById(R.id.edtCodpais);
+        edtLocalidade = (TextView)findViewById(R.id.edtLocalidade);
+         List<String> lstPaises = getPaises();
+         ArrayAdapter<String> adpCodpais = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstPaises);
+        edtCodpais.setAdapter(adpCodpais);
+        dao = new LocalidadeembarqueDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("ID"));
-            ((TextView) findViewById(R.id.edtId)).setText(table.getId());
-            ((TextView) findViewById(R.id.edtCodpais)).setText(table.getCodpais());
-            ((TextView) findViewById(R.id.edtLocalidade)).setText(table.getLocalidade());
+            try
+            {
+              table = dao.find(it.getStringExtra("ID"));
+            edtId.setText(table.getId());
+            edtCodpais.setText(table.getCodpais());
+            edtLocalidade.setText(table.getLocalidade());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtId.setEnabled(false);
+                  edtCodpais.setEnabled(false);
+                  edtLocalidade.setEnabled(false);
+                }
+                else
+                {
+                  edtId.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMlocalidadeembarque.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexLocalidadeembarque();
         }
     }
 
@@ -77,9 +103,9 @@ public class FRMlocalidadeembarque extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setId(((TextView) findViewById(R.id.edtId)).getText().toString());
-                                table.setCodpais(((AutoCompleteTextView) findViewById(R.id.edtCodpais)).getText().toString());
-                                table.setLocalidade(((TextView) findViewById(R.id.edtLocalidade)).getText().toString());
+                                table.setId(edtId.getText().toString());
+                                table.setCodpais(edtCodpais.getText().toString());
+                                table.setLocalidade(edtLocalidade.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -93,6 +119,7 @@ public class FRMlocalidadeembarque extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

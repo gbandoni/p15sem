@@ -14,10 +14,6 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.UsuariosDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexUsuarios;
 
-import br.com.bandoni.dao.commons.SQLiteDriver;
-import java.util.List;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMusuarios extends AppCompatActivity 
@@ -25,30 +21,59 @@ public class FRMusuarios extends AppCompatActivity
     private J34SiscomexUsuarios table;
     private UsuariosDAOImpl dao;
     private int action;
+    private TextView edtUsu_codigo;
+    private TextView edtUsu_nome;
+    private TextView edtUsu_login;
+    private TextView edtUsu_senha;
+    private TextView edtUsu_adm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lst = get();
-         ArrayAdapter<String> adpusu_login = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lst);
-         AutoCompleteTextView edtusu_login = (AutoCompleteTextView)findViewById(R.id.edtUsu_login);
-        edtusu_login.setAdapter(adpusu_login);
-        table = new J34SiscomexUsuarios();
-        dao = new UsuariosDAOImpl(this);
         setContentView(R.layout.activity_detail_usuarios);
+        //campos do formulario;
+        edtUsu_codigo = (TextView)findViewById(R.id.edtUsu_codigo);
+        edtUsu_nome = (TextView)findViewById(R.id.edtUsu_nome);
+        edtUsu_login = (TextView)findViewById(R.id.edtUsu_login);
+        edtUsu_senha = (TextView)findViewById(R.id.edtUsu_senha);
+        edtUsu_adm = (TextView)findViewById(R.id.edtUsu_adm);
+        dao = new UsuariosDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("USU_CODIGO",0));
-            ((TextView) findViewById(R.id.edtUsu_codigo)).setText(table.getUsu_codigo().toString());
-            ((TextView) findViewById(R.id.edtUsu_nome)).setText(table.getUsu_nome());
-            ((TextView) findViewById(R.id.edtUsu_login)).setText(table.getUsu_login());
-            ((TextView) findViewById(R.id.edtUsu_senha)).setText(table.getUsu_senha());
-            ((TextView) findViewById(R.id.edtUsu_adm)).setText(table.getUsu_adm().toString());
+            try
+            {
+              table = dao.find(it.getIntExtra("USU_CODIGO",0));
+            edtUsu_codigo.setText(table.getUsu_codigo().toString());
+            edtUsu_nome.setText(table.getUsu_nome());
+            edtUsu_login.setText(table.getUsu_login());
+            edtUsu_senha.setText(table.getUsu_senha());
+            edtUsu_adm.setText(table.getUsu_adm().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtUsu_codigo.setEnabled(false);
+                  edtUsu_nome.setEnabled(false);
+                  edtUsu_login.setEnabled(false);
+                  edtUsu_senha.setEnabled(false);
+                  edtUsu_adm.setEnabled(false);
+                }
+                else
+                {
+                  edtUsu_codigo.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMusuarios.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexUsuarios();
         }
     }
 
@@ -79,11 +104,11 @@ public class FRMusuarios extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setUsu_codigo(Integer.parseInt(((TextView) findViewById(R.id.edtUsu_codigo)).getText().toString()));
-                                table.setUsu_nome(((TextView) findViewById(R.id.edtUsu_nome)).getText().toString());
-                                table.setUsu_login(((AutoCompleteTextView) findViewById(R.id.edtUsu_login)).getText().toString());
-                                table.setUsu_senha(((TextView) findViewById(R.id.edtUsu_senha)).getText().toString());
-                                table.setUsu_adm(Integer.parseInt(((TextView) findViewById(R.id.edtUsu_adm)).getText().toString()));
+                                table.setUsu_codigo(Integer.parseInt(edtUsu_codigo.getText().toString()));
+                                table.setUsu_nome(edtUsu_nome.getText().toString());
+                                table.setUsu_login(edtUsu_login.getText().toString());
+                                table.setUsu_senha(edtUsu_senha.getText().toString());
+                                table.setUsu_adm(Integer.parseInt(edtUsu_adm.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -97,6 +122,7 @@ public class FRMusuarios extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -121,13 +147,5 @@ public class FRMusuarios extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private List<String> get()
-    {
-      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
-      driver.open(false);
-      List<String> lista = driver.getBrowserFromTable("");
-      driver.close();
-      return lista;
-    }
 
 }

@@ -25,30 +25,63 @@ public class FRMcompensacao_di extends AppCompatActivity
     private J34SiscomexCompensacaoDi table;
     private CompensacaoDiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtOrdem;
+    private AutoCompleteTextView edtCodigoreceitacredito;
+    private TextView edtNumerodocumentogeradorcredito;
+    private TextView edtValorcompensarcredito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstTab_orcamentaria = getTab_orcamentaria();
-         ArrayAdapter<String> adpcodigoReceitaCredito = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTab_orcamentaria);
-         AutoCompleteTextView edtcodigoReceitaCredito = (AutoCompleteTextView)findViewById(R.id.edtCodigoreceitacredito);
-        edtcodigoReceitaCredito.setAdapter(adpcodigoReceitaCredito);
-        table = new J34SiscomexCompensacaoDi();
-        dao = new CompensacaoDiDAOImpl(this);
         setContentView(R.layout.activity_detail_compensacao_di);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtOrdem = (TextView)findViewById(R.id.edtOrdem);
+        edtCodigoreceitacredito = (AutoCompleteTextView)findViewById(R.id.edtCodigoreceitacredito);
+        edtNumerodocumentogeradorcredito = (TextView)findViewById(R.id.edtNumerodocumentogeradorcredito);
+        edtValorcompensarcredito = (TextView)findViewById(R.id.edtValorcompensarcredito);
+         List<String> lstTab_orcamentaria = getTab_orcamentaria();
+         ArrayAdapter<String> adpCodigoreceitacredito = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTab_orcamentaria);
+        edtCodigoreceitacredito.setAdapter(adpCodigoreceitacredito);
+        dao = new CompensacaoDiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtOrdem)).setText(table.getOrdem().toString());
-            ((TextView) findViewById(R.id.edtCodigoreceitacredito)).setText(table.getCodigoreceitacredito());
-            ((TextView) findViewById(R.id.edtNumerodocumentogeradorcredito)).setText(table.getNumerodocumentogeradorcredito());
-            ((TextView) findViewById(R.id.edtValorcompensarcredito)).setText(table.getValorcompensarcredito().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtOrdem.setText(table.getOrdem().toString());
+            edtCodigoreceitacredito.setText(table.getCodigoreceitacredito());
+            edtNumerodocumentogeradorcredito.setText(table.getNumerodocumentogeradorcredito());
+            edtValorcompensarcredito.setText(table.getValorcompensarcredito().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                  edtCodigoreceitacredito.setEnabled(false);
+                  edtNumerodocumentogeradorcredito.setEnabled(false);
+                  edtValorcompensarcredito.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMcompensacao_di.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexCompensacaoDi();
         }
     }
 
@@ -79,11 +112,11 @@ public class FRMcompensacao_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
-                                table.setCodigoreceitacredito(((AutoCompleteTextView) findViewById(R.id.edtCodigoreceitacredito)).getText().toString());
-                                table.setNumerodocumentogeradorcredito(((TextView) findViewById(R.id.edtNumerodocumentogeradorcredito)).getText().toString());
-                                table.setValorcompensarcredito(Float.parseFloat(((TextView) findViewById(R.id.edtValorcompensarcredito)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setOrdem(Integer.parseInt(edtOrdem.getText().toString()));
+                                table.setCodigoreceitacredito(edtCodigoreceitacredito.getText().toString());
+                                table.setNumerodocumentogeradorcredito(edtNumerodocumentogeradorcredito.getText().toString());
+                                table.setValorcompensarcredito(Float.parseFloat(edtValorcompensarcredito.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -97,6 +130,7 @@ public class FRMcompensacao_di extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

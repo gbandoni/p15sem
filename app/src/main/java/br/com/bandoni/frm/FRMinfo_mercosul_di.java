@@ -21,26 +21,60 @@ public class FRMinfo_mercosul_di extends AppCompatActivity
     private J34SiscomexInfoMercosulDi table;
     private InfoMercosulDiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtOrdem;
+    private TextView edtNumerodemercosul;
+    private TextView edtNumerorefinal;
+    private TextView edtNumeroreinicial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexInfoMercosulDi();
-        dao = new InfoMercosulDiDAOImpl(this);
         setContentView(R.layout.activity_detail_info_mercosul_di);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtOrdem = (TextView)findViewById(R.id.edtOrdem);
+        edtNumerodemercosul = (TextView)findViewById(R.id.edtNumerodemercosul);
+        edtNumerorefinal = (TextView)findViewById(R.id.edtNumerorefinal);
+        edtNumeroreinicial = (TextView)findViewById(R.id.edtNumeroreinicial);
+        dao = new InfoMercosulDiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtOrdem)).setText(table.getOrdem().toString());
-            ((TextView) findViewById(R.id.edtNumerodemercosul)).setText(table.getNumerodemercosul());
-            ((TextView) findViewById(R.id.edtNumerorefinal)).setText(table.getNumerorefinal());
-            ((TextView) findViewById(R.id.edtNumeroreinicial)).setText(table.getNumeroreinicial());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtOrdem.setText(table.getOrdem().toString());
+            edtNumerodemercosul.setText(table.getNumerodemercosul());
+            edtNumerorefinal.setText(table.getNumerorefinal());
+            edtNumeroreinicial.setText(table.getNumeroreinicial());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                  edtNumerodemercosul.setEnabled(false);
+                  edtNumerorefinal.setEnabled(false);
+                  edtNumeroreinicial.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMinfo_mercosul_di.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexInfoMercosulDi();
         }
     }
 
@@ -71,11 +105,11 @@ public class FRMinfo_mercosul_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
-                                table.setNumerodemercosul(((TextView) findViewById(R.id.edtNumerodemercosul)).getText().toString());
-                                table.setNumerorefinal(((TextView) findViewById(R.id.edtNumerorefinal)).getText().toString());
-                                table.setNumeroreinicial(((TextView) findViewById(R.id.edtNumeroreinicial)).getText().toString());
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setOrdem(Integer.parseInt(edtOrdem.getText().toString()));
+                                table.setNumerodemercosul(edtNumerodemercosul.getText().toString());
+                                table.setNumerorefinal(edtNumerorefinal.getText().toString());
+                                table.setNumeroreinicial(edtNumeroreinicial.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -89,6 +123,7 @@ public class FRMinfo_mercosul_di extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

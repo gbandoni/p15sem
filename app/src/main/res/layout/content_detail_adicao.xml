@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+    <RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -407,7 +410,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="445dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigomoedafretemercadoria"
         android:id="@+id/edtCodigomoedafretemercadoria" />
     <TextView
@@ -426,7 +429,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="467dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigomoedaseguromercadoria"
         android:id="@+id/edtCodigomoedaseguromercadoria" />
     <TextView
@@ -445,7 +448,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="489dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigomoedanegociada"
         android:id="@+id/edtCodigomoedanegociada" />
     <TextView
@@ -635,7 +638,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="709dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigofabricante"
         android:id="@+id/edtCodigofabricante" />
     <TextView
@@ -654,7 +657,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="731dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigofornecedorestrangeiro"
         android:id="@+id/edtCodigofornecedorestrangeiro" />
     <TextView
@@ -1132,4 +1135,5 @@
         android:inputType="numberDecimal"
         android:layout_below="@+id/lblValorseguromercadoriamoedanegociada"
         android:id="@+id/edtValorseguromercadoriamoedanegociada" />
-</RelativeLayout>
+  </RelativeLayout>
+</ScrollView>

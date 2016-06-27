@@ -21,23 +21,47 @@ public class FRMmotivo_retificacao extends AppCompatActivity
     private J34SiscomexMotivoRetificacao table;
     private MotivoRetificacaoDAOImpl dao;
     private int action;
+    private TextView edtCodigo_motivo;
+    private TextView edtDescricao_motivo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexMotivoRetificacao();
-        dao = new MotivoRetificacaoDAOImpl(this);
         setContentView(R.layout.activity_detail_motivo_retificacao);
+        //campos do formulario;
+        edtCodigo_motivo = (TextView)findViewById(R.id.edtCodigo_motivo);
+        edtDescricao_motivo = (TextView)findViewById(R.id.edtDescricao_motivo);
+        dao = new MotivoRetificacaoDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getIntExtra("CODIGO_MOTIVO",0));
-            ((TextView) findViewById(R.id.edtCodigo_motivo)).setText(table.getCodigo_motivo().toString());
-            ((TextView) findViewById(R.id.edtDescricao_motivo)).setText(table.getDescricao_motivo());
+            try
+            {
+              table = dao.find(it.getIntExtra("CODIGO_MOTIVO",0));
+            edtCodigo_motivo.setText(table.getCodigo_motivo().toString());
+            edtDescricao_motivo.setText(table.getDescricao_motivo());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigo_motivo.setEnabled(false);
+                  edtDescricao_motivo.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigo_motivo.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMmotivo_retificacao.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexMotivoRetificacao();
         }
     }
 
@@ -68,8 +92,8 @@ public class FRMmotivo_retificacao extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigo_motivo(Integer.parseInt(((TextView) findViewById(R.id.edtCodigo_motivo)).getText().toString()));
-                                table.setDescricao_motivo(((TextView) findViewById(R.id.edtDescricao_motivo)).getText().toString());
+                                table.setCodigo_motivo(Integer.parseInt(edtCodigo_motivo.getText().toString()));
+                                table.setDescricao_motivo(edtDescricao_motivo.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -83,6 +107,7 @@ public class FRMmotivo_retificacao extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

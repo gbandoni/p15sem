@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+    <RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -65,7 +68,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="49dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigomoedaseguro"
         android:id="@+id/edtCodigomoedaseguro" />
     <TextView
@@ -84,7 +87,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="71dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigomoedafrete"
         android:id="@+id/edtCodigomoedafrete" />
     <TextView
@@ -103,7 +106,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="93dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigomotivotransmissao"
         android:id="@+id/edtCodigomotivotransmissao" />
     <TextView
@@ -179,7 +182,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="181dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigomodalidadedespacho"
         android:id="@+id/edtCodigomodalidadedespacho" />
     <TextView
@@ -331,7 +334,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="357dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigotipodeclaracao"
         android:id="@+id/edtCodigotipodeclaracao" />
     <TextView
@@ -350,7 +353,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="379dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigotipoimportador"
         android:id="@+id/edtCodigotipoimportador" />
     <TextView
@@ -369,7 +372,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="401dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigotipomanifesto"
         android:id="@+id/edtCodigotipomanifesto" />
     <TextView
@@ -540,7 +543,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="599dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigoimportador"
         android:id="@+id/edtCodigoimportador" />
     <TextView
@@ -616,7 +619,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="687dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigoconsignatorio"
         android:id="@+id/edtCodigoconsignatorio" />
     <TextView
@@ -654,7 +657,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="731dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblNomelocalembarque"
         android:id="@+id/edtNomelocalembarque" />
     <TextView
@@ -673,7 +676,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="753dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigotransportador"
         android:id="@+id/edtCodigotransportador" />
     <TextView
@@ -692,7 +695,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="775dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodigoveiculo"
         android:id="@+id/edtCodigoveiculo" />
     <TextView
@@ -1018,4 +1021,5 @@
         android:inputType="text"
         android:layout_below="@+id/lblId"
         android:id="@+id/edtId" />
-</RelativeLayout>
+  </RelativeLayout>
+</ScrollView>

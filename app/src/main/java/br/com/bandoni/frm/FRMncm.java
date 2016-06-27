@@ -21,24 +21,51 @@ public class FRMncm extends AppCompatActivity
     private J34SiscomexNcm table;
     private NcmDAOImpl dao;
     private int action;
+    private TextView edtCodigoncm;
+    private TextView edtDescricao;
+    private TextView edtUm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexNcm();
-        dao = new NcmDAOImpl(this);
         setContentView(R.layout.activity_detail_ncm);
+        //campos do formulario;
+        edtCodigoncm = (TextView)findViewById(R.id.edtCodigoncm);
+        edtDescricao = (TextView)findViewById(R.id.edtDescricao);
+        edtUm = (TextView)findViewById(R.id.edtUm);
+        dao = new NcmDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("CODIGONCM"));
-            ((TextView) findViewById(R.id.edtCodigoncm)).setText(table.getCodigoncm());
-            ((TextView) findViewById(R.id.edtDescricao)).setText(table.getDescricao());
-            ((TextView) findViewById(R.id.edtUm)).setText(table.getUm());
+            try
+            {
+              table = dao.find(it.getStringExtra("CODIGONCM"));
+            edtCodigoncm.setText(table.getCodigoncm());
+            edtDescricao.setText(table.getDescricao());
+            edtUm.setText(table.getUm());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtCodigoncm.setEnabled(false);
+                  edtDescricao.setEnabled(false);
+                  edtUm.setEnabled(false);
+                }
+                else
+                {
+                  edtCodigoncm.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMncm.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexNcm();
         }
     }
 
@@ -69,9 +96,9 @@ public class FRMncm extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setCodigoncm(((TextView) findViewById(R.id.edtCodigoncm)).getText().toString());
-                                table.setDescricao(((TextView) findViewById(R.id.edtDescricao)).getText().toString());
-                                table.setUm(((TextView) findViewById(R.id.edtUm)).getText().toString());
+                                table.setCodigoncm(edtCodigoncm.getText().toString());
+                                table.setDescricao(edtDescricao.getText().toString());
+                                table.setUm(edtUm.getText().toString());
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -85,6 +112,7 @@ public class FRMncm extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

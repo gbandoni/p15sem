@@ -25,29 +25,60 @@ public class FRMesp_ncm_adi extends AppCompatActivity
     private J34SiscomexEspNcmAdi table;
     private EspNcmAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private TextView edtCodigoabrangenciancm;
+    private AutoCompleteTextView edtCodigoespecificacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstEspec_ncm = getEspec_ncm();
-         ArrayAdapter<String> adpcodigoespecificacao = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstEspec_ncm);
-         AutoCompleteTextView edtcodigoespecificacao = (AutoCompleteTextView)findViewById(R.id.edtCodigoespecificacao);
-        edtcodigoespecificacao.setAdapter(adpcodigoespecificacao);
-        table = new J34SiscomexEspNcmAdi();
-        dao = new EspNcmAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_esp_ncm_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtCodigoabrangenciancm = (TextView)findViewById(R.id.edtCodigoabrangenciancm);
+        edtCodigoespecificacao = (AutoCompleteTextView)findViewById(R.id.edtCodigoespecificacao);
+         List<String> lstEspec_ncm = getEspec_ncm();
+         ArrayAdapter<String> adpCodigoespecificacao = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstEspec_ncm);
+        edtCodigoespecificacao.setAdapter(adpCodigoespecificacao);
+        dao = new EspNcmAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"),it.getStringExtra("CODIGOABRANGENCIANCM"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtCodigoabrangenciancm)).setText(table.getCodigoabrangenciancm());
-            ((TextView) findViewById(R.id.edtCodigoespecificacao)).setText(table.getCodigoespecificacao().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"),it.getStringExtra("CODIGOABRANGENCIANCM"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtCodigoabrangenciancm.setText(table.getCodigoabrangenciancm());
+            edtCodigoespecificacao.setText(table.getCodigoespecificacao().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtCodigoabrangenciancm.setEnabled(false);
+                  edtCodigoespecificacao.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtCodigoabrangenciancm.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMesp_ncm_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexEspNcmAdi();
         }
     }
 
@@ -78,10 +109,10 @@ public class FRMesp_ncm_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setCodigoabrangenciancm(((TextView) findViewById(R.id.edtCodigoabrangenciancm)).getText().toString());
-                                table.setCodigoespecificacao(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigoespecificacao)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setCodigoabrangenciancm(edtCodigoabrangenciancm.getText().toString());
+                                table.setCodigoespecificacao(Integer.parseInt(edtCodigoespecificacao.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -95,6 +126,7 @@ public class FRMesp_ncm_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

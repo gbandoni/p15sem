@@ -4,17 +4,16 @@
  */
 package br.com.bandoni.dao.commons;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.content.Context;
-import android.database.sqlite.SQLiteStatement;
 
 /**
  * Generic abstract class for Android sqlite database
@@ -26,6 +25,12 @@ public abstract class GenericDAO<T>
 {
 
     private final static int INITIAL_POSITION = 1;
+
+    public Context getContext()
+    {
+        return context;
+    }
+
     private Context context;
 
     /**

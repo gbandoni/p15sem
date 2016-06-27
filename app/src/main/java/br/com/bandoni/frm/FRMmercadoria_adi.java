@@ -21,28 +21,68 @@ public class FRMmercadoria_adi extends AppCompatActivity
     private J34SiscomexMercadoriaAdi table;
     private MercadoriaAdiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtNumeroadicao;
+    private TextView edtNomeunidademedidacomercializada;
+    private TextView edtQuantidademercadoriaunidadecomercializada;
+    private TextView edtTextodetalhamentomercadoria;
+    private TextView edtValorunidadelocalembarque;
+    private TextView edtValorunidademedidacondicaovenda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        table = new J34SiscomexMercadoriaAdi();
-        dao = new MercadoriaAdiDAOImpl(this);
         setContentView(R.layout.activity_detail_mercadoria_adi);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
+        edtNomeunidademedidacomercializada = (TextView)findViewById(R.id.edtNomeunidademedidacomercializada);
+        edtQuantidademercadoriaunidadecomercializada = (TextView)findViewById(R.id.edtQuantidademercadoriaunidadecomercializada);
+        edtTextodetalhamentomercadoria = (TextView)findViewById(R.id.edtTextodetalhamentomercadoria);
+        edtValorunidadelocalembarque = (TextView)findViewById(R.id.edtValorunidadelocalembarque);
+        edtValorunidademedidacondicaovenda = (TextView)findViewById(R.id.edtValorunidademedidacondicaovenda);
+        dao = new MercadoriaAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtNumeroadicao)).setText(table.getNumeroadicao());
-            ((TextView) findViewById(R.id.edtNomeunidademedidacomercializada)).setText(table.getNomeunidademedidacomercializada());
-            ((TextView) findViewById(R.id.edtQuantidademercadoriaunidadecomercializada)).setText(table.getQuantidademercadoriaunidadecomercializada().toString());
-            ((TextView) findViewById(R.id.edtTextodetalhamentomercadoria)).setText(table.getTextodetalhamentomercadoria().toString());
-            ((TextView) findViewById(R.id.edtValorunidadelocalembarque)).setText(table.getValorunidadelocalembarque().toString());
-            ((TextView) findViewById(R.id.edtValorunidademedidacondicaovenda)).setText(table.getValorunidademedidacondicaovenda().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getStringExtra("NUMEROADICAO"));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtNumeroadicao.setText(table.getNumeroadicao());
+            edtNomeunidademedidacomercializada.setText(table.getNomeunidademedidacomercializada());
+            edtQuantidademercadoriaunidadecomercializada.setText(table.getQuantidademercadoriaunidadecomercializada().toString());
+            edtTextodetalhamentomercadoria.setText(table.getTextodetalhamentomercadoria().toString());
+            edtValorunidadelocalembarque.setText(table.getValorunidadelocalembarque().toString());
+            edtValorunidademedidacondicaovenda.setText(table.getValorunidademedidacondicaovenda().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                  edtNomeunidademedidacomercializada.setEnabled(false);
+                  edtQuantidademercadoriaunidadecomercializada.setEnabled(false);
+                  edtTextodetalhamentomercadoria.setEnabled(false);
+                  edtValorunidadelocalembarque.setEnabled(false);
+                  edtValorunidademedidacondicaovenda.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtNumeroadicao.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMmercadoria_adi.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexMercadoriaAdi();
         }
     }
 
@@ -73,13 +113,13 @@ public class FRMmercadoria_adi extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setNumeroadicao(((TextView) findViewById(R.id.edtNumeroadicao)).getText().toString());
-                                table.setNomeunidademedidacomercializada(((TextView) findViewById(R.id.edtNomeunidademedidacomercializada)).getText().toString());
-                                table.setQuantidademercadoriaunidadecomercializada(Float.parseFloat(((TextView) findViewById(R.id.edtQuantidademercadoriaunidadecomercializada)).getText().toString()));
-                                table.setTextodetalhamentomercadoria(((TextView) findViewById(R.id.edtTextodetalhamentomercadoria)).getText().toString());
-                                table.setValorunidadelocalembarque(Float.parseFloat(((TextView) findViewById(R.id.edtValorunidadelocalembarque)).getText().toString()));
-                                table.setValorunidademedidacondicaovenda(Float.parseFloat(((TextView) findViewById(R.id.edtValorunidademedidacondicaovenda)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setNumeroadicao(edtNumeroadicao.getText().toString());
+                                table.setNomeunidademedidacomercializada(edtNomeunidademedidacomercializada.getText().toString());
+                                table.setQuantidademercadoriaunidadecomercializada(Float.parseFloat(edtQuantidademercadoriaunidadecomercializada.getText().toString()));
+                                table.setTextodetalhamentomercadoria(edtTextodetalhamentomercadoria.getText().toString());
+                                table.setValorunidadelocalembarque(Float.parseFloat(edtValorunidadelocalembarque.getText().toString()));
+                                table.setValorunidademedidacondicaovenda(Float.parseFloat(edtValorunidademedidacondicaovenda.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -93,6 +133,7 @@ public class FRMmercadoria_adi extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:

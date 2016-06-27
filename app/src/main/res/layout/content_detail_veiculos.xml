@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+    <RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,7 +30,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblId"
         android:id="@+id/edtId" />
     <TextView
@@ -46,7 +49,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="27dp"
-        android:inputType="text"
+        android:inputType="number"
         android:layout_below="@+id/lblCodtransportador"
         android:id="@+id/edtCodtransportador" />
     <TextView
@@ -87,4 +90,5 @@
         android:inputType="text"
         android:layout_below="@+id/lblNomeveiculo"
         android:id="@+id/edtNomeveiculo" />
-</RelativeLayout>
+  </RelativeLayout>
+</ScrollView>

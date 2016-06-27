@@ -25,29 +25,59 @@ public class FRMdoc_carga_di extends AppCompatActivity
     private J34SiscomexDocCargaDi table;
     private DocCargaDiDAOImpl dao;
     private int action;
+    private TextView edtNumerodocumentocarga;
+    private TextView edtOrdem;
+    private AutoCompleteTextView edtCodigotipoembalagemcarga;
+    private TextView edtQuantidadevolumecarga;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-         List<String> lstTipo_embalagem = getTipo_embalagem();
-         ArrayAdapter<String> adpcodigoTipoEmbalagemCarga = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_embalagem);
-         AutoCompleteTextView edtcodigoTipoEmbalagemCarga = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoembalagemcarga);
-        edtcodigoTipoEmbalagemCarga.setAdapter(adpcodigoTipoEmbalagemCarga);
-        table = new J34SiscomexDocCargaDi();
-        dao = new DocCargaDiDAOImpl(this);
         setContentView(R.layout.activity_detail_doc_carga_di);
+        //campos do formulario;
+        edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
+        edtOrdem = (TextView)findViewById(R.id.edtOrdem);
+        edtCodigotipoembalagemcarga = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoembalagemcarga);
+        edtQuantidadevolumecarga = (TextView)findViewById(R.id.edtQuantidadevolumecarga);
+         List<String> lstTipo_embalagem = getTipo_embalagem();
+         ArrayAdapter<String> adpCodigotipoembalagemcarga = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_embalagem);
+        edtCodigotipoembalagemcarga.setAdapter(adpCodigotipoembalagemcarga);
+        dao = new DocCargaDiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent it = getIntent();
         action = it.getIntExtra("ACTION", ActionReference.ACTION_NONE);
         if (action != ActionReference.ACTION_INCLUDE)
         {
-            table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
-            ((TextView) findViewById(R.id.edtNumerodocumentocarga)).setText(table.getNumerodocumentocarga());
-            ((TextView) findViewById(R.id.edtOrdem)).setText(table.getOrdem().toString());
-            ((TextView) findViewById(R.id.edtCodigotipoembalagemcarga)).setText(table.getCodigotipoembalagemcarga().toString());
-            ((TextView) findViewById(R.id.edtQuantidadevolumecarga)).setText(table.getQuantidadevolumecarga().toString());
+            try
+            {
+              table = dao.find(it.getStringExtra("NUMERODOCUMENTOCARGA"),it.getIntExtra("ORDEM",0));
+            edtNumerodocumentocarga.setText(table.getNumerodocumentocarga());
+            edtOrdem.setText(table.getOrdem().toString());
+            edtCodigotipoembalagemcarga.setText(table.getCodigotipoembalagemcarga().toString());
+            edtQuantidadevolumecarga.setText(table.getQuantidadevolumecarga().toString());
+                if (action != ActionReference.ACTION_UPDATE)
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                  edtCodigotipoembalagemcarga.setEnabled(false);
+                  edtQuantidadevolumecarga.setEnabled(false);
+                }
+                else
+                {
+                  edtNumerodocumentocarga.setEnabled(false);
+                  edtOrdem.setEnabled(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(FRMdoc_carga_di.this, "Exceção: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+          table = new J34SiscomexDocCargaDi();
         }
     }
 
@@ -78,10 +108,10 @@ public class FRMdoc_carga_di extends AppCompatActivity
                         switch (which)
                         {
                             case DialogInterface.BUTTON_POSITIVE:
-                                table.setNumerodocumentocarga(((TextView) findViewById(R.id.edtNumerodocumentocarga)).getText().toString());
-                                table.setOrdem(Integer.parseInt(((TextView) findViewById(R.id.edtOrdem)).getText().toString()));
-                                table.setCodigotipoembalagemcarga(Integer.parseInt(((AutoCompleteTextView) findViewById(R.id.edtCodigotipoembalagemcarga)).getText().toString()));
-                                table.setQuantidadevolumecarga(Integer.parseInt(((TextView) findViewById(R.id.edtQuantidadevolumecarga)).getText().toString()));
+                                table.setNumerodocumentocarga(edtNumerodocumentocarga.getText().toString());
+                                table.setOrdem(Integer.parseInt(edtOrdem.getText().toString()));
+                                table.setCodigotipoembalagemcarga(Integer.parseInt(edtCodigotipoembalagemcarga.getText().toString()));
+                                table.setQuantidadevolumecarga(Integer.parseInt(edtQuantidadevolumecarga.getText().toString()));
                                 switch (action)
                                 {
                                     case ActionReference.ACTION_INCLUDE:
@@ -95,6 +125,7 @@ public class FRMdoc_carga_di extends AppCompatActivity
                                         break;
                                 }
                                 Toast.makeText(getBaseContext(), "Operação concluída com sucesso", Toast.LENGTH_LONG).show();
+                                finish();;
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
