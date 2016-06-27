@@ -14,6 +14,10 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.TarifasAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexTarifasAdi;
 
+import java.util.ArrayList;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMtarifas_adi extends AppCompatActivity 
@@ -23,7 +27,7 @@ public class FRMtarifas_adi extends AppCompatActivity
     private int action;
     private TextView edtNumerodocumentocarga;
     private TextView edtNumeroadicao;
-    private TextView edtCodigoassuntovinculado;
+    private AutoCompleteTextView edtCodigoassuntovinculado;
     private TextView edtDataanoatovinculado;
     private TextView edtNumeroatovinculado;
     private TextView edtNumeroexatovinculado;
@@ -38,12 +42,15 @@ public class FRMtarifas_adi extends AppCompatActivity
         //campos do formulario;
         edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
         edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
-        edtCodigoassuntovinculado = (TextView)findViewById(R.id.edtCodigoassuntovinculado);
+        edtCodigoassuntovinculado = (AutoCompleteTextView)findViewById(R.id.edtCodigoassuntovinculado);
         edtDataanoatovinculado = (TextView)findViewById(R.id.edtDataanoatovinculado);
         edtNumeroatovinculado = (TextView)findViewById(R.id.edtNumeroatovinculado);
         edtNumeroexatovinculado = (TextView)findViewById(R.id.edtNumeroexatovinculado);
         edtSiglaorgaoatovinculado = (TextView)findViewById(R.id.edtSiglaorgaoatovinculado);
         edtSiglatipoatovinculado = (TextView)findViewById(R.id.edtSiglatipoatovinculado);
+         List<String> lstcodigoAssuntoVinculado = getcodigoAssuntoVinculado();
+         ArrayAdapter<String> adpCodigoassuntovinculado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoAssuntoVinculado);
+        edtCodigoassuntovinculado.setAdapter(adpCodigoassuntovinculado);
         dao = new TarifasAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -163,5 +170,16 @@ public class FRMtarifas_adi extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private List<String> getcodigoAssuntoVinculado()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Ato de criação do EX da NCM");
+      lista.add("2-Ato de criação do EX da NBM");
+      lista.add("3-Ato de criação do EX da NALADI/SH ou NALADI/NCCA");
+      lista.add("4-Ato que ampara o Benefício Fiscal de IPI");
+      lista.add("5-Ato de promulgação do acordo tarifário");
+      lista.add("6-Ato para direito antidumping e compensatório");
+      return lista;
+    }
 
 }

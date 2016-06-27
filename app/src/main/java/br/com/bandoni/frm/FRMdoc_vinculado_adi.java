@@ -14,6 +14,10 @@ import br.com.bandoni.dao.commons.ActionReference;
 import br.com.bandoni.dao.implementation.DocVinculadoAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexDocVinculadoAdi;
 
+import java.util.ArrayList;
+import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMdoc_vinculado_adi extends AppCompatActivity 
@@ -23,7 +27,7 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
     private int action;
     private TextView edtNumerodocumentocarga;
     private TextView edtNumeroadicao;
-    private TextView edtCodigotipodocumentovinculado;
+    private AutoCompleteTextView edtCodigotipodocumentovinculado;
     private TextView edtNumerodocumentovinculado;
 
     @Override
@@ -34,8 +38,11 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
         //campos do formulario;
         edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
         edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
-        edtCodigotipodocumentovinculado = (TextView)findViewById(R.id.edtCodigotipodocumentovinculado);
+        edtCodigotipodocumentovinculado = (AutoCompleteTextView)findViewById(R.id.edtCodigotipodocumentovinculado);
         edtNumerodocumentovinculado = (TextView)findViewById(R.id.edtNumerodocumentovinculado);
+         List<String> lstcodigoTipoDocumentoVinculado = getcodigoTipoDocumentoVinculado();
+         ArrayAdapter<String> adpCodigotipodocumentovinculado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoDocumentoVinculado);
+        edtCodigotipodocumentovinculado.setAdapter(adpCodigotipodocumentovinculado);
         dao = new DocVinculadoAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -143,5 +150,12 @@ public class FRMdoc_vinculado_adi extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private List<String> getcodigoTipoDocumentoVinculado()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("2-Declaração de Importação");
+      lista.add("3-Registro de Exportação");
+      return lista;
+    }
 
 }

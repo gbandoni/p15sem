@@ -15,6 +15,7 @@ import br.com.bandoni.dao.implementation.TributoAdiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexTributoAdi;
 
 import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.ArrayList;
 import java.util.List;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -27,10 +28,10 @@ public class FRMtributo_adi extends AppCompatActivity
     private int action;
     private TextView edtNumerodocumentocarga;
     private TextView edtNumeroadicao;
-    private TextView edtCodigoreceitaimposto;
-    private TextView edtCodigotipoaliquotaipt;
-    private TextView edtCodigotipobeneficioipi;
-    private TextView edtCodigotipodireito;
+    private AutoCompleteTextView edtCodigoreceitaimposto;
+    private AutoCompleteTextView edtCodigotipoaliquotaipt;
+    private AutoCompleteTextView edtCodigotipobeneficioipi;
+    private AutoCompleteTextView edtCodigotipodireito;
     private AutoCompleteTextView edtCodigotiporecipiente;
     private TextView edtNomeunidadeespecificaaliquotaipt;
     private TextView edtNumeronotacomplementartipi;
@@ -56,10 +57,10 @@ public class FRMtributo_adi extends AppCompatActivity
         //campos do formulario;
         edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
         edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
-        edtCodigoreceitaimposto = (TextView)findViewById(R.id.edtCodigoreceitaimposto);
-        edtCodigotipoaliquotaipt = (TextView)findViewById(R.id.edtCodigotipoaliquotaipt);
-        edtCodigotipobeneficioipi = (TextView)findViewById(R.id.edtCodigotipobeneficioipi);
-        edtCodigotipodireito = (TextView)findViewById(R.id.edtCodigotipodireito);
+        edtCodigoreceitaimposto = (AutoCompleteTextView)findViewById(R.id.edtCodigoreceitaimposto);
+        edtCodigotipoaliquotaipt = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoaliquotaipt);
+        edtCodigotipobeneficioipi = (AutoCompleteTextView)findViewById(R.id.edtCodigotipobeneficioipi);
+        edtCodigotipodireito = (AutoCompleteTextView)findViewById(R.id.edtCodigotipodireito);
         edtCodigotiporecipiente = (AutoCompleteTextView)findViewById(R.id.edtCodigotiporecipiente);
         edtNomeunidadeespecificaaliquotaipt = (TextView)findViewById(R.id.edtNomeunidadeespecificaaliquotaipt);
         edtNumeronotacomplementartipi = (TextView)findViewById(R.id.edtNumeronotacomplementartipi);
@@ -79,6 +80,18 @@ public class FRMtributo_adi extends AppCompatActivity
          List<String> lstTipo_recipiente = getTipo_recipiente();
          ArrayAdapter<String> adpCodigotiporecipiente = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstTipo_recipiente);
         edtCodigotiporecipiente.setAdapter(adpCodigotiporecipiente);
+         List<String> lstcodigoReceitaImposto = getcodigoReceitaImposto();
+         ArrayAdapter<String> adpCodigoreceitaimposto = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoReceitaImposto);
+        edtCodigoreceitaimposto.setAdapter(adpCodigoreceitaimposto);
+         List<String> lstcodigoTipoAliquotaIPT = getcodigoTipoAliquotaIPT();
+         ArrayAdapter<String> adpCodigotipoaliquotaipt = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoAliquotaIPT);
+        edtCodigotipoaliquotaipt.setAdapter(adpCodigotipoaliquotaipt);
+         List<String> lstcodigoTipoBeneficioIPI = getcodigoTipoBeneficioIPI();
+         ArrayAdapter<String> adpCodigotipobeneficioipi = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoBeneficioIPI);
+        edtCodigotipobeneficioipi.setAdapter(adpCodigotipobeneficioipi);
+         List<String> lstcodigoTipoDireito = getcodigoTipoDireito();
+         ArrayAdapter<String> adpCodigotipodireito = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoDireito);
+        edtCodigotipodireito.setAdapter(adpCodigotipodireito);
         dao = new TributoAdiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -246,6 +259,41 @@ public class FRMtributo_adi extends AppCompatActivity
       driver.open(false);
       List<String> lista = driver.getBrowserFromTable("j34_siscomex_tipo_recipiente");
       driver.close();
+      return lista;
+    }
+    private List<String> getcodigoReceitaImposto()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("0001-Imposto de Importação (II)");
+      lista.add("0002-Imposto sobre Produtos Industrializados (IPI)");
+      lista.add("0003-Direitos “antidumping” e compensatórios");
+      lista.add("0005-PIS/PASEP");
+      lista.add("0006-COFINS");
+      return lista;
+    }
+    private List<String> getcodigoTipoAliquotaIPT()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Ad Valorem");
+      lista.add("2-Específica");
+      lista.add("3-Mista (ad valorem e específica)");
+      return lista;
+    }
+    private List<String> getcodigoTipoBeneficioIPI()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Isenção");
+      lista.add("2-Redução");
+      lista.add("3-Não tributável");
+      lista.add("4-Integral (Sem benefício)");
+      lista.add("5-Suspensão");
+      return lista;
+    }
+    private List<String> getcodigoTipoDireito()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-antidumping");
+      lista.add("2-compensatório");
       return lista;
     }
 

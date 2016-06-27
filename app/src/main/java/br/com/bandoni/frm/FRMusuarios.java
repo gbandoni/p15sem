@@ -8,12 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.bandoni.dao.commons.ActionReference;
+import br.com.bandoni.dao.commons.SQLiteDriver;
 import br.com.bandoni.dao.implementation.UsuariosDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexUsuarios;
-
 import br.com.bandoni.siscomexhelper.R;
 
 public class FRMusuarios extends AppCompatActivity 
@@ -23,9 +29,9 @@ public class FRMusuarios extends AppCompatActivity
     private int action;
     private TextView edtUsu_codigo;
     private TextView edtUsu_nome;
-    private TextView edtUsu_login;
+    private AutoCompleteTextView edtUsu_login;
     private TextView edtUsu_senha;
-    private TextView edtUsu_adm;
+    private AutoCompleteTextView edtUsu_adm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,9 +41,15 @@ public class FRMusuarios extends AppCompatActivity
         //campos do formulario;
         edtUsu_codigo = (TextView)findViewById(R.id.edtUsu_codigo);
         edtUsu_nome = (TextView)findViewById(R.id.edtUsu_nome);
-        edtUsu_login = (TextView)findViewById(R.id.edtUsu_login);
+        edtUsu_login = (AutoCompleteTextView)findViewById(R.id.edtUsu_login);
         edtUsu_senha = (TextView)findViewById(R.id.edtUsu_senha);
-        edtUsu_adm = (TextView)findViewById(R.id.edtUsu_adm);
+        edtUsu_adm = (AutoCompleteTextView)findViewById(R.id.edtUsu_adm);
+         List<String> lst = get();
+         ArrayAdapter<String> adpUsu_login = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lst);
+        edtUsu_login.setAdapter(adpUsu_login);
+         List<String> lstusu_adm = getusu_adm();
+         ArrayAdapter<String> adpUsu_adm = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstusu_adm);
+        edtUsu_adm.setAdapter(adpUsu_adm);
         dao = new UsuariosDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -147,5 +159,20 @@ public class FRMusuarios extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private List<String> get()
+    {
+      SQLiteDriver driver = SQLiteDriver.getInstance(getApplicationContext());
+      driver.open(false);
+      List<String> lista = driver.getBrowserFromTable("");
+      driver.close();
+      return lista;
+    }
+    private List<String> getusu_adm()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("S-Sim");
+      lista.add("N-Não");
+      return lista;
+    }
 
 }

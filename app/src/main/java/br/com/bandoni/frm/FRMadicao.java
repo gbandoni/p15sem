@@ -15,6 +15,7 @@ import br.com.bandoni.dao.implementation.AdicaoDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexAdicao;
 
 import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.ArrayList;
 import java.util.List;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -28,8 +29,8 @@ public class FRMadicao extends AppCompatActivity
     private TextView edtNumerodocumentocarga;
     private TextView edtNumeroadicao;
     private AutoCompleteTextView edtCodigoacordoaladi;
-    private TextView edtCodigoaplicacaomercadoria;
-    private TextView edtCodigoausenciafabricante;
+    private AutoCompleteTextView edtCodigoaplicacaomercadoria;
+    private AutoCompleteTextView edtCodigoausenciafabricante;
     private TextView edtCodigocoberturacambial;
     private AutoCompleteTextView edtCodigofundamentolegalreduzido;
     private AutoCompleteTextView edtCodigofundamentolegalregime;
@@ -55,14 +56,14 @@ public class FRMadicao extends AppCompatActivity
     private AutoCompleteTextView edtCodigopaisprocedenciamercadoria;
     private AutoCompleteTextView edtCodigoregimetriburariopiscofins;
     private AutoCompleteTextView edtCodigoregimetributacao;
-    private TextView edtCodigotipoacordotarifario;
-    private TextView edtCodigovinculoimportadorexportador;
+    private AutoCompleteTextView edtCodigotipoacordotarifario;
+    private AutoCompleteTextView edtCodigovinculoimportadorexportador;
     private AutoCompleteTextView edtCodigofabricante;
     private AutoCompleteTextView edtCodigofornecedorestrangeiro;
-    private TextView edtIndicadorbemencomenda;
+    private AutoCompleteTextView edtIndicadorbemencomenda;
     private TextView edtIndicadormaterialusado;
-    private TextView edtIndicadormultimodal;
-    private TextView edtIndicadortipocertificado;
+    private AutoCompleteTextView edtIndicadormultimodal;
+    private AutoCompleteTextView edtIndicadortipocertificado;
     private TextView edtNomelocalcondicaovenda;
     private TextView edtNumerodocumentoreducao;
     private TextView edtNumeroidentificacaoli;
@@ -94,8 +95,8 @@ public class FRMadicao extends AppCompatActivity
         edtNumerodocumentocarga = (TextView)findViewById(R.id.edtNumerodocumentocarga);
         edtNumeroadicao = (TextView)findViewById(R.id.edtNumeroadicao);
         edtCodigoacordoaladi = (AutoCompleteTextView)findViewById(R.id.edtCodigoacordoaladi);
-        edtCodigoaplicacaomercadoria = (TextView)findViewById(R.id.edtCodigoaplicacaomercadoria);
-        edtCodigoausenciafabricante = (TextView)findViewById(R.id.edtCodigoausenciafabricante);
+        edtCodigoaplicacaomercadoria = (AutoCompleteTextView)findViewById(R.id.edtCodigoaplicacaomercadoria);
+        edtCodigoausenciafabricante = (AutoCompleteTextView)findViewById(R.id.edtCodigoausenciafabricante);
         edtCodigocoberturacambial = (TextView)findViewById(R.id.edtCodigocoberturacambial);
         edtCodigofundamentolegalreduzido = (AutoCompleteTextView)findViewById(R.id.edtCodigofundamentolegalreduzido);
         edtCodigofundamentolegalregime = (AutoCompleteTextView)findViewById(R.id.edtCodigofundamentolegalregime);
@@ -121,14 +122,14 @@ public class FRMadicao extends AppCompatActivity
         edtCodigopaisprocedenciamercadoria = (AutoCompleteTextView)findViewById(R.id.edtCodigopaisprocedenciamercadoria);
         edtCodigoregimetriburariopiscofins = (AutoCompleteTextView)findViewById(R.id.edtCodigoregimetriburariopiscofins);
         edtCodigoregimetributacao = (AutoCompleteTextView)findViewById(R.id.edtCodigoregimetributacao);
-        edtCodigotipoacordotarifario = (TextView)findViewById(R.id.edtCodigotipoacordotarifario);
-        edtCodigovinculoimportadorexportador = (TextView)findViewById(R.id.edtCodigovinculoimportadorexportador);
+        edtCodigotipoacordotarifario = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoacordotarifario);
+        edtCodigovinculoimportadorexportador = (AutoCompleteTextView)findViewById(R.id.edtCodigovinculoimportadorexportador);
         edtCodigofabricante = (AutoCompleteTextView)findViewById(R.id.edtCodigofabricante);
         edtCodigofornecedorestrangeiro = (AutoCompleteTextView)findViewById(R.id.edtCodigofornecedorestrangeiro);
-        edtIndicadorbemencomenda = (TextView)findViewById(R.id.edtIndicadorbemencomenda);
+        edtIndicadorbemencomenda = (AutoCompleteTextView)findViewById(R.id.edtIndicadorbemencomenda);
         edtIndicadormaterialusado = (TextView)findViewById(R.id.edtIndicadormaterialusado);
-        edtIndicadormultimodal = (TextView)findViewById(R.id.edtIndicadormultimodal);
-        edtIndicadortipocertificado = (TextView)findViewById(R.id.edtIndicadortipocertificado);
+        edtIndicadormultimodal = (AutoCompleteTextView)findViewById(R.id.edtIndicadormultimodal);
+        edtIndicadortipocertificado = (AutoCompleteTextView)findViewById(R.id.edtIndicadortipocertificado);
         edtNomelocalcondicaovenda = (TextView)findViewById(R.id.edtNomelocalcondicaovenda);
         edtNumerodocumentoreducao = (TextView)findViewById(R.id.edtNumerodocumentoreducao);
         edtNumeroidentificacaoli = (TextView)findViewById(R.id.edtNumeroidentificacaoli);
@@ -219,6 +220,27 @@ public class FRMadicao extends AppCompatActivity
         edtCodigofabricante.setAdapter(adpCodigofabricante);
          ArrayAdapter<String> adpCodigofornecedorestrangeiro = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstEmpresas);
         edtCodigofornecedorestrangeiro.setAdapter(adpCodigofornecedorestrangeiro);
+         List<String> lstcodigoAplicacaoMercadoria = getcodigoAplicacaoMercadoria();
+         ArrayAdapter<String> adpCodigoaplicacaomercadoria = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoAplicacaoMercadoria);
+        edtCodigoaplicacaomercadoria.setAdapter(adpCodigoaplicacaomercadoria);
+         List<String> lstcodigoAusenciaFabricante = getcodigoAusenciaFabricante();
+         ArrayAdapter<String> adpCodigoausenciafabricante = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoAusenciaFabricante);
+        edtCodigoausenciafabricante.setAdapter(adpCodigoausenciafabricante);
+         List<String> lstcodigoTipoAcordoTarifario = getcodigoTipoAcordoTarifario();
+         ArrayAdapter<String> adpCodigotipoacordotarifario = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoAcordoTarifario);
+        edtCodigotipoacordotarifario.setAdapter(adpCodigotipoacordotarifario);
+         List<String> lstcodigoVinculoImportadorExportador = getcodigoVinculoImportadorExportador();
+         ArrayAdapter<String> adpCodigovinculoimportadorexportador = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoVinculoImportadorExportador);
+        edtCodigovinculoimportadorexportador.setAdapter(adpCodigovinculoimportadorexportador);
+         List<String> lstindicadorBemEncomenda = getindicadorBemEncomenda();
+         ArrayAdapter<String> adpIndicadorbemencomenda = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstindicadorBemEncomenda);
+        edtIndicadorbemencomenda.setAdapter(adpIndicadorbemencomenda);
+         List<String> lstindicadorMultimodal = getindicadorMultimodal();
+         ArrayAdapter<String> adpIndicadormultimodal = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstindicadorMultimodal);
+        edtIndicadormultimodal.setAdapter(adpIndicadormultimodal);
+         List<String> lstindicadorTipoCertificado = getindicadorTipoCertificado();
+         ArrayAdapter<String> adpIndicadortipocertificado = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstindicadorTipoCertificado);
+        edtIndicadortipocertificado.setAdapter(adpIndicadortipocertificado);
         dao = new AdicaoDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -251,7 +273,7 @@ public class FRMadicao extends AppCompatActivity
             edtCodigoviatransporte.setText(table.getCodigoviatransporte());
             edtCodigomoedafretemercadoria.setText(table.getCodigomoedafretemercadoria().toString());
             edtCodigomoedaseguromercadoria.setText(table.getCodigomoedaseguromercadoria().toString());
-            edtCodigomoedanegociada.setText(table.getCodigomoedanegociada().toString());
+            edtCodigomoedanegociada.setText(table.getCodigomoedanegociada());
             edtCodigomotivosemcobertura.setText(table.getCodigomotivosemcobertura());
             edtCodigoorgaofinanciamentointernacional.setText(table.getCodigoorgaofinanciamentointernacional());
             edtCodigopaisorigemmercadoria.setText(table.getCodigopaisorigemmercadoria());
@@ -416,7 +438,7 @@ public class FRMadicao extends AppCompatActivity
                                 table.setCodigoviatransporte(edtCodigoviatransporte.getText().toString());
                                 table.setCodigomoedafretemercadoria(Integer.parseInt(edtCodigomoedafretemercadoria.getText().toString()));
                                 table.setCodigomoedaseguromercadoria(Integer.parseInt(edtCodigomoedaseguromercadoria.getText().toString()));
-                                table.setCodigomoedanegociada(Integer.parseInt(edtCodigomoedanegociada.getText().toString()));
+                                table.setCodigomoedanegociada(edtCodigomoedanegociada.getText().toString());
                                 table.setCodigomotivosemcobertura(edtCodigomotivosemcobertura.getText().toString());
                                 table.setCodigoorgaofinanciamentointernacional(edtCodigoorgaofinanciamentointernacional.getText().toString());
                                 table.setCodigopaisorigemmercadoria(edtCodigopaisorigemmercadoria.getText().toString());
@@ -625,6 +647,60 @@ public class FRMadicao extends AppCompatActivity
       driver.open(false);
       List<String> lista = driver.getBrowserFromTable("j34_siscomex_empresas");
       driver.close();
+      return lista;
+    }
+    private List<String> getcodigoAplicacaoMercadoria()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Consumo");
+      lista.add("2-Revenda");
+      return lista;
+    }
+    private List<String> getcodigoAusenciaFabricante()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-O fabricante/produtor é o exportador");
+      lista.add("2-O fabricante/produtor não é o exportador");
+      lista.add("3-O fabricante/produtor é desconhecido");
+      return lista;
+    }
+    private List<String> getcodigoTipoAcordoTarifario()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-nenhum");
+      lista.add("2-ALADI (Associação Latino-Americana de Integração)");
+      lista.add("3-OMC / GATT - Organização Mundial de Comércio");
+      lista.add("4-SGPC - Sistema Global de Preferências Comerciais");
+      return lista;
+    }
+    private List<String> getcodigoVinculoImportadorExportador()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Não há vinculação entre o comprador e o vendedor.");
+      lista.add("2-Há vinculação entre o comprador e o vendedor, mas esta não teve influência no preço da mercadoria.");
+      lista.add("3-Há vinculação entre o comprador e o vendedor, e esta vinculação influenciou o preço da mercadoria.");
+      return lista;
+    }
+    private List<String> getindicadorBemEncomenda()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("S-Sim");
+      lista.add("N-Não");
+      return lista;
+    }
+    private List<String> getindicadorMultimodal()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("S-Sim");
+      lista.add("N-Não");
+      return lista;
+    }
+    private List<String> getindicadorTipoCertificado()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Sem Certificado");
+      lista.add("2-CCPTC");
+      lista.add("3-CCROM ");
       return lista;
     }
 

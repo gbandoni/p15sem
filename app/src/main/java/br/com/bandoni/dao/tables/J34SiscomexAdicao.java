@@ -343,6 +343,12 @@ public class J34SiscomexAdicao implements Serializable {
     public void setCodigomoedanegociada( Integer codigomoedanegociada ) {
         this.codigomoedanegociada = codigomoedanegociada;
     }
+
+    public void setCodigomoedanegociada( String codigomoedanegociada )
+    {
+        this.codigomoedanegociada = Integer.parseInt(codigomoedanegociada);
+    }
+
     public Integer getCodigomoedanegociada() {
         return this.codigomoedanegociada;
     }

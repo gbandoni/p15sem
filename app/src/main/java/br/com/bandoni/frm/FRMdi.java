@@ -15,6 +15,7 @@ import br.com.bandoni.dao.implementation.DiDAOImpl;
 import br.com.bandoni.dao.tables.J34SiscomexDi;
 
 import br.com.bandoni.dao.commons.SQLiteDriver;
+import java.util.ArrayList;
 import java.util.List;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -39,21 +40,21 @@ public class FRMdi extends AppCompatActivity
     private AutoCompleteTextView edtCodigopaisimportador;
     private AutoCompleteTextView edtCodigorecintoalfandegado;
     private TextView edtCodigosetorarmazenamento;
-    private TextView edtCodigotipoagentecarga;
-    private TextView edtCodigotipoconsignatario;
+    private AutoCompleteTextView edtCodigotipoagentecarga;
+    private AutoCompleteTextView edtCodigotipoconsignatario;
     private AutoCompleteTextView edtCodigotipodeclaracao;
     private AutoCompleteTextView edtCodigotipoimportador;
     private AutoCompleteTextView edtCodigotipomanifesto;
-    private TextView edtCodigotipopagamentotributario;
+    private AutoCompleteTextView edtCodigotipopagamentotributario;
     private AutoCompleteTextView edtCodigourfcargaentrada;
     private AutoCompleteTextView edtCodigourfdespacho;
-    private TextView edtCodigoutilizacaodocumentocarga;
+    private AutoCompleteTextView edtCodigoutilizacaodocumentocarga;
     private AutoCompleteTextView edtCodigoviatransporte;
     private TextView edtDatachegadacarga;
     private TextView edtDataembarque;
     private TextView edtIdentificacaodeclaracaoimportacao;
     private AutoCompleteTextView edtCodigoimportador;
-    private TextView edtIndicadormultimodalviatransporte;
+    private AutoCompleteTextView edtIndicadormultimodalviatransporte;
     private TextView edtIndicadoroperacaofundap;
     private TextView edtInformacoescomplementares;
     private AutoCompleteTextView edtCodigoconsignatorio;
@@ -99,21 +100,21 @@ public class FRMdi extends AppCompatActivity
         edtCodigopaisimportador = (AutoCompleteTextView)findViewById(R.id.edtCodigopaisimportador);
         edtCodigorecintoalfandegado = (AutoCompleteTextView)findViewById(R.id.edtCodigorecintoalfandegado);
         edtCodigosetorarmazenamento = (TextView)findViewById(R.id.edtCodigosetorarmazenamento);
-        edtCodigotipoagentecarga = (TextView)findViewById(R.id.edtCodigotipoagentecarga);
-        edtCodigotipoconsignatario = (TextView)findViewById(R.id.edtCodigotipoconsignatario);
+        edtCodigotipoagentecarga = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoagentecarga);
+        edtCodigotipoconsignatario = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoconsignatario);
         edtCodigotipodeclaracao = (AutoCompleteTextView)findViewById(R.id.edtCodigotipodeclaracao);
         edtCodigotipoimportador = (AutoCompleteTextView)findViewById(R.id.edtCodigotipoimportador);
         edtCodigotipomanifesto = (AutoCompleteTextView)findViewById(R.id.edtCodigotipomanifesto);
-        edtCodigotipopagamentotributario = (TextView)findViewById(R.id.edtCodigotipopagamentotributario);
+        edtCodigotipopagamentotributario = (AutoCompleteTextView)findViewById(R.id.edtCodigotipopagamentotributario);
         edtCodigourfcargaentrada = (AutoCompleteTextView)findViewById(R.id.edtCodigourfcargaentrada);
         edtCodigourfdespacho = (AutoCompleteTextView)findViewById(R.id.edtCodigourfdespacho);
-        edtCodigoutilizacaodocumentocarga = (TextView)findViewById(R.id.edtCodigoutilizacaodocumentocarga);
+        edtCodigoutilizacaodocumentocarga = (AutoCompleteTextView)findViewById(R.id.edtCodigoutilizacaodocumentocarga);
         edtCodigoviatransporte = (AutoCompleteTextView)findViewById(R.id.edtCodigoviatransporte);
         edtDatachegadacarga = (TextView)findViewById(R.id.edtDatachegadacarga);
         edtDataembarque = (TextView)findViewById(R.id.edtDataembarque);
         edtIdentificacaodeclaracaoimportacao = (TextView)findViewById(R.id.edtIdentificacaodeclaracaoimportacao);
         edtCodigoimportador = (AutoCompleteTextView)findViewById(R.id.edtCodigoimportador);
-        edtIndicadormultimodalviatransporte = (TextView)findViewById(R.id.edtIndicadormultimodalviatransporte);
+        edtIndicadormultimodalviatransporte = (AutoCompleteTextView)findViewById(R.id.edtIndicadormultimodalviatransporte);
         edtIndicadoroperacaofundap = (TextView)findViewById(R.id.edtIndicadoroperacaofundap);
         edtInformacoescomplementares = (TextView)findViewById(R.id.edtInformacoescomplementares);
         edtCodigoconsignatorio = (AutoCompleteTextView)findViewById(R.id.edtCodigoconsignatorio);
@@ -196,6 +197,21 @@ public class FRMdi extends AppCompatActivity
         edtCodigoveiculo.setAdapter(adpCodigoveiculo);
          ArrayAdapter<String> adpTerminalrecintoalfandegario = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstRecintoalfandegado);
         edtTerminalrecintoalfandegario.setAdapter(adpTerminalrecintoalfandegario);
+         List<String> lstcodigoTipoAgenteCarga = getcodigoTipoAgenteCarga();
+         ArrayAdapter<String> adpCodigotipoagentecarga = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoAgenteCarga);
+        edtCodigotipoagentecarga.setAdapter(adpCodigotipoagentecarga);
+         List<String> lstcodigoTipoConsignatario = getcodigoTipoConsignatario();
+         ArrayAdapter<String> adpCodigotipoconsignatario = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoConsignatario);
+        edtCodigotipoconsignatario.setAdapter(adpCodigotipoconsignatario);
+         List<String> lstcodigoTipoPagamentoTributario = getcodigoTipoPagamentoTributario();
+         ArrayAdapter<String> adpCodigotipopagamentotributario = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoTipoPagamentoTributario);
+        edtCodigotipopagamentotributario.setAdapter(adpCodigotipopagamentotributario);
+         List<String> lstcodigoUtilizacaoDocumentoCarga = getcodigoUtilizacaoDocumentoCarga();
+         ArrayAdapter<String> adpCodigoutilizacaodocumentocarga = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstcodigoUtilizacaoDocumentoCarga);
+        edtCodigoutilizacaodocumentocarga.setAdapter(adpCodigoutilizacaodocumentocarga);
+         List<String> lstindicadorMultimodalViaTransporte = getindicadorMultimodalViaTransporte();
+         ArrayAdapter<String> adpIndicadormultimodalviatransporte = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line, lstindicadorMultimodalViaTransporte);
+        edtIndicadormultimodalviatransporte.setAdapter(adpIndicadormultimodalviatransporte);
         dao = new DiDAOImpl(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -575,6 +591,42 @@ public class FRMdi extends AppCompatActivity
       driver.open(false);
       List<String> lista = driver.getBrowserFromTable("j34_siscomex_veiculos");
       driver.close();
+      return lista;
+    }
+    private List<String> getcodigoTipoAgenteCarga()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Pessoa Jurídica");
+      lista.add("2-Pessoa Física");
+      return lista;
+    }
+    private List<String> getcodigoTipoConsignatario()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Importação Própria");
+      lista.add("2-Importação por Conta e Ordem");
+      return lista;
+    }
+    private List<String> getcodigoTipoPagamentoTributario()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Débito em Conta");
+      lista.add("2-DARF");
+      return lista;
+    }
+    private List<String> getcodigoUtilizacaoDocumentoCarga()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("1-Total");
+      lista.add("2-Parcial");
+      lista.add("3-Mais de um conhecimento");
+      return lista;
+    }
+    private List<String> getindicadorMultimodalViaTransporte()
+    {
+      List<String> lista = new ArrayList<String>();
+      lista.add("S-Houve Transporte Intermodal");
+      lista.add("N-Não houve transporte Intermodal ou nas internações de ZFM e ALC");
       return lista;
     }
 
